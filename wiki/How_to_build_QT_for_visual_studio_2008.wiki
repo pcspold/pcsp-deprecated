@@ -47,12 +47,14 @@ Go There and select
 
 On the first tab Press 
 
-{{{Add}}
+{{{Add}}}
 
 and put
 
-version name {{{qt4.5.2}}}
-path {{{c:\QT\2009.03\qt}}}
+version name: 
+{{{qt4.5.2}}}
+path :
+{{{c:\QT\2009.03\qt}}}
 
 You are now done!
 You can create and compile QT applications
