@@ -1,5 +1,4 @@
 
-
 Step 1:
 
 Download the following from QT site
@@ -21,4 +20,14 @@ Once you open it browse to the following directory
 
 c:\QT\2009.03\qt
 
-Once you are there
+Once you are there type the following 
+
+{{{configure no-webkit}}}
+
+At the time of this article had written it seems that there are problems with webkit linking so we leave it out.
+
+Once that finished you can must type
+
+{{{nmake}}} 
+
+in order to build vc lib files and dlls
