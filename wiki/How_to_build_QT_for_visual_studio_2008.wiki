@@ -30,4 +30,29 @@ Once that finished you can must type
 
 {{{nmake}}} 
 
-in order to build vc lib files and dlls
+in order to build vc lib files and dlls 
+Note: building will take 2 to 5 hours depending on your machine 
+
+Step 4:
+
+Install the vc plugin (the second file you downloaded)
+
+Open vcstudio2008
+
+On the menu there is a new option "QT"
+
+Go There and select 
+
+{{{QT Options}}}
+
+On the first tab Press 
+
+{{{Add}}
+
+and put
+
+version name {{{qt4.5.2}}}
+path {{{c:\QT\2009.03\qt}}}
+
+You are now done!
+You can create and compile QT applications
