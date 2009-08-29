@@ -52,8 +52,11 @@ On the first tab Press
 and put
 
 version name: 
+
 {{{qt4.5.2}}}
+
 path :
+
 {{{c:\QT\2009.03\qt}}}
 
 You are now done!
