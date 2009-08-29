@@ -1,0 +1,8 @@
+#summary One-sentence summary of this page.
+
+
+Step 1:
+
+Download the following from QT site
+
+http://get.qt.nokia.com/qtsdk/qt-sdk-win-opensource-2009.03.1.exe
