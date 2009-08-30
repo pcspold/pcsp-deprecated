@@ -2,6 +2,8 @@
 #define PCSPDEBUGGER_H
 
 #include <QtGui/QMainWindow>
+
+
 #include "ui_qt4_pcspdebugger.h"
 
 class pcspdebugger : public QMainWindow
@@ -14,6 +16,8 @@ public:
 
 private:
 	Ui::pcspdebuggerClass ui;
+	
+
 };
 
 #endif // PCSPDEBUGGER_H
