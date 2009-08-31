@@ -5,6 +5,7 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
+	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
     debugger.initialize();
 }
 

@@ -212,11 +212,10 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\Debug\moc_qt4_pcspdebugger.cpp"
+				RelativePath=".\GeneratedFiles\Release\moc_qt4_pcspdebugger.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -231,10 +230,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\Release\moc_qt4_pcspdebugger.cpp"
+				RelativePath=".\GeneratedFiles\Debug\moc_qt4_pcspdebugger.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
