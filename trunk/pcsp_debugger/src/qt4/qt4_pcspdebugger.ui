@@ -62,6 +62,77 @@
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRun"/>
+   <addaction name="actionPause"/>
+   <addaction name="separator"/>
+   <addaction name="actionStepIn"/>
+   <addaction name="actionStepOver"/>
+   <addaction name="actionStepOut"/>
+  </widget>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/PlayIcon.png</normaloff>:/../../Resources/PlayIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/PauseIcon.png</normaloff>:/../../Resources/PauseIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionStepIn">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepIntoIcon.png</normaloff>:/../../Resources/StepIntoIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepIn</string>
+   </property>
+   <property name="toolTip">
+    <string>Step In</string>
+   </property>
+  </action>
+  <action name="actionStepOver">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepOverIcon.png</normaloff>:/../../Resources/StepOverIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepOver</string>
+   </property>
+   <property name="toolTip">
+    <string>Step Over</string>
+   </property>
+  </action>
+  <action name="actionStepOut">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepOutIcon.png</normaloff>:/../../Resources/StepOutIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepOut</string>
+   </property>
+   <property name="toolTip">
+    <string>Step Out</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
