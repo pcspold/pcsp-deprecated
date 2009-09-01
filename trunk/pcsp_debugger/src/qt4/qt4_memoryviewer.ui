@@ -6,14 +6,103 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
-    <height>300</height>
+    <width>463</width>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>441</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Address:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="memory_address_spin">
+      <property name="minimumSize">
+       <size>
+        <width>130</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>16777215</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="memory_addressrange_combobox">
+      <item>
+       <property name="text">
+        <string>08800000-0BFFFFFF : user main memory</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>08000000-087FFFFF : kernel main ram Item</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>04000000-047FFFFF : video ram</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>00010000-00013FFF : scratch pad</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="qt4_MemoryWidget" name="memory_widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>441</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>qt4_MemoryWidget</class>
+   <extends>QWidget</extends>
+   <header>qt4_memorywidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -1,5 +1,5 @@
-#ifndef QMEMORYVIEWER_H
-#define QMEMORYVIEWER_H
+#ifndef QT4_MEMORYVIEWER_H
+#define QT4_MEMORYVIEWER_H
 
 #include <QtGui/QWidget>
 #include "ui_qt4_memoryviewer.h"
@@ -17,4 +17,4 @@ class qt4_MemoryViewer : public QWidget
 	  Ui::memoryform ui;
 };
 
-#endif // QMEMORYVIEWER_H
+#endif // QT4_MEMORYVIEWER_H
