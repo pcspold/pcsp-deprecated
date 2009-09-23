@@ -127,7 +127,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies=" qtmaind.lib QtCored4.lib QtGuid4.lib"
+				AdditionalDependencies=" qtmaind.lib QtCored4.lib QtGuid4.lib QtNetwork4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="true"
@@ -489,6 +489,26 @@
 			</File>
 			<File
 				RelativePath="..\..\src\common\types.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;cxx;c;def"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath="..\..\src\NetworkClient.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="..\..\src\NetworkClient.h"
 				>
 			</File>
 		</Filter>
