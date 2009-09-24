@@ -23,9 +23,26 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
     debugger.initialize();
+	connect(&client, SIGNAL(connected()),this, SLOT(onClientConnect()));
+	connect(&client, SIGNAL(connected()),this, SLOT(onClientDisconnect()));
 }
 
 pcspdebugger::~pcspdebugger()
 {
 	debugger.finalize();
+}
+
+void pcspdebugger::onactionConnectClick()
+{
+	client.ConnectToHost("morgoth90.dyndns.org",22);
+}
+
+void pcspdebugger::onClientConnect()
+{
+	ui.toolBar->setEnabled(true);
+}
+
+void pcspdebugger::onClientDisconnect()
+{
+	ui.toolBar->setEnabled(false);
 }

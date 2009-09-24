@@ -21,6 +21,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "ui_qt4_pcspdebugger.h"
+#include "NetworkClient.h"
 
 class pcspdebugger : public QMainWindow
 {
@@ -32,7 +33,14 @@ public:
 
 private:
 	Ui::pcspdebuggerClass ui;
+	NetworkClient client;
 	
+
+public slots:
+	void onactionConnectClick();
+
+	void onClientConnect();
+	void onClientDisconnect();
 
 };
 

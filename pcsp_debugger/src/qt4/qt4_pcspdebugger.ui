@@ -33,18 +33,22 @@
      <x>0</x>
      <y>0</y>
      <width>767</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionConnect"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
@@ -148,6 +152,11 @@
     <string>Step Out</string>
    </property>
   </action>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -161,5 +170,25 @@
  <resources>
   <include location="qt4_pcspdebugger.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionConnect</sender>
+   <signal>triggered()</signal>
+   <receiver>pcspdebuggerClass</receiver>
+   <slot>onactionConnectClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onactionConnectClick()</slot>
+ </slots>
 </ui>
