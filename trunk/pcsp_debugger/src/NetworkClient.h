@@ -7,6 +7,7 @@
 class NetworkClient : public QObject
 {
 public:
+	QTcpSocket client;
 	NetworkClient();
 	~NetworkClient();
 	void ConnectToHost(QString address,quint16 port);
@@ -21,6 +22,5 @@ public slots:
 	void OnConnect();
 	void OnDisconnect();
 
-private:
-	QTcpSocket client;
+
 };
