@@ -161,10 +161,10 @@ void qt4_MemoryWidget::changeAddress(int address)
   setOffset(address - m_start);
   seeCursor();
 
-  //if (moveTopLeft(address - m_start))
-  //{
-  //  emit lineChanged(m_topLeft / bytesPerLine());
-  //}
+ /* if (moveTopLeft(address - m_start))
+  {
+    emit lineChanged(m_topLeft / bytesPerLine());
+  }*/
 }
 
 void qt4_MemoryWidget::setTopLeft(int offset)

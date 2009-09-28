@@ -36,7 +36,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="memory_address_spin">
+      <widget class="qt4_MemorySpinBox" name="memory_address_spin">
        <property name="minimumSize">
         <size>
          <width>130</width>
@@ -48,6 +48,18 @@
          <width>100</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="buttonSymbols">
+        <enum>QAbstractSpinBox::PlusMinus</enum>
+       </property>
+       <property name="accelerated">
+        <bool>true</bool>
+       </property>
+       <property name="minimum">
+        <number>-2147483647</number>
+       </property>
+       <property name="maximum">
+        <number>2147483647</number>
        </property>
       </widget>
      </item>
@@ -107,8 +119,70 @@
    <extends>QWidget</extends>
    <header>qt4_memorywidget.h</header>
    <container>1</container>
+   <slots>
+    <signal>addressChanged(int)</signal>
+    <slot>changeAddressRange(int)</slot>
+    <slot>changeAddress(int)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>qt4_MemorySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>qt4_memoryspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>memory_addressrange_combobox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>memory_widget</receiver>
+   <slot>changeAddressRange(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>memory_address_spin</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>memory_widget</receiver>
+   <slot>changeAddress(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>104</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>103</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>memory_widget</sender>
+   <signal>addressChanged(int)</signal>
+   <receiver>memory_address_spin</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>151</x>
+     <y>178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>changeAddressRange(int)</slot>
+ </slots>
 </ui>
