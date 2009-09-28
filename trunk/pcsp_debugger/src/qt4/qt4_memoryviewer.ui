@@ -78,7 +78,7 @@
        </item>
        <item>
         <property name="text">
-         <string>08000000-087FFFFF : kernel main ram Item</string>
+         <string>08000000-087FFFFF : kernel main ram</string>
         </property>
        </item>
        <item>
