@@ -18,10 +18,13 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #define PCSPDEBUGGER_H
 
 #include <QtGui/QMainWindow>
+#include <QtGui>
+
+#include <QtNetwork>
+#include <qlocalsocket.h>
 
 
 #include "ui_qt4_pcspdebugger.h"
-#include "NetworkClient.h"
 
 class pcspdebugger : public QMainWindow
 {
@@ -33,14 +36,12 @@ public:
 
 private:
 	Ui::pcspdebuggerClass ui;
-	NetworkClient client;
+	QLocalSocket *socket;
 	
 
 public slots:
-	void onactionConnectClick();
-
-	void onClientConnect();
-	void onClientDisconnect();
+	void onSocketError();
+	void onDataReceive();
 
 };
 

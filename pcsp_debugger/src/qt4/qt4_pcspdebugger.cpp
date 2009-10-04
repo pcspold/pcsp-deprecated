@@ -25,26 +25,29 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
     debugger.initialize();
-	connect(&client, SIGNAL(connected()),this, SLOT(onClientConnect()));
-	connect(&client, SIGNAL(connected()),this, SLOT(onClientDisconnect()));
+	socket = new QLocalSocket(this);
+
+	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
+	connect(socket, SIGNAL(error()),this, SLOT(onSocketError()));
+	
+	socket->connectToServer("127.0.0.1:7277");
 }
 
 pcspdebugger::~pcspdebugger()
 {
 	debugger.finalize();
+	delete socket;
 }
 
-void pcspdebugger::onactionConnectClick()
+void pcspdebugger::onSocketError()
 {
-	client.ConnectToHost("morgoth90.dyndns.org",22);
+	QMessageBox::information(this, tr("Client"),
+                                 tr("The following error occurred: %1.")
+                                 .arg(socket->errorString()));
 }
 
-void pcspdebugger::onClientConnect()
-{
-	ui.toolBar->setEnabled(true);
-}
 
-void pcspdebugger::onClientDisconnect()
+void pcspdebugger::onDataReceive()
 {
-	ui.toolBar->setEnabled(false);
+	//TODO: Receive Data
 }
