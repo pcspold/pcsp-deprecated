@@ -40,9 +40,10 @@ private:
 	
 
 public slots:
-	void onSocketError();
+	void onActionConnectClick();
+private slots:
+	void displayError(QLocalSocket::LocalSocketError socketError);
 	void onDataReceive();
-
 };
 
 #endif // PCSPDEBUGGER_H
