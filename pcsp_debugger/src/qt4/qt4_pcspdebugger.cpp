@@ -22,32 +22,59 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
+
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
     debugger.initialize();
-	socket = new QLocalSocket(this);
-
-	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
-	connect(socket, SIGNAL(error()),this, SLOT(onSocketError()));
+		socket = new QLocalSocket(this);
+ 	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
+	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
 	
-	socket->connectToServer("127.0.0.1:7277");
+
 }
 
 pcspdebugger::~pcspdebugger()
 {
+	
 	debugger.finalize();
 	delete socket;
 }
 
-void pcspdebugger::onSocketError()
+void pcspdebugger::displayError(QLocalSocket::LocalSocketError socketError)
 {
-	QMessageBox::information(this, tr("Client"),
-                                 tr("The following error occurred: %1.")
-                                 .arg(socket->errorString()));
+
+
+ switch (socketError) {
+     case QLocalSocket::ServerNotFoundError:
+         QMessageBox::information(this, tr("PCSP Debugger"),
+                                  tr("The host was not found. Please check the "
+                                     "host name and port settings."));
+         break;
+     case QLocalSocket::ConnectionRefusedError:
+         QMessageBox::information(this, tr("PCSP Debugger"),
+                                  tr("The connection was refused by the peer. "
+                                     "Make sure the fortune server is running, "
+                                     "and check that the host name and port "
+                                     "settings are correct."));
+         break;
+    // case QLocalSocket::PeerClosedError:
+    //     break;
+     default:
+         QMessageBox::information(this, tr("PCSP Debugger"),
+                                  tr("The following error occurred: %1.")
+                                  .arg(socket->errorString()));
+     }
 }
 
 
 void pcspdebugger::onDataReceive()
 {
 	//TODO: Receive Data
+}
+void pcspdebugger::onActionConnectClick()
+{
+
+ socket->abort();
+ socket->connectToServer("pcspserver");
+
 }

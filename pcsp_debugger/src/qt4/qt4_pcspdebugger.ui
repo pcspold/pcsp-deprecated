@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>767</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -175,7 +175,7 @@
    <sender>actionConnect</sender>
    <signal>triggered()</signal>
    <receiver>pcspdebuggerClass</receiver>
-   <slot>onactionConnectClick()</slot>
+   <slot>onActionConnectClick()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -189,6 +189,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>onactionConnectClick()</slot>
+  <slot>onActionConnectClick()</slot>
  </slots>
 </ui>
