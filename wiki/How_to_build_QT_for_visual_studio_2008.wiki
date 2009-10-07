@@ -24,7 +24,7 @@ c:\QT\2009.04\qt
 
 Once you are there type the following 
 
-{{{configure no-webkit}}}
+{{{configure -no-webkit}}}
 
 At the time of this article had written it seems that there are problems with webkit linking so we leave it out.
 
