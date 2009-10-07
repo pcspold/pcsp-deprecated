@@ -1,14 +1,15 @@
+update for 4.5.3 version 
 Step 1:
 
 Download the following from QT site
 
-http://get.qt.nokia.com/qtsdk/qt-sdk-win-opensource-2009.03.1.exe
+http://get.qt.nokia.com/qtsdk/qt-sdk-win-opensource-2009.04.exe
 
-http://download.qt.nokia.com/vsaddin/qt-vs-addin-1.0.2.exe
+http://download.qt.nokia.com/vsaddin/qt-vs-addin-1.1.0.exe
 
 Step 2:
 
-Run the qt installer and install it to the default place. (c:\QT\2009.03)
+Run the qt installer and install it to the default place. (c:\QT\2009.04)
 
 Step 3:
 
@@ -18,7 +19,7 @@ Start Menu->All Programs->Microsoft Visual Studio 2008->Visual Studio Tools->Vis
 
 Once you open it browse to the following directory
 
-c:\QT\2009.03\qt
+c:\QT\2009.04\qt
 
 Once you are there type the following 
 
@@ -53,11 +54,11 @@ and put
 
 version name: 
 
-{{{qt4.5.2}}}
+{{{qt4.5.3}}}
 
 path :
 
-{{{c:\QT\2009.03\qt}}}
+{{{c:\QT\2009.04\qt}}}
 
 You are now done!
 You can create and compile QT applications
