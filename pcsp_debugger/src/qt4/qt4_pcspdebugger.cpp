@@ -74,7 +74,21 @@ void pcspdebugger::onDataReceive()
 void pcspdebugger::onActionConnectClick()
 {
 
- socket->abort();
- socket->connectToServer("pcspserver");
+
+ if(ui.actionConnect->text().compare(QString("Connect"))==0)
+ {
+	 //TODO:Connection check
+	socket->connectToServer("pcspserver");
+	ui.actionConnect->setText("Disconnect");
+	ui.toolBar->setEnabled(true);
+ }
+ else
+ {
+	socket->abort();
+	ui.actionConnect->setText("Connect");
+	ui.toolBar->setEnabled(false);
+ }
+ 
+ 
 
 }
