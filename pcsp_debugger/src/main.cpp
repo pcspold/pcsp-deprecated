@@ -21,11 +21,8 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	pcspdebugger w;
-	w.show();
-
-	//unsigned int test = Memory::memw(0x89000e4); //TEST! 
-    
-	return a.exec();
+	QApplication application(argc, argv);
+	pcspdebugger debugger;
+	debugger.show();
+	return application.exec();
 }

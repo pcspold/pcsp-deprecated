@@ -27,7 +27,7 @@ debugger_s &debugger = debugger_s::self();
 
 debugger_s::debugger_s()
 {
-  Memory::initialize();
+	Memory::initialize();
 }
 
 debugger_s::~debugger_s()

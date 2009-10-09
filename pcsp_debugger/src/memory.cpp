@@ -25,8 +25,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 bool Memory::initialize()
 {
 	if (Memory::reserve() == NULL)
-	{
-//		fatalf(memory, "Out of memory !");
+	{		
 		Memory::finalize();
 		return false;
 	}
@@ -39,7 +38,6 @@ void Memory::finalize()
 	if (Memory::pointer)
 	{
 		Memory::release();
-//		Log::memory.flush();
 	}
 }
 
