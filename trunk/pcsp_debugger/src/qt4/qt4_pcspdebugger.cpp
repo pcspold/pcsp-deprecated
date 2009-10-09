@@ -75,25 +75,18 @@ void pcspdebugger::onDataReceive()
 }
 void pcspdebugger::onActionConnectClick()
 {
-
-
- if(ui.actionConnect->text().compare(QString("Connect"))==0)
- {
-	 //TODO:Connection check
-	
-	ui.actionConnect->setText("Connecting...");
-	socket->connectToServer("pcspserver");
-	
- }
- else
- {
-	socket->abort();
-	ui.actionConnect->setText("Connect");
-	ui.toolBar->setEnabled(false);
- }
- 
- 
-
+	if(ui.actionConnect->text().compare(QString("Connect"))==0)
+	{
+		//TODO:Connection check
+		ui.actionConnect->setText("Connecting...");
+		socket->connectToServer("pcspserver");
+	}
+	else
+	{
+		socket->abort();
+		ui.actionConnect->setText("Connect");
+		ui.toolBar->setEnabled(false);
+	}
 }
 
 void pcspdebugger::onConnect()
