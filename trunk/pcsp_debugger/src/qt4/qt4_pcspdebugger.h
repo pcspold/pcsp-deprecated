@@ -44,6 +44,7 @@ public slots:
 private slots:
 	void displayError(QLocalSocket::LocalSocketError socketError);
 	void onDataReceive();
+	void onConnect();
 };
 
 #endif // PCSPDEBUGGER_H

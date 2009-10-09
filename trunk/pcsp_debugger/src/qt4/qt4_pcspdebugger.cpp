@@ -29,7 +29,7 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 		socket = new QLocalSocket(this);
  	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
 	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
-	
+	connect(socket, SIGNAL(connected()), this, SLOT(onConnect()));
 
 }
 
@@ -43,6 +43,8 @@ pcspdebugger::~pcspdebugger()
 void pcspdebugger::displayError(QLocalSocket::LocalSocketError socketError)
 {
 
+	ui.actionConnect->setText("Connect");
+	ui.toolBar->setEnabled(false);
 
  switch (socketError) {
      case QLocalSocket::ServerNotFoundError:
@@ -78,9 +80,10 @@ void pcspdebugger::onActionConnectClick()
  if(ui.actionConnect->text().compare(QString("Connect"))==0)
  {
 	 //TODO:Connection check
+	
+	ui.actionConnect->setText("Connecting...");
 	socket->connectToServer("pcspserver");
-	ui.actionConnect->setText("Disconnect");
-	ui.toolBar->setEnabled(true);
+	
  }
  else
  {
@@ -91,4 +94,10 @@ void pcspdebugger::onActionConnectClick()
  
  
 
+}
+
+void pcspdebugger::onConnect()
+{
+	ui.actionConnect->setText("Disconnect");
+	ui.toolBar->setEnabled(true);
 }
