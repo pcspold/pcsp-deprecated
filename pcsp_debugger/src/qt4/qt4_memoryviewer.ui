@@ -96,20 +96,31 @@
     </layout>
    </item>
    <item>
-    <widget class="qt4_MemoryWidget" name="memory_widget" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>130</height>
-      </size>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="qt4_MemoryWidget" name="memory_widget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>130</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="qt4_MemoryScrollbar" name="memory_scrollbar">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -121,14 +132,24 @@
    <container>1</container>
    <slots>
     <signal>addressChanged(int)</signal>
+    <signal>rangeChanged(int,int)</signal>
     <slot>changeAddressRange(int)</slot>
     <slot>changeAddress(int)</slot>
+    <slot>changeLine(int)</slot>
    </slots>
   </customwidget>
   <customwidget>
    <class>qt4_MemorySpinBox</class>
    <extends>QSpinBox</extends>
    <header>qt4_memoryspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>qt4_MemoryScrollbar</class>
+   <extends>QScrollBar</extends>
+   <header>qt4_memoryscrollbar.h</header>
+   <slots>
+    <slot>changeRange(int,int)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -178,6 +199,38 @@
     <hint type="destinationlabel">
      <x>146</x>
      <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>memory_widget</sender>
+   <signal>rangeChanged(int,int)</signal>
+   <receiver>memory_scrollbar</receiver>
+   <slot>changeRange(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>198</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>memory_scrollbar</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>memory_widget</receiver>
+   <slot>changeLine(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>440</x>
+     <y>316</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>365</x>
+     <y>311</y>
     </hint>
    </hints>
   </connection>
