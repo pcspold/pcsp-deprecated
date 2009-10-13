@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>pcspdebuggerClass</class>
+ <widget class="QMainWindow" name="pcspdebuggerClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>767</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>pcspdebugger</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/../../Resources/pcsp.ico</normalon>
+   </iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>767</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionConnect"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRun"/>
+   <addaction name="actionPause"/>
+   <addaction name="separator"/>
+   <addaction name="actionStepIn"/>
+   <addaction name="actionStepOver"/>
+   <addaction name="actionStepOut"/>
+  </widget>
+  <widget class="QDockWidget" name="disassembly_dock">
+   <property name="minimumSize">
+    <size>
+     <width>450</width>
+     <height>38</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="windowTitle">
+    <string>Disassembly</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4"/>
+  </widget>
+  <widget class="QDockWidget" name="memory_dock">
+   <property name="minimumSize">
+    <size>
+     <width>450</width>
+     <height>38</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Memory</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="qt4_MemoryViewer" name="dockWidgetContents_5"/>
+  </widget>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/PlayIcon.png</normaloff>:/../../Resources/PlayIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/PauseIcon.png</normaloff>:/../../Resources/PauseIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionStepIn">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepIntoIcon.png</normaloff>:/../../Resources/StepIntoIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepIn</string>
+   </property>
+   <property name="toolTip">
+    <string>Step In</string>
+   </property>
+  </action>
+  <action name="actionStepOver">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepOverIcon.png</normaloff>:/../../Resources/StepOverIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepOver</string>
+   </property>
+   <property name="toolTip">
+    <string>Step Over</string>
+   </property>
+  </action>
+  <action name="actionStepOut">
+   <property name="icon">
+    <iconset resource="qt4_pcspdebugger.qrc">
+     <normaloff>:/../../Resources/StepOutIcon.png</normaloff>:/../../Resources/StepOutIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>StepOut</string>
+   </property>
+   <property name="toolTip">
+    <string>Step Out</string>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>qt4_MemoryViewer</class>
+   <extends>QWidget</extends>
+   <header>qt4_memoryviewer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="qt4_pcspdebugger.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionConnect</sender>
+   <signal>triggered()</signal>
+   <receiver>pcspdebuggerClass</receiver>
+   <slot>onActionConnectClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>383</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onActionConnectClick()</slot>
+ </slots>
+</ui>
