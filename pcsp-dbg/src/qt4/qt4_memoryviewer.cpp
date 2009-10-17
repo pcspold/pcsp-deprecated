@@ -26,4 +26,7 @@ qt4_MemoryViewer::qt4_MemoryViewer(QWidget *parent)
 qt4_MemoryViewer::~qt4_MemoryViewer()
 {
 }
-
+void qt4_MemoryViewer::updateMemoryViewer()
+{
+  printf("test");
+}

@@ -27,10 +27,11 @@ class qt4_MemoryViewer : public QWidget
   public:
     qt4_MemoryViewer(QWidget *parent = 0);
     ~qt4_MemoryViewer();
-
-
+	 void updateMemoryViewer();
+	
   private:
 	  Ui::memoryform ui;
+	  
 };
 
 #endif // QT4_MEMORYVIEWER_H

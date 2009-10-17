@@ -15,14 +15,15 @@ You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "types.h"
+#include "../debugger.h"
 #include "qt4_memorycursor.h"
 #include "qt4_pcspdebugger.h"
-#include "../debugger.h"
 
+pcspdebugger *pcspdebugger::m_singleton = 0;
 pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
-
+    m_singleton = this;
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
     debugger.initialize();
@@ -30,16 +31,22 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
  	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
 	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
 	connect(socket, SIGNAL(connected()), this, SLOT(onConnect()));
-
+	debugger.update_debugger();
 }
 
 pcspdebugger::~pcspdebugger()
 {
-	
+	m_singleton = 0;
 	debugger.finalize();
 	delete socket;
 }
-
+void debugger_s::update_debugger()
+{
+  	if (pcspdebugger::m_singleton)
+	{
+		pcspdebugger::m_singleton->ui.memorydockwidget->updateMemoryViewer();
+	}
+}
 void pcspdebugger::displayError(QLocalSocket::LocalSocketError socketError)
 {
 

@@ -30,6 +30,7 @@ struct debugger_s
     void initialize();
 
     void finalize();
+	void update_debugger();
 };
 
 extern debugger_s &debugger;
