@@ -31,12 +31,16 @@ class pcspdebugger : public QMainWindow
 	Q_OBJECT
 
 public:
+	friend struct debugger_s;
 	pcspdebugger(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~pcspdebugger();
+	static pcspdebugger*	m_singleton;
+	Ui::pcspdebuggerClass ui;
 
 private:
-	Ui::pcspdebuggerClass ui;
+	
 	QLocalSocket *socket;
+	
 	
 
 public slots:
