@@ -25,9 +25,9 @@ using namespace std;
 
 struct StatusMessage
 {
-	unsigned int codeAddress;
-	vector <unsigned int> stack;
-	vector <unsigned int> registers;
+	//unsigned int codeAddress;
+	//vector <unsigned int> stack;
+	unsigned int registers[35];		//gpr[0] to gpr[31] + pc + hi + lo
 };
 
 qt4_debugClient::qt4_debugClient(void)
@@ -82,37 +82,37 @@ void qt4_debugClient::onDataReceive()
 {
 	//Status message (debug signal message)
 	char buffer[ 500 ];
-	char *codeAddr = 0;
-	char *stackAddr = 0;
+	char *IDAddr = 0;
 	char *regAddr = 0;
 	char *temp=0;
 	struct StatusMessage message;
 	qint64 bytes=socket->bytesAvailable();
 	socket->readLine(buffer,sizeof(buffer));
 
-	codeAddr = strtok(buffer,"|");
-	
-	message.codeAddress = atoi(codeAddr);
+	 IDAddr = strtok(buffer,"|");	
 
-	stackAddr = strtok(0,"|");	
+	 if (!strcmp(IDAddr,"7"))
+	 {
 
-	regAddr = strtok(0,"|");		
+		 regAddr = strtok(0,"|");	
 
-	temp = strtok(stackAddr,"$");	
+		 temp = strtok(regAddr,":");	
 
-	while(temp)
-	{
-		message.stack.push_back(atoi(temp));
-		temp = strtok(0,"$");	
-	}
+		 int i=0;
+		 while(temp)
+		 {
+			message.registers[i]=atoi(temp);
+			temp = strtok(0,"$");
+			i++;
 
-	temp = strtok(regAddr,"$");	
-
-	while(temp)
-	{
-		message.registers.push_back(atoi(temp));
-		temp = strtok(0,"$");	
-	}
+			if(i>=35)
+			{
+				QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"),
+									  tr("Message arrived has too many registers!"));
+				throw;
+			}
+		 }
+	 }
 
 	//Done!!!
 
