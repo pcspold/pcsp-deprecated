@@ -18,6 +18,18 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "qt4_pcspdebugger.h"
 #include <qtgui>
  #include <QMessageBox>
+
+#include <vector>
+
+using namespace std;
+
+struct StatusMessage
+{
+	unsigned int codeAddress;
+	vector <unsigned int> stack;
+	vector <unsigned int> registers;
+};
+
 qt4_debugClient::qt4_debugClient(void)
 {
 }
@@ -68,6 +80,41 @@ void qt4_debugClient::displayError(QLocalSocket::LocalSocketError socketError)
 
 void qt4_debugClient::onDataReceive()
 {
+	//Status message (debug signal message)
+	char buffer[ 500 ];
+	char *codeAddr = 0;
+	char *stackAddr = 0;
+	char *regAddr = 0;
+	char *temp=0;
+	struct StatusMessage message;
+	qint64 bytes=socket->bytesAvailable();
+	socket->readLine(buffer,sizeof(buffer));
+
+	codeAddr = strtok(buffer,"|");
+	
+	message.codeAddress = atoi(codeAddr);
+
+	stackAddr = strtok(0,"|");	
+
+	regAddr = strtok(0,"|");		
+
+	temp = strtok(stackAddr,"$");	
+
+	while(temp)
+	{
+		message.stack.push_back(atoi(temp));
+		temp = strtok(0,"$");	
+	}
+
+	temp = strtok(regAddr,"$");	
+
+	while(temp)
+	{
+		message.registers.push_back(atoi(temp));
+		temp = strtok(0,"$");	
+	}
+
+	//Done!!!
 
 }
 void qt4_debugClient::onConnect()
