@@ -13,12 +13,12 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 #include "qt4_translate.h"
 
 namespace Qt4_Translate
 {
-  char *byteToBinaryMap[256] =
+    char *byteToBinaryMap[256] =
     {
         "00000000", "00000001", "00000010", "00000011",
         "00000100", "00000101", "00000110", "00000111",
@@ -86,7 +86,7 @@ namespace Qt4_Translate
         "11111100", "11111101", "11111110", "11111111",
     };
 
-  char byteToCharMap[256] =
+    char byteToCharMap[256] =
     {
         '.','.','.','.','.','.','.','.',
         '.','.','.','.','.','.','.','.',
@@ -122,7 +122,7 @@ namespace Qt4_Translate
         '.','.','.','.','.','.','.','.'
     };
 
-  char *byteToHexMap[256] =
+    char *byteToHexMap[256] =
     {
         "00", "01", "02", "03", "04", "05", "06", "07",
         "08", "09", "0A", "0B", "0C", "0D", "0E", "0F",
@@ -158,7 +158,7 @@ namespace Qt4_Translate
         "F8", "F9", "FA", "FB", "FC", "FD", "FE", "FF"
     };
 
-  char *byteToOctalMap[256] =
+    char *byteToOctalMap[256] =
     {
         "000", "001", "002", "003", "004", "005", "006", "007",
         "010", "011", "012", "013", "014", "015", "016", "017",
@@ -194,263 +194,269 @@ namespace Qt4_Translate
         "370", "371", "372", "373", "374", "375", "376", "377"
     };
 
-  u8 hexToByteMap[256] =
-  {
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 2, 3, 4, 5, 6, 7,
-    8, 9, 0, 0, 0, 0, 0, 0,
-    0,10,11,12,13,14,15, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0,10,11,12,13,14,15, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0
-  };
+    u8 hexToByteMap[256] =
+    {
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 1, 2, 3, 4, 5, 6, 7,
+        8, 9, 0, 0, 0, 0, 0, 0,
+        0,10,11,12,13,14,15, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0,10,11,12,13,14,15, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0
+    };
 }
 
-void Qt4_Translate::CharToByte(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::CharToByte(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  dst = std::vector< u8 >(src.begin(), src.end());
+    if (mask)
+    {
+        for (int i = 0; i < src.size(); ++i)
+            dst[i] = src[i ^ mask];
+    }
+    else
+    {
+        dst = std::vector< u8 >(src.begin(), src.end());
+    }
 }
-void Qt4_Translate::CharToByte(std::vector< u8 > &dst, const QString &src)
+void Qt4_Translate::CharToByte(std::vector< u8 > &dst, const QString &src, int mask)
 {
-  dst.resize(src.length());
-  for (int i =0 ; i < src.length(); ++i)
-    dst[i] = src[i].toAscii();
-}
-
-
-void Qt4_Translate::ByteToChar(std::vector< u8 > &dst, const std::vector< u8 > &src)
-{
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size());
-  for (unsigned int i = 0; i < src.size(); i++)
-  {
-    dst.push_back(Qt4_Translate::byteToCharMap[src[i]]);
-  }
+    dst.resize(src.length());
+    for (int i = 0; i < src.length(); ++i)
+        dst[i] = src[i ^ mask].toAscii();
 }
 
-void Qt4_Translate::HexToByte(std::vector< u8 > &dst, const std::vector< u8 > &src)
-{
-  dst.erase(dst.begin(), dst.end());
-  int start;
 
-  if (src.size() % 2)
-  {
-    dst.reserve(src.size() / 2 + 1);
-    dst.push_back(Qt4_Translate::hexToByteMap[src[0]]);
-    start = 1;
-  }
-  else
-  {
-    start = 0;
-    dst.reserve(src.size() / 2);
-  }
-  for (unsigned int i = start; i < src.size(); i += 2)
-  {
-    dst.push_back(Qt4_Translate::hexToByteMap[src[i]] * 16 + Qt4_Translate::hexToByteMap[src[i+1]]);
-  }
+void Qt4_Translate::ByteToChar(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
+{
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size());
+    for (unsigned int i = 0; i < src.size(); i++)
+    {
+        dst.push_back(Qt4_Translate::byteToCharMap[src[i ^ mask]]);
+    }
 }
 
-void Qt4_Translate::HexToByte(std::vector< u8 > &dst, const QString &src)
+void Qt4_Translate::HexToByte(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.length() / 2);
-  int i = 0;
-  if (src.length() % 2)
-  {
-    i = 1;
-  }
-  for (; i < src.length(); i += 2)
-  {
-    u8 hi = src[i].toAscii();
-    u8 lo = src[i+1].toAscii();
-    dst.push_back(Qt4_Translate::hexToByteMap[hi] * 16 + Qt4_Translate::hexToByteMap[lo]);
-  }
+    dst.erase(dst.begin(), dst.end());
+    int start;
+
+    if (src.size() % 2)
+    {
+        dst.reserve(src.size() / 2 + 1);
+        dst.push_back(Qt4_Translate::hexToByteMap[src[0 ^ mask]]);
+        start = 1;
+    }
+    else
+    {
+        start = 0;
+        dst.reserve(src.size() / 2);
+    }
+    for (unsigned int i = start; i < src.size(); i += 2)
+    {
+        dst.push_back(Qt4_Translate::hexToByteMap[src[i ^ mask]] * 16 + Qt4_Translate::hexToByteMap[src[(i ^ mask)+1]]);
+    }
 }
 
-void Qt4_Translate::OctalToByte(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::HexToByte(std::vector< u8 > &dst, const QString &src, int mask)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() / 3);
-  for (unsigned int i = 0; i + 2 < src.size(); i += 3)
-  {
-    dst.push_back(Qt4_Translate::hexToByteMap[src[i]] * 64 + Qt4_Translate::hexToByteMap[src[i+1]] * 8 + Qt4_Translate::hexToByteMap[src[i+2]]);
-  }
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.length() / 2);
+    int i = 0;
+    if (src.length() % 2)
+    {
+        i = 1;
+    }
+    for (; i < src.length(); i += 2)
+    {
+        u8 hi = src[i ^ mask].toAscii();
+        u8 lo = src[(i ^ mask)+1].toAscii();
+        dst.push_back(Qt4_Translate::hexToByteMap[hi] * 16 + Qt4_Translate::hexToByteMap[lo]);
+    }
 }
 
-void Qt4_Translate::BinaryToByte(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::OctalToByte(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() / 8);
-  for (unsigned int i = 0; i < src.size(); i += 8)
-  {
-    dst.push_back(Qt4_Translate::hexToByteMap[src[i+0]] * 128 +
-                  Qt4_Translate::hexToByteMap[src[i+1]] * 64 +
-                  Qt4_Translate::hexToByteMap[src[i+2]] * 32 +
-                  Qt4_Translate::hexToByteMap[src[i+3]] * 16 +
-                  Qt4_Translate::hexToByteMap[src[i+4]] * 8 +
-                  Qt4_Translate::hexToByteMap[src[i+5]] * 4 +
-                  Qt4_Translate::hexToByteMap[src[i+6]] * 2 +
-                  Qt4_Translate::hexToByteMap[src[i+7]] * 1);
-  }
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() / 3);
+    for (unsigned int i = 0; i + 2 < src.size(); i += 3)
+    {
+        dst.push_back(Qt4_Translate::hexToByteMap[src[i]] * 64 + Qt4_Translate::hexToByteMap[src[i+1]] * 8 + Qt4_Translate::hexToByteMap[src[i+2]]);
+    }
+}
+
+void Qt4_Translate::BinaryToByte(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
+{
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() / 8);
+    for (unsigned int i = 0; i < src.size(); i += 8)
+    {
+        dst.push_back(Qt4_Translate::hexToByteMap[src[(i ^ mask)+0]] * 128 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+1]] * 64 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+2]] * 32 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+3]] * 16 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+4]] * 8 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+5]] * 4 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+6]] * 2 +
+            Qt4_Translate::hexToByteMap[src[(i ^ mask)+7]] * 1);
+    }
 }
 
 const char *Qt4_Translate::ByteToHex(u8 b)
 {
-  return Qt4_Translate::byteToHexMap[b];
+    return Qt4_Translate::byteToHexMap[b];
 }
 
-void Qt4_Translate::ByteToHex(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::ByteToHex(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  const char *str;
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() * 2);
-  for (unsigned int i = 0; i < src.size(); i++)
-  {
-    str = Qt4_Translate::byteToHexMap[src[i]];
-    dst.push_back(*(str+0));
-    dst.push_back(*(str+1));
-  }
+    const char *str;
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() * 2);
+    for (unsigned int i = 0; i < src.size(); i++)
+    {
+        str = Qt4_Translate::byteToHexMap[src[(i ^ mask)]];
+        dst.push_back(*(str+0));
+        dst.push_back(*(str+1));
+    }
 }
 
-void Qt4_Translate::ByteToOctal(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::ByteToOctal(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() * 3);
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() * 3);
 
-  std::vector< u8 >::const_iterator i;
-  const char *str;
-  for (i = src.begin(); i != src.end(); ++i)
-  {
-    str = Qt4_Translate::byteToOctalMap[*i];
-    dst.insert(dst.end(), str, str + 3);
-  }
+    const char *str;
+    for (int i = 0; i != src.size(); ++i)
+    {
+        str = Qt4_Translate::byteToOctalMap[src[(i ^ mask)]];
+        dst.insert(dst.end(), str, str + 3);
+    }
 }
 
-void Qt4_Translate::ByteToBinary(std::vector< u8 > &dst, const std::vector< u8 > &src)
+void Qt4_Translate::ByteToBinary(std::vector< u8 > &dst, const std::vector< u8 > &src, int mask)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() * 8);
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() * 8);
 
-  std::vector< u8 >::const_iterator i;
-  const char *str;
-  for (i = src.begin(); i != src.end(); ++i)
-  {
-    str = Qt4_Translate::byteToBinaryMap[*i];
-    dst.insert(dst.end(), str, str + 8);
-  }
+    const char *str;
+    for (int i = 0; i != src.size(); ++i)
+    {
+        str = Qt4_Translate::byteToBinaryMap[src[(i ^ mask)]];
+        dst.insert(dst.end(), str, str + 8);
+    }
 }
 
-void Qt4_Translate::ByteToChar(QString &dst, const u8 *src, int len)
+void Qt4_Translate::ByteToChar(QString &dst, const u8 *src, int len, int mask)
 {
-  dst = "";
-  for (int i = 0; i < len; i++)
-  {
-    dst += Qt4_Translate::byteToCharMap[*src++];
-  }
+    dst = "";
+    for (int i = 0; i < len; i++)
+    {
+        dst += Qt4_Translate::byteToCharMap[*((const u8 *)((int)src++ ^ mask))];
+    }
 }
 
-void Qt4_Translate::ByteToHex(QString &dst, const u8 *src, int len)
+void Qt4_Translate::ByteToHex(QString &dst, const u8 *src, int len, int mask)
 {
-  dst = "";
-  for (int i = 0; i < len; i++)
-  {
-    dst += Qt4_Translate::byteToHexMap[*src++];
-  }
+    dst = "";
+    for (int i = 0; i < len; i++)
+    {
+        dst += Qt4_Translate::byteToHexMap[*((const u8 *)((int)src++ ^ mask))];
+    }
 }
 
-void Qt4_Translate::ByteToOctal(QString &dst, const u8 *src, int len)
+void Qt4_Translate::ByteToOctal(QString &dst, const u8 *src, int len, int mask)
 {
-  dst = "";
-  for (int i = 0; i < len; ++i)
-  {
-    dst += Qt4_Translate::byteToOctalMap[*src++];
-  }
+    dst = "";
+    for (int i = 0; i < len; ++i)
+    {
+        dst += Qt4_Translate::byteToOctalMap[*((const u8 *)((int)src++ ^ mask))];
+    }
 }
 
-void Qt4_Translate::ByteToBinary(QString &dst, const u8 *src, int len)
+void Qt4_Translate::ByteToBinary(QString &dst, const u8 *src, int len, int mask)
 {
-  dst = "";
-  for (int i = 0; i < len; ++i)
-  {
-    dst += Qt4_Translate::byteToBinaryMap[*src++];
-  }
+    dst = "";
+    for (int i = 0; i < len; ++i)
+    {
+        dst += Qt4_Translate::byteToBinaryMap[*((const u8 *)((int)src++ ^ mask))];
+    }
 }
 
 #if 0
 void QTranslate::ByteToChar(QString &dst, const std::vector< u8 > &src)
 {
-  dst = "";
-  for (unsigned int i = 0; i < src.size(); i++)
-  {
-    dst += QTranslate::byteToCharMap[src[i]];
-  }
+    dst = "";
+    for (unsigned int i = 0; i < src.size(); i++)
+    {
+        dst += QTranslate::byteToCharMap[src[i]];
+    }
 }
 
 void QTranslate::ByteToHex(QString &dst, const std::vector< u8 > &src)
 {
-  dst = "";
-  for (int i = 0; i < src.size(); i++)
-  {
-    dst += QTranslate::byteToHexMap[src[i]];
-  }
+    dst = "";
+    for (int i = 0; i < src.size(); i++)
+    {
+        dst += QTranslate::byteToHexMap[src[i]];
+    }
 }
 
 void QTranslate::ByteToOctal(std::vector< u8 > &dst, const std::vector< u8 > &src)
 {
-  dst.erase(dst.begin(), dst.end());
-  dst.reserve(src.size() * 3);
+    dst.erase(dst.begin(), dst.end());
+    dst.reserve(src.size() * 3);
 
-  std::vector< u8 >::const_iterator i;
-  const char *str;
-  for (i = src.begin(); i != src.end(); ++i)
-  {
-    str = QTranslate::byteToOctalMap[*i];
-    dst.insert(dst.end(), str, str + 3);
-  }
+    std::vector< u8 >::const_iterator i;
+    const char *str;
+    for (i = src.begin(); i != src.end(); ++i)
+    {
+        str = QTranslate::byteToOctalMap[*i];
+        dst.insert(dst.end(), str, str + 3);
+    }
 }
 
 void QTranslate::ByteToOctal(QString &dst, const std::vector< u8 > &src)
 {
-  dst = "";
-  std::vector< u8 >::const_iterator i;
-  for (i = src.begin(); i != src.end(); ++i)
-  {
-    dst += QTranslate::byteToOctalMap[*i];
-  }
+    dst = "";
+    std::vector< u8 >::const_iterator i;
+    for (i = src.begin(); i != src.end(); ++i)
+    {
+        dst += QTranslate::byteToOctalMap[*i];
+    }
 }
 
 void QTranslate::ByteToBinary(QString &dst, const std::vector< u8 > &src)
 {
-  dst = "";
-  std::vector< u8 >::const_iterator i;
-  for (i = src.begin(); i != src.end(); ++i)
-  {
-    dst += QTranslate::byteToBinaryMap[*i];
-  }
+    dst = "";
+    std::vector< u8 >::const_iterator i;
+    for (i = src.begin(); i != src.end(); ++i)
+    {
+        dst += QTranslate::byteToBinaryMap[*i];
+    }
 }
 #endif
