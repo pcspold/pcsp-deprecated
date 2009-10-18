@@ -14,30 +14,29 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PCSPDEBUGGER_H
-#define PCSPDEBUGGER_H
-
+#pragma once
+#include <QObject>
+#include <QtNetwork>
+#include <qlocalsocket.h>
 #include <QtGui/QMainWindow>
 #include <QtGui>
-
-
-
-#include "ui_qt4_pcspdebugger.h"
-
-class pcspdebugger : public QMainWindow
+class qt4_debugClient: public QObject
 {
 	Q_OBJECT
-
 public:
-	friend struct debugger_s;
-	pcspdebugger(QWidget *parent = 0, Qt::WFlags flags = 0);
-	~pcspdebugger();
-	static pcspdebugger*	m_singleton;
-	Ui::pcspdebuggerClass ui;
-	
-public slots:
-	void onActionConnectClick();
-
+	static qt4_debugClient& Instance() { static qt4_debugClient client; return client; }
+private:
+	qt4_debugClient(void);
+	~qt4_debugClient(void);
+	 QLocalSocket *socket;
+	 QMainWindow *parentwindow;
+public:
+	void loadClient(QMainWindow *parent);
+	void closeClient();
+private slots:
+	void displayError(QLocalSocket::LocalSocketError socketError);
+	void onDataReceive();
+	void onConnect();
 };
 
-#endif // PCSPDEBUGGER_H
+#define client qt4_debugClient::Instance()

@@ -18,6 +18,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "../debugger.h"
 #include "qt4_memorycursor.h"
 #include "qt4_pcspdebugger.h"
+#include "qt4_debugclient.h"
 
 pcspdebugger *pcspdebugger::m_singleton = 0;
 pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
@@ -26,11 +27,7 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
     m_singleton = this;
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
-    debugger.initialize();
-		socket = new QLocalSocket(this);
- 	connect(socket, SIGNAL(readyRead()), this, SLOT(onDataReceive()));
-	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
-	connect(socket, SIGNAL(connected()), this, SLOT(onConnect()));
+    debugger.initialize();	
 	debugger.update_debugger();
 }
 
@@ -38,7 +35,7 @@ pcspdebugger::~pcspdebugger()
 {
 	m_singleton = 0;
 	debugger.finalize();
-	delete socket;
+
 }
 void debugger_s::update_debugger()
 {
@@ -47,57 +44,20 @@ void debugger_s::update_debugger()
 		pcspdebugger::m_singleton->ui.memorydockwidget->updateMemoryViewer();
 	}
 }
-void pcspdebugger::displayError(QLocalSocket::LocalSocketError socketError)
-{
-
-	ui.actionConnect->setText("Connect");
-	ui.toolBar->setEnabled(false);
-
- switch (socketError) {
-     case QLocalSocket::ServerNotFoundError:
-         QMessageBox::information(this, tr("PCSP Debugger"),
-                                  tr("The host was not found. Please check the "
-                                     "host name and port settings."));
-         break;
-     case QLocalSocket::ConnectionRefusedError:
-         QMessageBox::information(this, tr("PCSP Debugger"),
-                                  tr("The connection was refused by the peer. "
-                                     "Make sure the fortune server is running, "
-                                     "and check that the host name and port "
-                                     "settings are correct."));
-         break;
-    // case QLocalSocket::PeerClosedError:
-    //     break;
-     default:
-         QMessageBox::information(this, tr("PCSP Debugger"),
-                                  tr("The following error occurred: %1.")
-                                  .arg(socket->errorString()));
-     }
-}
-
-
-void pcspdebugger::onDataReceive()
-{
-	//TODO: Receive Data
-}
 void pcspdebugger::onActionConnectClick()
 {
 	if(ui.actionConnect->text().compare(QString("Connect"))==0)
 	{
 		//TODO:Connection check
 		ui.actionConnect->setText("Connecting...");
-		socket->connectToServer("pcspserver");
+		client.loadClient(this);
+		
 	}
 	else
 	{
-		socket->abort();
+		client.closeClient();
 		ui.actionConnect->setText("Connect");
 		ui.toolBar->setEnabled(false);
 	}
 }
 
-void pcspdebugger::onConnect()
-{
-	ui.actionConnect->setText("Disconnect");
-	ui.toolBar->setEnabled(true);
-}
