@@ -76,6 +76,7 @@ protected:
     void set2BytesPerColumn() { setBytesPerColumn(2); };
     void set4BytesPerColumn() { setBytesPerColumn(4); };
     void set8BytesPerColumn() { setBytesPerColumn(8); };
+    void toggleEndianness() { m_endianness = 1 - m_endianness; };
     void nextLine();
     void prevLine();
     void nextPage();
@@ -164,6 +165,8 @@ protected:
     u8 *m_data;
     int m_base;
     int m_lastValidColumn;
+    
+    int m_endianness;
 
     QVector< QRect > m_lineBBox;
     QVector< QRect > m_columnBBox;

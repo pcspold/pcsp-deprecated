@@ -22,6 +22,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 int main(int argc, char *argv[])
 {
 	QApplication application(argc, argv);
+    application.setStyle("cleanlooks");
 	pcspdebugger debugger;
 	debugger.show();
 	return application.exec();

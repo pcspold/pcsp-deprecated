@@ -49,6 +49,7 @@ qt4_MemoryWidget::qt4_MemoryWidget(QWidget *parent)
 , m_topMargin(6)
 , m_cols(16)
 , m_rows(32)
+, m_endianness(1)
 {
     m_selection[SelectionStart] = -1;
     m_selection[SelectionEnd] = -1;
@@ -369,15 +370,36 @@ void qt4_MemoryWidget::contextMenuEvent(QContextMenuEvent *e)
     baseMenu->addAction("&Hex", this, SLOT(setBaseHex()));
     baseMenu->addAction("&ASCII", this, SLOT(setBaseASCII()));
     baseMenu->addAction("&Binary", this, SLOT(setBaseBinary()));
-    baseMenu->addAction("&Octal", this, SLOT(setBaseOctal()));
+    if (bytesPerColumn() == 1)
+    {
+        baseMenu->addAction("&Octal", this, SLOT(setBaseOctal()));
+    }
     viewMenu.addMenu(baseMenu);
 
     QMenu *bpcMenu = new QMenu("&Bytes per column",this);
     bpcMenu->addAction("&1", this, SLOT(set1BytePerColumn()));
-    bpcMenu->addAction("&2", this, SLOT(set2BytesPerColumn()));
-    bpcMenu->addAction("&4", this, SLOT(set4BytesPerColumn()));
-    bpcMenu->addAction("&8", this, SLOT(set8BytesPerColumn()));
+    if (m_base != 8)
+    {
+        bpcMenu->addAction("&2", this, SLOT(set2BytesPerColumn()));
+        bpcMenu->addAction("&4", this, SLOT(set4BytesPerColumn()));
+        bpcMenu->addAction("&8", this, SLOT(set8BytesPerColumn()));
+    }
     viewMenu.addMenu(bpcMenu);
+
+    QMenu *endMenu = new QMenu("&Endianness",this);
+    if (m_base != 8)
+    {
+        if (m_endianness == 0)
+        {
+            endMenu->addAction("Little Endian", this, SLOT(toggleEndianness()));
+        }
+        else
+        {
+            endMenu->addAction("Big Endian", this, SLOT(toggleEndianness()));
+        }
+    }
+
+    viewMenu.addMenu(endMenu);
 
     viewMenu.exec(e->globalPos());
 }
@@ -438,14 +460,7 @@ void qt4_MemoryWidget::keyPressEvent(QKeyEvent *e)
 {
     int key = e->key();
 
-    int mask = 0;
-
-    switch (bytesPerColumn())
-    {
-    case 2: mask = 1; break;
-    case 4: mask = 3; break;
-    case 8: mask = 7; break;
-    }
+    int mask = m_endianness * (bytesPerColumn() - 1);
 
     switch (m_base)
     {
@@ -498,11 +513,11 @@ void qt4_MemoryWidget::keyPressEvent(QKeyEvent *e)
             std::vector< u8 > newData;
             std::vector< u8 > octal;
 
-            oldData.push_back(m_data[localByteOffset() ^ mask]);
+            oldData.push_back(m_data[localByteOffset()]);
             Qt4_Translate::ByteToOctal(octal, oldData);
             octal[m_cursor.charOffset()] = key;
             Qt4_Translate::OctalToByte(newData, octal);
-            m_data[(m_cursor.byteOffset( ) - m_topLeft) ^ mask] = newData[0];
+            m_data[m_cursor.byteOffset( ) - m_topLeft] = newData[0];
             cursorRight();
             setSelection(SelectionStart, u32(-1));
             return;
@@ -670,14 +685,7 @@ QString qt4_MemoryWidget::getDisplayText()
     QString text;
     u32 end = m_start + m_topLeft + bytesPerPage();
     int size = (end < m_end) ? bytesPerPage() : (m_end - m_start - m_topLeft);
-    int mask = 0;
-
-    switch (bytesPerColumn())
-    {
-    case 2: mask = 1; break;
-    case 4: mask = 3; break;
-    case 8: mask = 7; break;
-    }
+    int mask = m_endianness * (bytesPerColumn() - 1);
 
     switch (m_base)
     {
@@ -685,7 +693,7 @@ QString qt4_MemoryWidget::getDisplayText()
         Qt4_Translate::ByteToHex(text, m_data + m_topLeft, size, mask);
         break;
     case 8:
-        Qt4_Translate::ByteToOctal(text, m_data + m_topLeft, size, mask);
+        Qt4_Translate::ByteToOctal(text, m_data + m_topLeft, size, 0);
         break;
     case 2:
         Qt4_Translate::ByteToBinary(text, m_data + m_topLeft, size, mask);
@@ -891,8 +899,7 @@ void qt4_MemoryWidget::showMatch(int pos, int len)
     setSelection(SelectionEnd, pos + len);
 }
 
-void qt4_MemoryWidget::drawTextRegion(
-                                      QPainter &paint,
+void qt4_MemoryWidget::drawTextRegion(QPainter &paint,
                                       const QString &text,
                                       int row_start,
                                       int row_stop,
