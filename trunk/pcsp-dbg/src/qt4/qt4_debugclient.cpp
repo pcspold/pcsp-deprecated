@@ -80,7 +80,10 @@ void qt4_debugClient::displayError(QLocalSocket::LocalSocketError socketError)
 
 void qt4_debugClient::onDataReceive()
 {
-	 
+  forever {
+       if (socket->bytesAvailable() < (int) sizeof(quint16))//if no bytes available not continue further
+        break;
+
 	 QDataStream in(socket);
      in.setVersion(QDataStream::Qt_4_5);
 	 qint32 gettype;
@@ -97,11 +100,18 @@ void qt4_debugClient::onDataReceive()
 		   parentwindow->statusBar()->showMessage(getmessage);
 		 }
 		 break;
+     case CLIENT_UPDATE_REGISTERS:
+		 {
+         //  quint32 pcregister;
+		 //  in >> pcregister;
+		 //  printf("test");
+		 }
+		 break;
 	 default:
-         QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"),
-									  tr("server sent unsupported command!"));
-
+        QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"), tr("server sent unsupported command!"));
+        break;
 	 }
+  }
 	//Status message (debug signal message)
 /*	char buffer[ 500 ];
 	char *IDAddr = 0;
