@@ -20,6 +20,9 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <qlocalsocket.h>
 #include <QtGui/QMainWindow>
 #include <QtGui>
+
+#define CLIENT_UPDATE_ALL 3
+
 class qt4_debugClient: public QObject
 {
 	Q_OBJECT
