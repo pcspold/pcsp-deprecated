@@ -17,9 +17,9 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "qt4_debugclient.h"
 #include "qt4_pcspdebugger.h"
 #include <qtgui>
- #include <QMessageBox>
-
+#include <QMessageBox>
 #include <vector>
+#include "debugger.h"
 
 using namespace std;
 
@@ -80,8 +80,30 @@ void qt4_debugClient::displayError(QLocalSocket::LocalSocketError socketError)
 
 void qt4_debugClient::onDataReceive()
 {
+	 
+	 QDataStream in(socket);
+     in.setVersion(QDataStream::Qt_4_5);
+	 qint32 gettype;
+	 in >> gettype;
+	 QString separator;
+	 in >> separator; //normaly "|" should be after
+	 switch(gettype)
+	 {
+	 case CLIENT_UPDATE_ALL://update everything!
+		 {
+		   debugger.update_debugger();	
+		   QString getmessage;
+		   in >>getmessage;
+		   parentwindow->statusBar()->showMessage(getmessage);
+		 }
+		 break;
+	 default:
+         QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"),
+									  tr("server sent unsupported command!"));
+
+	 }
 	//Status message (debug signal message)
-	char buffer[ 500 ];
+/*	char buffer[ 500 ];
 	char *IDAddr = 0;
 	char *regAddr = 0;
 	char *temp=0;
@@ -112,7 +134,7 @@ void qt4_debugClient::onDataReceive()
 				throw;
 			}
 		 }
-	 }
+	 }*/
 
 	//Done!!!
 
