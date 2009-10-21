@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include "stdafx.h"
 #include "types.h"
 #include "qt4_memorycursor.h"
 #include "qt4_translate.h"
