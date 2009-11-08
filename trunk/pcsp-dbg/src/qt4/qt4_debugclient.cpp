@@ -94,6 +94,13 @@ void qt4_debugClient::onDataReceive()
 	 in >> separator; //normaly "|" should be after
 	 switch(gettype)
 	 {
+	 case CLIENT_LOG:
+		 {
+		   QString getlog;
+		   in>>getlog;
+		   debugger.log(getlog);
+		 }
+		 break;
 	 case CLIENT_UPDATE_ALL://update everything!
 		 {
 		   debugger.update_debugger();	
@@ -114,41 +121,6 @@ void qt4_debugClient::onDataReceive()
         break;
 	 }
   }
-	//Status message (debug signal message)
-/*	char buffer[ 500 ];
-	char *IDAddr = 0;
-	char *regAddr = 0;
-	char *temp=0;
-	struct StatusMessage message;
-	qint64 bytes=socket->bytesAvailable();
-	socket->readLine(buffer,sizeof(buffer));
-
-	 IDAddr = strtok(buffer,"|");	
-
-	 if (!strcmp(IDAddr,"7"))
-	 {
-
-		 regAddr = strtok(0,"|");	
-
-		 temp = strtok(regAddr,":");	
-
-		 int i=0;
-		 while(temp)
-		 {
-			message.registers[i]=atoi(temp);
-			temp = strtok(0,"$");
-			i++;
-
-			if(i>=35)
-			{
-				QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"),
-									  tr("Message arrived has too many registers!"));
-				throw;
-			}
-		 }
-	 }*/
-
-	//Done!!!
 
 }
 void qt4_debugClient::onConnect()

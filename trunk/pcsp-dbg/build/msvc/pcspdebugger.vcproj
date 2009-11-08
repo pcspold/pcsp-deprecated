@@ -417,13 +417,6 @@
 					RelativePath=".\GeneratedFiles\Release\moc_qt4_memoryscrollbar.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -435,13 +428,6 @@
 				<File
 					RelativePath=".\GeneratedFiles\Release\moc_qt4_memoryspinbox.cpp"
 					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
@@ -455,13 +441,6 @@
 					RelativePath=".\GeneratedFiles\Release\moc_qt4_memoryviewer.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -474,13 +453,6 @@
 					RelativePath=".\GeneratedFiles\Release\moc_qt4_memorywidget.cpp"
 					>
 					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
 						>
@@ -492,13 +464,6 @@
 				<File
 					RelativePath=".\GeneratedFiles\Release\moc_qt4_pcspdebugger.cpp"
 					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
@@ -544,13 +509,6 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_qt4_memoryspinbox.cpp"
@@ -558,13 +516,6 @@
 					<FileConfiguration
 						Name="Release|Win32"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -582,13 +533,6 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_qt4_memorywidget.cpp"
@@ -601,13 +545,6 @@
 							Name="VCCLCompilerTool"
 						/>
 					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_qt4_pcspdebugger.cpp"
@@ -615,13 +552,6 @@
 					<FileConfiguration
 						Name="Release|Win32"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

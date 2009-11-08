@@ -45,6 +45,10 @@ void debugger_s::update_debugger()
 		pcspdebugger::m_singleton->ui.memorydockwidget->updateMemoryViewer();
 	}
 }
+void debugger_s::log(QString const &line)
+{
+   if (pcspdebugger::m_singleton->ui.loggerEditText) pcspdebugger::m_singleton->ui.loggerEditText->appendHtml(line);
+}
 void pcspdebugger::onActionConnectClick()
 {
 	if(ui.actionConnect->text().compare(QString("Connect"))==0)

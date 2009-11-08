@@ -16,7 +16,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifndef DEBUGGER_H_
 #define DEBUGGER_H_
-
+#include <QString>
 struct debugger_s;
 
 struct debugger_s
@@ -31,6 +31,7 @@ struct debugger_s
 
     void finalize();
 	void update_debugger();
+	void log(QString const &line);
 };
 
 extern debugger_s &debugger;
