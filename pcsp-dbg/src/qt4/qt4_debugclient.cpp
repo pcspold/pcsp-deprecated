@@ -89,6 +89,7 @@ void qt4_debugClient::onDataReceive()
      in.setVersion(QDataStream::Qt_4_5);
 	 qint32 gettype;
 	 in >> gettype;
+	 if(gettype==0) break;
 	 QString separator;
 	 in >> separator; //normaly "|" should be after
 	 switch(gettype)
