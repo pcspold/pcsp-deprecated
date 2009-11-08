@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
-    <height>580</height>
+    <width>805</width>
+    <height>737</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>767</width>
+     <width>805</width>
      <height>24</height>
     </rect>
    </property>
@@ -97,6 +97,28 @@
     <number>1</number>
    </attribute>
    <widget class="qt4_MemoryViewer" name="memorydockwidget"/>
+  </widget>
+  <widget class="QDockWidget" name="logger_dock">
+   <property name="windowTitle">
+    <string>Logger</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="logdockwidget">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QPlainTextEdit" name="loggerEditText">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <action name="actionRun">
    <property name="icon">

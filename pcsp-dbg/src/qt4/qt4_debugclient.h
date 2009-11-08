@@ -21,6 +21,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QMainWindow>
 #include <QtGui>
 
+#define CLIENT_LOG              2
 #define CLIENT_UPDATE_ALL       3
 #define CLIENT_UPDATE_REGISTERS 5
 
