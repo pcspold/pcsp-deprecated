@@ -45,9 +45,33 @@ void debugger_s::update_debugger()
 		pcspdebugger::m_singleton->ui.memorydockwidget->updateMemoryViewer();
 	}
 }
-void debugger_s::log(QString const &line)
+static const QColor tbl_color_codes[] = 
 {
-   if (pcspdebugger::m_singleton->ui.loggerEditText) pcspdebugger::m_singleton->ui.loggerEditText->appendHtml(line);
+	Qt::black,
+	Qt::red,
+	Qt::green,
+	Qt::yellow,
+	Qt::blue,
+	Qt::magenta,
+	Qt::cyan,
+	Qt::white,
+	Qt::gray
+};
+void debugger_s::log(qint32 colorlevel,QString const &line)
+{
+
+   if (pcspdebugger::m_singleton->ui.loggerEditText) 
+   {
+	  /* QPalette p = pcspdebugger::m_singleton->ui.loggerEditText->palette();
+       p.setColor(QPalette::Active, QPalette::Text, tbl_color_codes[colorlevel]);
+	   p.setColor(QPalette::Inactive, QPalette::Text, tbl_color_codes[colorlevel]);
+	   pcspdebugger::m_singleton->ui.loggerEditText->setPalette(p);*/
+	/*   if(colorlevel==0)//another way
+         pcspdebugger::m_singleton->ui.loggerEditText->setStyleSheet("color: blue");
+	   if(colorlevel==1)
+         pcspdebugger::m_singleton->ui.loggerEditText->setStyleSheet("color: red");*/
+	   pcspdebugger::m_singleton->ui.loggerEditText->appendHtml(line);
+   }
 }
 void pcspdebugger::onActionConnectClick()
 {

@@ -31,7 +31,7 @@ struct debugger_s
 
     void finalize();
 	void update_debugger();
-	void log(QString const &line);
+	void log(qint32 colorlevel,QString const &line);
 };
 
 extern debugger_s &debugger;
