@@ -97,8 +97,10 @@ void qt4_debugClient::onDataReceive()
 	 case CLIENT_LOG:
 		 {
 		   QString getlog;
+		   qint32 colorlevel;
+		   in>>colorlevel;
 		   in>>getlog;
-		   debugger.log(getlog);
+		   debugger.log(colorlevel,getlog);
 		 }
 		 break;
 	 case CLIENT_UPDATE_ALL://update everything!
@@ -117,7 +119,7 @@ void qt4_debugClient::onDataReceive()
 		 }
 		 break;
 	 default:
-        QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"), tr("server sent unsupported command!"));
+      //  QMessageBox::information(parentwindow, tr("PCSP Debugger Fatal Error"), tr("server sent unsupported command!"));
         break;
 	 }
   }
