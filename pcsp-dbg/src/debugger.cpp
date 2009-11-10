@@ -18,6 +18,18 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "debugger.h"
 #include "memory.h"
 
+
+static FILE *&get_log_file()
+{
+	static FILE *file = 0;
+	char const *filename = "emulator.log";
+	if (!file)
+	{
+		file = ::fopen(filename, ((!::strcmp(filename, "emulator.log")) ? "a" : "w"));
+	}
+	return file;
+}
+FILE *&m_file=get_log_file();
 debugger_s &debugger_s::self()
 {
   static debugger_s instance;
@@ -29,11 +41,25 @@ debugger_s &debugger = debugger_s::self();
 debugger_s::debugger_s()
 {
 	Memory::initialize();
+	if (m_file)
+	{
+		::fclose(m_file);
+		m_file = 0;
+	}
+	if(!m_file)
+	{
+       m_file = get_log_file();
+	}
 }
-
+void debugger_s::writelog(QString text)
+{
+  if(m_file)
+   ::fprintf(m_file, "%s", text.toLatin1().data());
+}
 debugger_s::~debugger_s()
 {
 	Memory::release();
+	::fflush(m_file);
 }
 
 void debugger_s::initialize()
