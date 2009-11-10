@@ -44,7 +44,7 @@ void qt4_debugClient::loadClient(QMainWindow *parent)
 
     parentwindow=parent;	
     connect(socket, SIGNAL(readyRead()),this, SLOT(onDataReceive()));
-	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
+	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)),this, SLOT(displayError(QAbstractSocket::SocketError)));
 	connect(socket, SIGNAL(connected()),this, SLOT(onConnect()));
 	socket->connectToHost( QHostAddress::LocalHost, 55342, QIODevice::ReadWrite);
 }
@@ -53,21 +53,21 @@ void qt4_debugClient::closeClient()
 	if(socket!=NULL)
      socket->abort();
 }
-void qt4_debugClient::displayError(QLocalSocket::LocalSocketError socketError)
+void qt4_debugClient::displayError(QAbstractSocket::SocketError socketError)
 {
 	pcspdebugger::m_singleton->ui.actionConnect->setText("Connect");
 	pcspdebugger::m_singleton->ui.toolBar->setEnabled(false);
 
  switch (socketError) {
-     case QLocalSocket::ServerNotFoundError:
+     case QAbstractSocket::HostNotFoundError:
          QMessageBox::information(parentwindow, tr("PCSP Debugger"),
                                   tr("The host was not found. Please check the "
                                      "host name and port settings."));
          break;
-     case QLocalSocket::ConnectionRefusedError:
+     case QAbstractSocket::ConnectionRefusedError:
          QMessageBox::information(parentwindow, tr("PCSP Debugger"),
                                   tr("The connection was refused by the peer. "
-                                     "Make sure the fortune server is running, "
+                                     "Make sure that pcsp server is running, "
                                      "and check that the host name and port "
                                      "settings are correct."));
          break;

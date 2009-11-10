@@ -39,7 +39,7 @@ public:
 	void loadClient(QMainWindow *parent);
 	void closeClient();
 private slots:
-	void displayError(QLocalSocket::LocalSocketError socketError);
+	void displayError(QAbstractSocket::SocketError socketError);
 	void onDataReceive();
 	void onConnect();
 };
