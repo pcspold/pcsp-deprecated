@@ -17,7 +17,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include <QObject>
 #include <QtNetwork>
-#include <qlocalsocket.h>
+#include <QTcpSocket.h>
 #include <QtGui/QMainWindow>
 #include <QtGui>
 
@@ -33,7 +33,7 @@ public:
 private:
 	qt4_debugClient(void);
 	~qt4_debugClient(void);
-	 QLocalSocket *socket;
+	QTcpSocket * socket;
 	 QMainWindow *parentwindow;
 public:
 	void loadClient(QMainWindow *parent);

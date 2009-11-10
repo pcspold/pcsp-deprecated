@@ -21,6 +21,7 @@ struct debugger_s;
 
 struct debugger_s
 {
+	
     static debugger_s &self();
 
     debugger_s();
@@ -32,6 +33,7 @@ struct debugger_s
     void finalize();
 	void update_debugger();
 	void log(qint32 colorlevel,QString const &line);
+	void writelog(QString text);
 };
 
 extern debugger_s &debugger;

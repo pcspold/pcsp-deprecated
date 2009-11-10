@@ -40,12 +40,13 @@ qt4_debugClient::~qt4_debugClient(void)
 }
 void qt4_debugClient::loadClient(QMainWindow *parent)
 {
-    socket = new QLocalSocket(this);
+    socket = new QTcpSocket(this);
+
     parentwindow=parent;	
     connect(socket, SIGNAL(readyRead()),this, SLOT(onDataReceive()));
 	connect(socket, SIGNAL(error(QLocalSocket::LocalSocketError)),this, SLOT(displayError(QLocalSocket::LocalSocketError)));
 	connect(socket, SIGNAL(connected()),this, SLOT(onConnect()));
-	socket->connectToServer("pcspserver");
+	socket->connectToHost( QHostAddress::LocalHost, 55342, QIODevice::ReadWrite);
 }
 void qt4_debugClient::closeClient()
 {
@@ -101,6 +102,7 @@ void qt4_debugClient::onDataReceive()
 		   in>>colorlevel;
 		   in>>getlog;
 		   debugger.log(colorlevel,getlog);
+		   debugger.writelog(getlog);
 		 }
 		 break;
 	 case CLIENT_UPDATE_ALL://update everything!
@@ -130,3 +132,4 @@ void qt4_debugClient::onConnect()
 	pcspdebugger::m_singleton->ui.actionConnect->setText("Disconnect");
 	pcspdebugger::m_singleton->ui.toolBar->setEnabled(true);
 }
+
