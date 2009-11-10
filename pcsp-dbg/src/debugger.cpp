@@ -25,7 +25,7 @@ static FILE *&get_log_file()
 	char const *filename = "emulator.log";
 	if (!file)
 	{
-		file = ::fopen(filename, ((!::strcmp(filename, "emulator.log")) ? "a" : "w"));
+		file = ::fopen(filename, "w");
 	}
 	return file;
 }
