@@ -96,13 +96,20 @@ void qt4_debugClient::onDataReceive()
 	 switch(gettype)
 	 {
 	 case CLIENT_LOG:
-		 {
+ 		 {
 		   QString getlog;
 		   qint32 colorlevel;
 		   in>>colorlevel;
 		   in>>getlog;
 		   debugger.log(colorlevel,getlog);
 		   debugger.writelog(getlog);
+		 }
+		 break;
+	 case CLIENT_STDOUT:
+		 {
+		   QString getlog;
+		   in>>getlog;
+		   debugger.logstdout(getlog);
 		 }
 		 break;
 	 case CLIENT_UPDATE_ALL://update everything!

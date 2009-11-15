@@ -23,6 +23,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 
 #define CLIENT_LOG              2
 #define CLIENT_UPDATE_ALL       3
+#define CLIENT_STDOUT           4
 #define CLIENT_UPDATE_REGISTERS 5
 
 class qt4_debugClient: public QObject
