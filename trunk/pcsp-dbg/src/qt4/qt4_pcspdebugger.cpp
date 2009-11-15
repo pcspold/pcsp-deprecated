@@ -28,6 +28,7 @@ pcspdebugger::pcspdebugger(QWidget *parent, Qt::WFlags flags)
     m_singleton = this;
 	ui.setupUi(this);
 	tabifyDockWidget(ui.memory_dock,ui.disassembly_dock);
+	tabifyDockWidget(ui.stdoutlog_dock,ui.logger_dock);
     debugger.initialize();	
 	debugger.update_debugger();
 }
@@ -71,6 +72,13 @@ void debugger_s::log(qint32 colorlevel,QString const &line)
 	   if(colorlevel==1)
          pcspdebugger::m_singleton->ui.loggerEditText->setStyleSheet("color: red");*/
 	   pcspdebugger::m_singleton->ui.loggerEditText->appendHtml(line);
+   }
+}
+void debugger_s::logstdout(QString const &line)
+{
+   if (pcspdebugger::m_singleton->ui.stdoutEditText) 
+   {
+      pcspdebugger::m_singleton->ui.stdoutEditText->appendHtml(line);
    }
 }
 void pcspdebugger::onActionConnectClick()
