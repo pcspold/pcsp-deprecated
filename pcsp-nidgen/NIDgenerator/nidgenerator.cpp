@@ -63,6 +63,7 @@ void NIDgenerator::CreateFiles()
 	   WriteModuleFile(sel);
 	   selectedmodulesNames << sel;
 	   WriteSyscallsheader(selectedmodulesNames);
+	   WriteNIDmapper(selectedmodulesNames);
 	}
 }
 void NIDgenerator::WriteModuleFileheader(QString modulename)
@@ -174,4 +175,32 @@ void NIDgenerator::WriteSyscallsheader(QList<QString> modules)
   
         }
 		out<<"}\n";
+}
+void NIDgenerator::WriteNIDmapper(QList<QString> modules)
+{
+      	QFile file("NIDmap.cpp");
+        file.open(QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&file);   
+	    out << "//////////////////////////////////////////////////\n";
+        out << "///This file is auto - generated pcsp NIDgenerator\n";
+        out << "//////////////////////////////////////////////////\n";
+        out << "#include \"stdafx.h\"\n";
+		out << "#include \"hle/syscalls.h\"\n";
+		out << "\n";
+        for (int i = 0; i < modules.size(); ++i) 
+        {
+		   out << "\tconst HLEFunction " + modules.at(i) + "[] =\n";
+	       out << "\t{\n";
+           QMap<QString,NIDrec>::const_iterator k = handler.NIDmap.find(modules.at(i));
+           while (k != handler.NIDmap.end() && k.key() == modules.at(i)) 
+	       {
+		     QString nidname = k.value().function;
+			 QString NID = k.value().NID;
+			 out << "\t\tHLE_FUNC0("+NID+", "+ nidname + "),\n";
+		     k++;
+	       }
+		   out<<"\t};\n";
+		   out<<"\n";
+  
+        }
 }
