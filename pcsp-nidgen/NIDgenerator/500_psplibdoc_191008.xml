@@ -14516,7 +14516,7 @@
 				<FUNCTIONS>
 					<FUNCTION>
 						<NID>0x01977054</NID>
-						<NAME>sceMpegQueryUserdataEsSize</NAME>
+						<NAME>sceMpegGetUserdataAu</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0558B075</NID>
@@ -14712,7 +14712,7 @@
 				<FUNCTIONS>
 					<FUNCTION>
 						<NID>0x01977054</NID>
-						<NAME>sceMpegQueryUserdataEsSize</NAME>
+						<NAME>sceMpegGetUserdataAu</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0558B075</NID>
