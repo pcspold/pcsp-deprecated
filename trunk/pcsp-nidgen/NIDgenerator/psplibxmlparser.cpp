@@ -74,8 +74,8 @@ void psplibxmlparser::readLibElement()
                reader.readNext();
 			   flags=reader.text().toString();
 			}
-			if(flags == "0x40010011")
-			{
+			//if(flags == "0x40010011")
+			//{
                if(reader.name() == "NID")
 			   {
 				  pairNID=true;
@@ -103,7 +103,7 @@ void psplibxmlparser::readLibElement()
 				 NID.clear();
 				 NIDname.clear();
 			   }
-			}
+			//}
 		}
 
         
