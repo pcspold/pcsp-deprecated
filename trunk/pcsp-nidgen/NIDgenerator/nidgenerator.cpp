@@ -53,6 +53,7 @@ int NIDgenerator::ReadXML(QString filename)
 }
 void NIDgenerator::CreateFiles()
 {
+	QList<QString> selectedmodulesNames;
     QList<QListWidgetItem *> selected=ui.librariesList->selectedItems();
     QListWidgetItem *item;
 	foreach(item,selected)
@@ -60,6 +61,8 @@ void NIDgenerator::CreateFiles()
        QString sel = item->text();
 	   WriteModuleFileheader(sel);
 	   WriteModuleFile(sel);
+	   selectedmodulesNames << sel;
+	   WriteSyscallsheader(selectedmodulesNames);
 	}
 }
 void NIDgenerator::WriteModuleFileheader(QString modulename)
@@ -145,4 +148,30 @@ void NIDgenerator::WriteModuleFile(QString modulename)
 		   k++;
 	  }
 	 out << "}\n";
+}
+void NIDgenerator::WriteSyscallsheader(QList<QString> modules)
+{
+   
+      	QFile file("syscalls.h");
+        file.open(QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&file);   
+	    out << "//////////////////////////////////////////////////\n";
+        out << "///This file is auto - generated pcsp NIDgenerator\n";
+        out << "//////////////////////////////////////////////////\n";
+		out << "namespace syscalls\n";
+        out << "{\n";
+        for (int i = 0; i < modules.size(); ++i) 
+        {
+		   out<<"\n";
+		   out<<"\t///////////" + modules.at(i) + "//////////////////////\n";
+           QMap<QString,NIDrec>::const_iterator k = handler.NIDmap.find(modules.at(i));
+           while (k != handler.NIDmap.end() && k.key() == modules.at(i)) 
+	       {
+		     QString nidname = k.value().function;
+		     out<<"\textern void " + nidname + "();\n";
+		     k++;
+	       }
+  
+        }
+		out<<"}\n";
 }

@@ -14,6 +14,7 @@ public:
 	int ReadXML(QString filename);
 	void WriteModuleFileheader(QString modulename);
 	void WriteModuleFile(QString modulename);
+	void WriteSyscallsheader(QList<QString> modules);
     
 
 	public slots:
