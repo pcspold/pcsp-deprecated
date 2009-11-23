@@ -15,6 +15,7 @@ public:
 	void WriteModuleFileheader(QString modulename);
 	void WriteModuleFile(QString modulename);
 	void WriteSyscallsheader(QList<QString> modules);
+	void WriteNIDmapper(QList<QString> modules);
     
 
 	public slots:
