@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>330</height>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,9 +31,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
+      <y>450</y>
       <width>561</width>
-      <height>251</height>
+      <height>101</height>
      </rect>
     </property>
    </widget>
@@ -48,6 +48,19 @@
     </property>
     <property name="text">
      <string>Create</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="librariesList">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>231</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
     </property>
    </widget>
   </widget>
@@ -74,8 +87,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>CreateButton</sender>
+   <signal>pressed()</signal>
+   <receiver>NIDgeneratorClass</receiver>
+   <slot>CreateFiles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ChooseXML()</slot>
+  <slot>CreateFiles()</slot>
  </slots>
 </ui>

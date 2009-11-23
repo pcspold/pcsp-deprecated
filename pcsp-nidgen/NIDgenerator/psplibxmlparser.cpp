@@ -55,6 +55,8 @@ void psplibxmlparser::readLibElement()
    QString flags;
    QString NID;
    QString NIDname;
+   bool pairNID=false;
+   bool pairNIDname=false;
    reader.readNext();
    while(!(reader.tokenType() == QXmlStreamReader::EndElement && reader.name() == "LIBRARY")) 
    {
@@ -76,20 +78,31 @@ void psplibxmlparser::readLibElement()
 			{
                if(reader.name() == "NID")
 			   {
+				  pairNID=true;
                   reader.readNext();
 			      NID=reader.text().toString();
 				  reader.readNext();
+                  
 			   }
 			   if(reader.name() == "NAME")
 			   {
+				  pairNIDname=true;
                   reader.readNext();
 			      NIDname=reader.text().toString();
 				  reader.readNext();
+				  
 			   }
-				NIDrec record;
-				record.NID=NID;
-				record.function=NIDname;
-				NIDmap.insert(libname,record);
+			   if(pairNID && pairNIDname)
+			   {
+				 NIDrec record;
+				 record.NID=NID;
+				 record.function=NIDname;
+				 NIDmap.insertMulti(libname,record);
+				 pairNID=false;
+				 pairNIDname=false;
+				 NID.clear();
+				 NIDname.clear();
+			   }
 			}
 		}
 

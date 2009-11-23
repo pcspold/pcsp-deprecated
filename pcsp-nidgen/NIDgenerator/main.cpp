@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "psplibxmlparser.h"
 #include "nidgenerator.h"
 #include <QtGui/QApplication>
 

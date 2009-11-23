@@ -1,11 +1,11 @@
 #include "stdafx.h"
-
+#include "psplibxmlparser.h"
 #include <QFile>
 #include <QDomDocument>
 #include <QTextStream>
 #include <QMapIterator>
 #include "nidgenerator.h"
-#include "psplibxmlparser.h"
+
 NIDgenerator::NIDgenerator(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
@@ -30,13 +30,109 @@ void NIDgenerator::ChooseXML()
 }
 int NIDgenerator::ReadXML(QString filename)
 {
-  psplibxmlparser handler;
+ 
   handler.readFile(filename);
   QMap<QString,NIDrec>::const_iterator iter;
+  int count=0;
+  
   for(iter = handler.NIDmap.begin(); iter !=handler.NIDmap.end(); ++iter) 
   {
+	  QListWidgetItem *libslist =new QListWidgetItem(ui.librariesList );
 	  QString lib = iter.key();
-	  ui.infoTextEdit->appendHtml(lib);
+	  libslist->setText(lib);  
+	  ui.librariesList->insertItem(count+1,libslist);
+	  count++;
   }
   return 0;
+}
+void NIDgenerator::CreateFiles()
+{
+    QList<QListWidgetItem *> selected=ui.librariesList->selectedItems();
+    QListWidgetItem *item;
+	foreach(item,selected)
+	{
+       QString sel = item->text();
+	   WriteModuleFileheader(sel);
+	   WriteModuleFile(sel);
+	}
+}
+void NIDgenerator::WriteModuleFileheader(QString modulename)
+{
+	QFile file("modules/"+modulename +".h");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+     QMap<QString,NIDrec>::const_iterator i = handler.NIDmap.find(modulename);
+
+	   out << "//////////////////////////////////////////////////\n";
+       out << "///This file is auto - generated pcsp NIDgenerator\n";
+       out << "//////////////////////////////////////////////////\n";
+	   out << "#pragma once\n";
+       out << "\n";
+	   out << "namespace " + modulename + "\n";
+	   out << "{\n";
+	 while (i != handler.NIDmap.end() && i.key() == modulename) 
+	 {
+		   QString nidname = i.value().function;
+		   out<<"\textern int " + nidname + "(); \n";
+		   i++;
+	  }
+	 out << "}\n";
+	 out << "\n";
+	 out << "namespace emu_" + modulename + "\n";
+     out << "{\n";
+     out << "\textern void reboot();\n";
+     out << "\textern void shutdown();\n";
+     out << "}\n";
+}
+void NIDgenerator::WriteModuleFile(QString modulename)
+{
+	QFile file("modules/"+modulename +".cpp");
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+     QMap<QString,NIDrec>::const_iterator i = handler.NIDmap.find(modulename);
+	 out << "//////////////////////////////////////////////////\n";
+     out << "///This file is auto - generated pcsp NIDgenerator\n";
+     out << "//////////////////////////////////////////////////\n";
+	 out << "#include \"stdafx.h\"\n";
+	 out << "#include \"" + modulename + ".h\"\n";
+	 out << "#include \"hle/types.h\"\n";
+     out << "#include \"log.h\"\n";
+     out << "\n";
+     out << "namespace emu_" + modulename +"\n";
+     out << "{\n";
+     out << "\tstatic bool "+ modulename +"_ready = false;\n";
+     out << "\n";
+     out << "\tvoid reboot()\n";
+     out << "\t{\n";
+     out << "\t\temu_" + modulename + "::shutdown();\n";
+     out << "\t\t"+modulename +"_ready = true;\n";
+     out << "\t}\n";
+     out << "\tvoid shutdown()\n";
+     out << "\t{\n";
+	 out << "\t\tif (" + modulename + "_ready)\n";
+     out << "\t\t{\n";
+     out << "\t\t\t"+modulename +"_ready = false;\n";
+     out << "\t\t}\n";
+     out << "\t}\n";
+     out << "}\n";
+     out << "namespace " + modulename +"\n";
+     out << "{\n";
+     while (i != handler.NIDmap.end() && i.key() == modulename) 
+	 {
+		   QString nidname = i.value().function;
+		   out<<"\tint " + nidname + "()\n";
+		   out<<"\t{\n";
+		   out<<"\t\t//TODO implement me\n";
+		   out<<"\t\terrorf("+ modulename + ",\"UNIMPLEMENTED " + nidname + " instruction\");\n";
+		   out<<"\t\treturn 0;\n";
+		   out<<"\t}\n";
+		   i++;
+	  }
+	 out << "}\n";
+	 /*out << "\n";
+	 out << "namespace emu_" + modulename + "\n";
+     out << "{\n";
+     out << "\textern void reboot();\n";
+     out << "\textern void shutdown();\n";
+     out << "}\n";*/
 }
