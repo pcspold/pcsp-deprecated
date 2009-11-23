@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NIDgeneratorClass</class>
+ <widget class="QMainWindow" name="NIDgeneratorClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>594</width>
+    <height>330</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>NIDgenerator</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="ChooseXMLButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choose XML file</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="infoTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>561</width>
+      <height>251</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CreateButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>10</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="nidgenerator.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>ChooseXMLButton</sender>
+   <signal>pressed()</signal>
+   <receiver>NIDgeneratorClass</receiver>
+   <slot>ChooseXML()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>ChooseXML()</slot>
+ </slots>
+</ui>
