@@ -34,14 +34,20 @@ int NIDgenerator::ReadXML(QString filename)
   handler.readFile(filename);
   QMap<QString,NIDrec>::const_iterator iter;
   int count=0;
-  
+  QString previouskey;
   for(iter = handler.NIDmap.begin(); iter !=handler.NIDmap.end(); ++iter) 
   {
-	  QListWidgetItem *libslist =new QListWidgetItem(ui.librariesList );
+	  
 	  QString lib = iter.key();
-	  libslist->setText(lib);  
-	  ui.librariesList->insertItem(count+1,libslist);
-	  count++;
+	  if(lib != previouskey)
+	  {
+        QListWidgetItem *libslist =new QListWidgetItem(ui.librariesList );
+	    previouskey=lib;
+	    libslist->setText(lib);  	  
+		ui.librariesList->insertItem(count+1,libslist);
+	    count++;
+	  }
+
   }
   return 0;
 }
@@ -129,10 +135,14 @@ void NIDgenerator::WriteModuleFile(QString modulename)
 		   i++;
 	  }
 	 out << "}\n";
-	 /*out << "\n";
-	 out << "namespace emu_" + modulename + "\n";
-     out << "{\n";
-     out << "\textern void reboot();\n";
-     out << "\textern void shutdown();\n";
-     out << "}\n";*/
+     out << "namespace syscalls\n";
+	 out << "{\n";
+	 QMap<QString,NIDrec>::const_iterator k = handler.NIDmap.find(modulename);
+     while (k != handler.NIDmap.end() && k.key() == modulename) 
+	 {
+		   QString nidname = k.value().function;
+		   out<<"\tvoid " + nidname + "(){ V0 = " + modulename +"::"+nidname+"();};\n";
+		   k++;
+	  }
+	 out << "}\n";
 }
