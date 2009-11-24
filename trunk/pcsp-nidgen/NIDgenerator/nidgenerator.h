@@ -16,11 +16,12 @@ public:
 	void WriteModuleFile(QString modulename);
 	void WriteSyscallsheader(QList<QString> modules);
 	void WriteNIDmapper(QList<QString> modules);
-    
+    QString version;
 
 	public slots:
 	void ChooseXML();
 	void CreateFiles();
+	
  
 private:
 	Ui::NIDgeneratorClass ui;
