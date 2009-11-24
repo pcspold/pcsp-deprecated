@@ -66,6 +66,10 @@ void psplibxmlparser::readLibElement()
 			if(reader.name() == "NAME" && firstname) {
 				reader.readNext();
 				libname=reader.text().toString();
+				if(NIDmap.contains(libname))//hmm we have already read it?
+				{
+                  continue;
+				}
 				flags.clear();
 				firstname=false;//we have read the lib name , don't continue cause we will read NID names!
 			}
