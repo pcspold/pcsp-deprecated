@@ -732,7 +732,7 @@
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0xBEA18F91</NID>
-						<NAME>sceMpegbase_BEA18F91</NAME>
+						<NAME>sceMpegBasePESpacketCopy</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0xCE8EB837</NID>
@@ -7336,7 +7336,7 @@
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x2DD3E298</NID>
-						<NAME>sceAtrac3plus_2DD3E298</NAME>
+						<NAME>sceAtracGetBufferInfoForResetting</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x31668BAA</NID>
@@ -14520,7 +14520,7 @@
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0558B075</NID>
-						<NAME>sceMpeg_0558B075</NAME>
+						<NAME>sceMpegAvcCopyYCbCr</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0E3C2E9D</NID>
@@ -14716,7 +14716,7 @@
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0558B075</NID>
-						<NAME>sceMpeg_0558B075</NAME>
+						<NAME>sceMpegAvcCopyYCbCr</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x0E3C2E9D</NID>
@@ -45596,11 +45596,11 @@
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x27ACC20B</NID>
-						<NAME>sceVaudio_27ACC20B</NAME>
+						<NAME>sceVaudioChReserveBuffering</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x346FBE94</NID>
-						<NAME>sceVaudio_346FBE94</NAME>
+						<NAME>sceVaudioSetEffectType</NAME>
 					</FUNCTION>
 					<FUNCTION>
 						<NID>0x504E4745</NID>

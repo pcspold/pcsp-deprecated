@@ -6,6 +6,7 @@
 #include <QMapIterator>
 #include "nidgenerator.h"
 
+
 NIDgenerator::NIDgenerator(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
@@ -53,6 +54,9 @@ int NIDgenerator::ReadXML(QString filename)
 }
 void NIDgenerator::CreateFiles()
 {
+	QDir dir("");
+	if(!dir.exists("modules"))
+		dir.mkdir("modules");
 	QList<QString> selectedmodulesNames;
     QList<QListWidgetItem *> selected=ui.librariesList->selectedItems();
     QListWidgetItem *item;
