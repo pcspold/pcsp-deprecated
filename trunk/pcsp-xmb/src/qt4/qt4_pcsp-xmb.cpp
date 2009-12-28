@@ -24,11 +24,15 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "../loaders.h"
 #include <stdio.h>
 #include <QSettings>
+
+QString revision("$Revision$");
+
 pcspfrontend::pcspfrontend(QWidget *parent, Qt::WFlags flags,QString path)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
-	 
+
+    this->setWindowTitle(QString("PCSP - XMB (SVN rev. %1)").arg(revision));
 
 	m_umdisospath=path;
     refreshBrowser();
