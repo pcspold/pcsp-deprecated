@@ -14,9 +14,8 @@
    <string>pcspdebugger</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normalon>:/../../Resources/pcsp.ico</normalon>
-   </iconset>
+   <iconset resource="qt4_pcspdebugger.qrc">
+    <normaloff>:/../../res/pcsp.ico</normaloff>:/../../res/pcsp.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -151,7 +150,7 @@
   <action name="actionRun">
    <property name="icon">
     <iconset resource="qt4_pcspdebugger.qrc">
-     <normaloff>:/../../Resources/PlayIcon.png</normaloff>:/../../Resources/PlayIcon.png</iconset>
+     <normaloff>:/../../res/PlayIcon.png</normaloff>:/../../res/PlayIcon.png</iconset>
    </property>
    <property name="text">
     <string>Run</string>
@@ -160,7 +159,7 @@
   <action name="actionPause">
    <property name="icon">
     <iconset resource="qt4_pcspdebugger.qrc">
-     <normaloff>:/../../Resources/PauseIcon.png</normaloff>:/../../Resources/PauseIcon.png</iconset>
+     <normaloff>:/../../res/PauseIcon.png</normaloff>:/../../res/PauseIcon.png</iconset>
    </property>
    <property name="text">
     <string>Pause</string>
@@ -169,7 +168,7 @@
   <action name="actionStepIn">
    <property name="icon">
     <iconset resource="qt4_pcspdebugger.qrc">
-     <normaloff>:/../../Resources/StepIntoIcon.png</normaloff>:/../../Resources/StepIntoIcon.png</iconset>
+     <normaloff>:/../../res/StepIntoIcon.png</normaloff>:/../../res/StepIntoIcon.png</iconset>
    </property>
    <property name="text">
     <string>StepIn</string>
@@ -181,7 +180,7 @@
   <action name="actionStepOver">
    <property name="icon">
     <iconset resource="qt4_pcspdebugger.qrc">
-     <normaloff>:/../../Resources/StepOverIcon.png</normaloff>:/../../Resources/StepOverIcon.png</iconset>
+     <normaloff>:/../../res/StepOverIcon.png</normaloff>:/../../res/StepOverIcon.png</iconset>
    </property>
    <property name="text">
     <string>StepOver</string>
@@ -193,7 +192,7 @@
   <action name="actionStepOut">
    <property name="icon">
     <iconset resource="qt4_pcspdebugger.qrc">
-     <normaloff>:/../../Resources/StepOutIcon.png</normaloff>:/../../Resources/StepOutIcon.png</iconset>
+     <normaloff>:/../../res/StepOutIcon.png</normaloff>:/../../res/StepOutIcon.png</iconset>
    </property>
    <property name="text">
     <string>StepOut</string>
