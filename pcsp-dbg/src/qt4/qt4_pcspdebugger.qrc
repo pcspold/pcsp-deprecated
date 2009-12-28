@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/../.." >
-        <file>../../Resources/PlayIcon.png</file>
-        <file>../../Resources/StepIntoIcon.png</file>
-        <file>../../Resources/StepOutIcon.png</file>
-        <file>../../Resources/StepOverIcon.png</file>
-        <file>../../Resources/PauseIcon.png</file>
-        <file>../../Resources/pcsp.ico</file>
+        <file>../../res/PlayIcon.png</file>
+        <file>../../res/StepIntoIcon.png</file>
+        <file>../../res/StepOutIcon.png</file>
+        <file>../../res/StepOverIcon.png</file>
+        <file>../../res/PauseIcon.png</file>
+        <file>../../res/pcsp.ico</file>
     </qresource>
 </RCC>
