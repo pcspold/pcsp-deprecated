@@ -106,9 +106,14 @@ void psfLineEdit::checkbootbin(QListWidgetItem *item)
 		   QLineEdit::setText("Encrypted EBOOT.BIN (PSP~)");
 		   return;
 	   }
-	   if(bootheader==0x4543537E)
+	   if(ebootheader==0x4543537E)
 	   {
          QLineEdit::setText("Encrypted EBOOT.BIN(~SCE)");
+		 return;
+	   }
+	   if(ebootheader==0x464c457f)//not encrypted elf , probably patched
+	   {
+         QLineEdit::setText("Not Encrypted EBOOT.BIN");
 		 return;
 	   }
 	   else
