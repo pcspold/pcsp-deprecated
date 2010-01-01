@@ -45,14 +45,14 @@ void runButtonclass::click()
    //figure out if we have a specific version of the game
    QFile spec("pcsp-"+discID+".exe");
    QFile gener("pcsp.exe");
-   arguments << "/f" << umdpath;
+   arguments << "-umd" << umdpath;
    if(spec.exists())
    {
-     launcher.start("pcsp-" + discID+".exe", arguments);
+     launcher.startDetached("pcsp-" + discID, arguments);
    }
    else if(gener.exists())
    {
-     launcher.start("pcsp.exe", arguments);
+     launcher.startDetached("pcsp", arguments);
    }
    else
    {
