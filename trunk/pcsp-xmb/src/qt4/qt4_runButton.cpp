@@ -18,6 +18,8 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "types.h"
 #include "psf.h"
 #include <qprocess.h>
+#include <qfile>
+#include <qmessagebox.h>
 
 runButtonclass::runButtonclass(QWidget *parent)
 : QPushButton(parent)
@@ -40,6 +42,22 @@ void runButtonclass::click()
    QString discID = psfinfo.disc_id;  
    QProcess launcher(this);
    QStringList arguments;
+   //figure out if we have a specific version of the game
+   QFile spec("pcsp-"+discID+".exe");
+   QFile gener("pcsp.exe");
    arguments << "/f" << umdpath;
-   launcher.start("pcsp-" + discID, arguments);
+   if(spec.exists())
+   {
+     launcher.start("pcsp-" + discID+".exe", arguments);
+   }
+   else if(gener.exists())
+   {
+     launcher.start("pcsp.exe", arguments);
+   }
+   else
+   {
+      QMessageBox::critical(0,"PCSP Frontend","Can't find an emulator exe!");
+   }
+   
+   
 }
