@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/../.." >
-        <file>../../res/pcsp.ico</file>
-    </qresource>
-</RCC>
