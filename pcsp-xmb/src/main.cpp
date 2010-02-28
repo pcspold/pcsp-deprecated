@@ -13,73 +13,60 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
-#include <QtGui/QApplication>
-#include <qfile.h>
-#include <qmessagebox.h>
-#include <QFileDialog>
-#include <QDesktopWidget>
-#include <QSettings>
-#include "qt4_pcsp-xmb.h"
+#include <QtCore>
+#include <QtGui>
+#include "qpcspxmb.h"
 
 void center(QWidget &widget)
 {
-  int x, y;
-  int screenWidth;
-  int screenHeight;
-  int width, height;
-  QSize windowSize;
+    int x, y;
+    int screenWidth;
+    int screenHeight;
+    int width, height;
+    QSize windowSize;
 
-  QDesktopWidget *desktop = QApplication::desktop();
+    QDesktopWidget *desktop = QApplication::desktop();
 
-  width = widget.frameGeometry().width();
-  height = widget.frameGeometry().height();  
+    width = widget.frameGeometry().width();
+    height = widget.frameGeometry().height();  
 
-  screenWidth = desktop->width();
-  screenHeight = desktop->height();
- 
-  x = (screenWidth - width) / 2;
-  y = (screenHeight - height) / 2;
+    screenWidth = desktop->width();
+    screenHeight = desktop->height();
 
-  widget.move( x, y );
+    x = (screenWidth - width) / 2;
+    y = (screenHeight - height) / 2;
+
+    widget.move( x, y );
 }
 
 QString findDirectory()
 {
-	//TODO Create umdfolder if not exist
-     QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
-     QString directory = QFileDialog::getExistingDirectory(0,
-                                 "Select the umd isos folder",
-                                 "umdimages/",
-                                 options);
-	 
-	 return directory;
+    //TODO Create umdfolder if not exist
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(0, "Select UMD images folder", ".", options);
+
+    return directory;
 }
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
     QSettings settings("settings.ini", QSettings::IniFormat);
 
-    
-    QString dir;
-	QString readvalue = settings.value("umdpath","").toString();
-	if(readvalue.isEmpty())
-	{
-      	QMessageBox::critical(0,"PCSP Frontend","Unable to find settings ini");
-		dir = findDirectory();
-	}
-	else
-	{
-       dir=readvalue;
-	}
-	settings.setValue("umdpath",dir);
-    
-	pcspfrontend w(0,0,dir);
-	center(w);
-	w.show();
-	
-	return a.exec();
+    QString dirpath = settings.value("umdpath", "").toString();
+    if (dirpath.isEmpty())
+    {
+        QMessageBox::critical(0, QObject::tr("PCSP - XMB"), QObject::tr("Unable to find settings.ini"));
+        dirpath = findDirectory();
+        settings.setValue("umdpath", dirpath);
+    }
+
+    QPcspXmb w(0, 0, dirpath);
+    //center(w); // [hlide] wrong way to center a window in multi-display
+    w.show();
+
+    return a.exec();
 }
