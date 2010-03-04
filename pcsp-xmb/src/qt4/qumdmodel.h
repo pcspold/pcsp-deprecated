@@ -162,31 +162,6 @@ public:
            
             umdimageloader::reboot(absoluteFilePath.toLatin1().data());
 
-            size = ISOFS_getfilesize("PSP_GAME/ICON0.PNG");
-            data = new u8[size];
-            f = ISOFS_open("PSP_GAME/ICON0.PNG", 1);
-            ISOFS_read(f, (char *)data, size);
-            ISOFS_close(f);
-
-            if (size)
-            {
-                icon0.loadFromData(data, size);
-            }
-
-            delete data;
-
-            size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
-            data = new u8[size];
-            f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
-            ISOFS_read(f, (char *)data, size);
-            ISOFS_close(f);
-
-            if (size)
-            {
-                pic1.loadFromData(data, size);
-            }
-
-            delete data;
 
             size = ISOFS_getfilesize("PSP_GAME/PARAM.SFO");
             data = new u8[size];
@@ -199,6 +174,77 @@ public:
             title    = QString::fromUtf8(psfinfo.title);
             id       = QString::fromUtf8(psfinfo.disc_id);
             firmware = QString::fromUtf8(psfinfo.psp_system_version);
+            //try to read icon0 and pic1 from disk.
+			FILE *icon0file;
+			QString icon0fileString = "data/" + id + "/icon0.png";
+			icon0file=fopen(icon0fileString.toLatin1().data(),"rb");
+			if(icon0file!=NULL)
+			{
+              icon0.load(icon0fileString);
+			  fclose(icon0file);
+			}
+			else
+			{
+				size = ISOFS_getfilesize("PSP_GAME/ICON0.PNG");
+				data = new u8[size];
+				f = ISOFS_open("PSP_GAME/ICON0.PNG", 1);
+				ISOFS_read(f, (char *)data, size);
+				ISOFS_close(f);
+
+				if (size)
+				{
+					icon0.loadFromData(data, size);
+				}
+				
+                //open file for write too
+				QDir datadir("");
+				datadir.mkdir("data");
+				datadir.mkdir("data/" + id);//create id folders
+					
+				FILE *iconfile;
+				iconfile=fopen(icon0fileString.toLatin1().data(),"wb");
+				if(size)
+				  fwrite(data,1,size,iconfile);
+				fclose(iconfile);
+
+				delete data;
+
+			}
+			FILE *pic1file;
+			QString pic1fileString = "data/" + id + "/pic1.png";
+			pic1file=fopen(pic1fileString.toLatin1().data(),"rb");
+			if(pic1file!=NULL)
+			{
+				pic1.load(pic1fileString);
+				fclose(pic1file);
+			}
+			else
+			{
+				size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
+				data = new u8[size];
+				f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
+				ISOFS_read(f, (char *)data, size);
+				ISOFS_close(f);
+
+				if (size)
+				{
+					pic1.loadFromData(data, size);
+				}
+				//open file for write too
+				QDir datadir("");
+				datadir.mkdir("data");
+				datadir.mkdir("data/" + id);//create id folders
+
+				FILE *pic1file;
+				pic1file=fopen(pic1fileString.toLatin1().data(),"wb");
+				if(size)
+				  fwrite(data,1,size,pic1file);
+				fclose(pic1file);
+
+				delete data;
+
+			}
+	
 
             size = ISOFS_getfilesize("PSP_GAME/SYSDIR/BOOT.BIN");
             if (size)
