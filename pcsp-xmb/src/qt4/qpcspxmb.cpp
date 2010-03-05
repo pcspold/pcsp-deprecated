@@ -51,7 +51,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags, QString const &path)
 
     QAction *action = new QAction(tr("Change UMD images folder"), this);
     connect(action, SIGNAL(triggered()), this, SLOT(onChangeUmdPath()));
-    icon0List->addAction(action);
+    pic1Label->addAction(action);
 
     connect(icon0List, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
     connect(runButton, SIGNAL(clicked()), this, SLOT(onPressedButton()));
@@ -78,7 +78,7 @@ void QPcspXmb::onModelReset()
 void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
     m_mapper->setCurrentModelIndex(index);
-    pic1Label->setPixmap(qVariantValue<QPixmap>(index.sibling(index.row(), 3).data(Qt::DecorationRole)));
+    pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
     icon0List->scrollTo(index, QAbstractItemView::PositionAtCenter);
 }
 

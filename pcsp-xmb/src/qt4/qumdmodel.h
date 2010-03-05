@@ -123,11 +123,14 @@ class UmdInfos
 public:
     QString id;
     QString title;
-    QPixmap icon0;
-    QPixmap pic1;
+    //QPixmap icon0;
+    //QPixmap pic1;
     QString firmware;
     QString status;
     uint    crc32;
+
+    QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
+    QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
 
     QString   absoluteFilePath;
     QDateTime lastModified;
@@ -160,123 +163,135 @@ public:
 
             crc32 = 0;
            
-            umdimageloader::reboot(absoluteFilePath.toLatin1().data());
-
-
-            size = ISOFS_getfilesize("PSP_GAME/PARAM.SFO");
-            data = new u8[size];
-            f = ISOFS_open("PSP_GAME/PARAM.SFO", 1);
-            ISOFS_read(f, (char *)data, size);
-            ISOFS_close(f);
-
-            psf::load_psf(data);
-
-            title    = QString::fromUtf8(psfinfo.title);
-            id       = QString::fromUtf8(psfinfo.disc_id);
-            firmware = QString::fromUtf8(psfinfo.psp_system_version);
-            //try to read icon0 and pic1 from disk.
-			FILE *icon0file;
-			QString icon0fileString = "data/" + id + "/icon0.png";
-			icon0file=fopen(icon0fileString.toLatin1().data(),"rb");
-			if(icon0file!=NULL)
-			{
-              icon0.load(icon0fileString);
-			  fclose(icon0file);
-			}
-			else
-			{
-				size = ISOFS_getfilesize("PSP_GAME/ICON0.PNG");
-				data = new u8[size];
-				f = ISOFS_open("PSP_GAME/ICON0.PNG", 1);
-				ISOFS_read(f, (char *)data, size);
-				ISOFS_close(f);
-
-				if (size)
-				{
-					icon0.loadFromData(data, size);
-				}
-				
-                //open file for write too
-				QDir datadir("");
-				datadir.mkdir("data");
-				datadir.mkdir("data/" + id);//create id folders
-					
-				FILE *iconfile;
-				iconfile=fopen(icon0fileString.toLatin1().data(),"wb");
-				if(size)
-				  fwrite(data,1,size,iconfile);
-				fclose(iconfile);
-
-				delete data;
-
-			}
-			FILE *pic1file;
-			QString pic1fileString = "data/" + id + "/pic1.png";
-			pic1file=fopen(pic1fileString.toLatin1().data(),"rb");
-			if(pic1file!=NULL)
-			{
-				pic1.load(pic1fileString);
-				fclose(pic1file);
-			}
-			else
-			{
-				size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
-				data = new u8[size];
-				f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
-				ISOFS_read(f, (char *)data, size);
-				ISOFS_close(f);
-
-				if (size)
-				{
-					pic1.loadFromData(data, size);
-				}
-				//open file for write too
-				QDir datadir("");
-				datadir.mkdir("data");
-				datadir.mkdir("data/" + id);//create id folders
-
-				FILE *pic1file;
-				pic1file=fopen(pic1fileString.toLatin1().data(),"wb");
-				if(size)
-				  fwrite(data,1,size,pic1file);
-				fclose(pic1file);
-
-				delete data;
-
-			}
-	
-
-            size = ISOFS_getfilesize("PSP_GAME/SYSDIR/BOOT.BIN");
-            if (size)
+            if (entry.exists())
             {
+                size = ISOFS_getfilesize("PSP_GAME/PARAM.SFO");
+                data = new u8[size];
+                f = ISOFS_open("PSP_GAME/PARAM.SFO", 1);
+                ISOFS_read(f, (char *)data, size);
+                ISOFS_close(f);
+
+                psf::load_psf(data);
+
+                title    = QString::fromUtf8(psfinfo.title);
+                id       = QString::fromUtf8(psfinfo.disc_id);
+                firmware = QString::fromUtf8(psfinfo.psp_system_version);
+
+                QStringList values = entry.baseName().split(" - ");
+                if ((values.size() == 2) && values.takeFirst() == id)
+                {
+                    bool ok = false;
+                    int result = values.takeFirst().toInt(&ok, 16);
+                    if (ok)
+                    {
+                        crc32 = result;
+                    }
+                }
+
+                QDir().mkpath("data/" + id);
+
+                QPixmap icon0File(144, 80);
+                QString icon0FileName(icon0());
+                if (QFile::exists(icon0FileName))
+                {
+                    icon0File.load(icon0FileName);
+                }
+                else
+                {
+                    size = ISOFS_getfilesize("PSP_GAME/ICON0.PNG");
+                    if (size)
+                    {
+                        data = new u8[size];
+                        f = ISOFS_open("PSP_GAME/ICON0.PNG", 1);
+                        ISOFS_read(f, (char *)data, size);
+                        ISOFS_close(f);
+
+                        icon0File.loadFromData(data, size);
+                    }
+                    else
+                    {
+                        data = 0;
+                        icon0File.load(":/images/icon0.png");
+                    }
+
+                    icon0File.save(icon0FileName);
+
+                    delete data;
+                }
+
+                QPixmap pic1File(480, 272);
+                QString pic1FileName(pic1());
+                if (QFile::exists(pic1FileName))
+                {
+                    pic1File.load(pic1FileName);
+                }
+                else
+                {
+                    size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
+                    if (size)
+                    {
+                        data = new u8[size];
+                        f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
+                        ISOFS_read(f, (char *)data, size);
+                        ISOFS_close(f);
+
+                        pic1File.loadFromData(data, size);
+                    }
+                    else
+                    {
+                        data = 0;
+                        pic1File.load(":/images/pic1.png");
+                        //pic1File = icon0File.scaledToWidth(72,Qt::SmoothTransformation);
+                        //pic1File = pic1File.scaledToWidth(144,Qt::SmoothTransformation);
+                        //pic1File = pic1File.scaledToWidth(288,Qt::SmoothTransformation);
+                        //pic1File = pic1File.scaledToWidth(480,Qt::SmoothTransformation);
+                    }
+
+                    pic1File.save(pic1FileName);
+
+                    delete data;
+                }
+
+                size = ISOFS_getfilesize("PSP_GAME/SYSDIR/BOOT.BIN");
+                if (size)
+                {
+                    int header;
+                    f = ISOFS_open("PSP_GAME/SYSDIR/BOOT.BIN", 1);
+                    ISOFS_read(f, (char *)&header, sizeof(int));
+                    ISOFS_close(f);
+
+                    switch (header)
+                    {
+                    case 0x464C457F: status = "Plain BOOT.BIN"; return *this;
+                    case 0x5053507E: status = "Encrypted BOOT.BIN (PSP~)"; return *this;
+                    case 0x4543537E: status = "Encrypted BOOT.BIN (~SCE)"; return *this;
+                    case 0x00000000: break;
+                    default:         status = "Unsupported BOOT.BIN"; return *this;
+                    }
+                }
+
                 int header;
-                f = ISOFS_open("PSP_GAME/SYSDIR/BOOT.BIN", 1);
+
+                size = ISOFS_getfilesize("PSP_GAME/SYSDIR/EBOOT.BIN");
+                f = ISOFS_open("PSP_GAME/SYSDIR/EBOOT.BIN", 1);
                 ISOFS_read(f, (char *)&header, sizeof(int));
                 ISOFS_close(f);
 
                 switch (header)
                 {
-                case 0x464C457F: status = "Plain BOOT.BIN"; return *this;
-                case 0x5053507E: status = "Encrypted BOOT.BIN (PSP~)"; return *this;
-                case 0x4543537E: status = "Encrypted BOOT.BIN (~SCE)"; return *this;
-                case 0x00000000: break;
-                default:         status = "Unsupported BOOT.BIN"; return *this;
+                case 0x464C457F: status = "Plain EBOOT.BIN"; return *this;
+                case 0x5053507E: status = "Encrypted EBOOT.BIN (PSP~)"; return *this;
+                case 0x4543537E: status = "Encrypted EBOOT.BIN (~SCE)"; return *this;
+                default:         status = "Unsupported EBOOT.BIN"; return *this;
                 }
             }
-
-            int header;
-
-            size = ISOFS_getfilesize("PSP_GAME/SYSDIR/EBOOT.BIN");
-            f = ISOFS_open("PSP_GAME/SYSDIR/EBOOT.BIN", 1);
-            ISOFS_read(f, (char *)&header, sizeof(int));
-            ISOFS_close(f);
-
-            switch (header)
+            else
             {
-            case 0x464C457F: status = "Plain EBOOT.BIN"; return *this;
-            case 0x5053507E: status = "Encrypted EBOOT.BIN (PSP~)"; return *this;
-            case 0x4543537E: status = "Encrypted EBOOT.BIN (~SCE)"; return *this;
-            default:         status = "Unsupported EBOOT.BIN"; return *this;
+                title    = "";
+                id       = "";
+                firmware = "";
+                status   = "";
+                crc32    = 0;
             }
         }
 
@@ -301,13 +316,31 @@ public:
 
     void updateModel(QString const &path)
     {
+        QPixmap pixmap(":/images/pcsp.png");
+        QSplashScreen s(pixmap);
+        s.show();
+
         m_infos.clear();
         beginResetModel();
         QDir dir(path);
         QListIterator< QFileInfo > entry(dir.entryInfoList(QStringList() << "*.ISO" << "*.CSO", QDir::Files, QDir::Name|QDir::IgnoreCase));
-        while (entry.hasNext())
+        if (entry.hasNext())
         {
-            m_infos.push_back(entry.next());
+            while (entry.hasNext())
+            {
+                QFileInfo fi = entry.next();
+                umdimageloader::reboot(fi.absoluteFilePath().toLatin1().data()); // it sucks ! it cannot handle LATIN1 or UTF8 names !!!
+                m_infos.push_back(fi);
+                s.showMessage(tr("Loading %1 - %2...").arg(m_infos.last().id, m_infos.last().title));
+                umdimageloader::shutdown(); // don't forget to close it !
+                if (!m_infos.last().crc32)
+                {
+                    m_infos.last().crc32 = Crc32().FullCRC(fi);
+                    QString crc32 = QString("%1").arg(m_infos.last().crc32, 8, 16, QLatin1Char('0')).toUpper();
+                    m_infos.last().absoluteFilePath = QString("%1/%2 - %3.%4").arg(fi.absolutePath(), m_infos.last().id, crc32, fi.suffix().toLower());
+                    QFile::rename(fi.absoluteFilePath(), m_infos.last().absoluteFilePath); 
+                }
+            }
         }
         endResetModel();
     }
@@ -337,13 +370,13 @@ public:
 
             switch (index.column())
             {
-            case 0: return (role == Qt::DecorationRole                     ) ? infos.icon0                                              : QVariant();
-            case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                 : QVariant();
-            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                              : QVariant();
-            case 3: return (role == Qt::DecorationRole                     ) ? infos.pic1                                               : QVariant();
-            case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                           : QVariant();
-            case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.status                                             : QVariant();
-            case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ? QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')) : QVariant();
+            case 0: return (role == Qt::DecorationRole                     ) ? QPixmap(infos.icon0())                                             : QVariant();
+            case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                           : QVariant();
+            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                                        : QVariant();
+            case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.pic1()                                                       : QVariant();
+            case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
+            case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.status                                                       : QVariant();
+            case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ? QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
             }
         }
 
