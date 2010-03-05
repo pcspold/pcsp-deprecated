@@ -36,7 +36,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="qpcspxmb.qrc">
-    <normaloff>:/../../res/pcsp.ico</normaloff>:/../../res/pcsp.ico</iconset>
+    <normaloff>:/icons/pcsp.ico</normaloff>:/icons/pcsp.ico</iconset>
   </property>
   <property name="styleSheet">
    <string/>
@@ -276,7 +276,7 @@
      <enum>Qt::WheelFocus</enum>
     </property>
     <property name="contextMenuPolicy">
-     <enum>Qt::ActionsContextMenu</enum>
+     <enum>Qt::DefaultContextMenu</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -384,8 +384,14 @@
       <height>272</height>
      </size>
     </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="qpcspxmb.qrc">:/images/pic1.png</pixmap>
     </property>
    </widget>
    <widget class="QLineEdit" name="gameNameEdit">

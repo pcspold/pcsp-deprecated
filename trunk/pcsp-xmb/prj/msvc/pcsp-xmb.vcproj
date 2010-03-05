@@ -213,6 +213,10 @@
 			ParseFiles="false"
 			>
 			<File
+				RelativePath="..\..\res\icon0.png"
+				>
+			</File>
+			<File
 				RelativePath=".\pcsp-xmb.rc"
 				>
 			</File>
@@ -237,6 +241,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\res\pcsplogo.png"
+				>
+			</File>
+			<File
+				RelativePath="..\..\res\pic1.png"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
@@ -247,6 +259,26 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			SourceControlFiles="false"
 			>
+			<File
+				RelativePath=".\GeneratedFiles\qrc_qpcspxmb.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\GeneratedFiles\ui_qpcspxmb.h"
 				>
@@ -278,13 +310,6 @@
 				<File
 					RelativePath=".\GeneratedFiles\Release\moc_qumdmodel.cpp"
 					>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|Win32"
 						ExcludedFromBuild="true"
@@ -325,13 +350,6 @@
 					<FileConfiguration
 						Name="Release|Win32"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
