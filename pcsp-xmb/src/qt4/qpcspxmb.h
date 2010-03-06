@@ -29,12 +29,16 @@ class QPcspXmb : public QMainWindow, private Ui::PcspXmbUi
     Q_OBJECT
 
 public:
-    QPcspXmb(QWidget *parent = 0, Qt::WFlags flags = 0, QString const &path = "");
+    QPcspXmb(QWidget *parent = 0, Qt::WFlags flags = 0);
     ~QPcspXmb();
     void refresh();
 
+protected:
+    QRegion visualRegionForSelection(QItemSelection const &) const { return QRegion(); }
+
 private slots:
     void onChangeUmdPath();
+    void onAutoRenameToggled(bool checked);
     void onModelReset();
     void onCurrentChanged(QModelIndex const &index);
     void onDoubleClicked(QModelIndex const &index);
@@ -45,6 +49,8 @@ private:
     QUmdTableModel      *m_model;
     QDataWidgetMapper   *m_mapper;
     QItemSelectionModel *m_selectionModel;
+    QSystemTrayIcon     *m_systray;
+    QSettings            m_ini;
 };
 
 #endif // QPcspXmb_H

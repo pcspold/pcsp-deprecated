@@ -55,17 +55,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Q_INIT_RESOURCE(qpcspxmb);
 
-    QSettings settings("settings.ini", QSettings::IniFormat);
-
-    QString dirpath = settings.value("umdpath", "").toString();
-    if (dirpath.isEmpty())
-    {
-        QMessageBox::critical(0, QObject::tr("PCSP - XMB"), QObject::tr("Unable to find settings.ini"));
-        dirpath = findDirectory();
-        settings.setValue("umdpath", dirpath);
-    }
-
-    QPcspXmb w(0, 0, dirpath);
+    QPcspXmb w(0, 0);
     //center(w); // [hlide] wrong way to center a window in multi-display
     w.show();
 

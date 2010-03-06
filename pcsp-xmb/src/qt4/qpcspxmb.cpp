@@ -24,15 +24,16 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "qumdmodel.h"
 
-QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags, QString const &path)
+QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 :   QMainWindow(parent, flags)
 ,   Ui::PcspXmbUi()
 ,   m_selectionModel(0)
+,   m_ini("pcsp-xmb.ini", QSettings::IniFormat)
 {
     setupUi(this);
 
-    m_umdisospath = path;
-    m_model  = new QUmdTableModel(path, this);
+    m_umdisospath = m_ini.value("/default/games/path").toString();
+    m_model  = new QUmdTableModel(m_umdisospath, this);
     m_mapper = new QDataWidgetMapper(this);
     m_mapper->setModel(m_model);
     m_mapper->addMapping(discIdEdit,   1);
@@ -49,14 +50,30 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags, QString const &path)
     icon0List->setModel(m_model);
     icon0List->setModelColumn(0);
 
-    QAction *action = new QAction(tr("Change UMD images folder"), this);
-    connect(action, SIGNAL(triggered()), this, SLOT(onChangeUmdPath()));
-    pic1Label->addAction(action);
-
     connect(icon0List, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
     connect(runButton, SIGNAL(clicked()), this, SLOT(onPressedButton()));
 
-    refresh();
+    QMenu *menu = new QMenu(tr("Settings"), this);
+    QAction *action1 = new QAction(tr("Change UMD Games folder"), this);
+    QAction *action2 = new QAction(tr("Auto-rename UMD Games"), this);
+    action2->setCheckable(true);
+    connect(action1, SIGNAL(triggered()), this, SLOT(onChangeUmdPath()));
+    connect(action2, SIGNAL(toggled(bool)), this, SLOT(onAutoRenameToggled(bool)));
+    menu->addAction(action1);
+    menu->addAction(action2);
+    m_systray = new QSystemTrayIcon(QIcon(":/icons/pcsp.ico"), this);
+    connect(m_systray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(showNormal()));
+    m_systray->setContextMenu(menu);
+    m_systray->show();
+
+    if (m_umdisospath.isEmpty())
+    {
+        onChangeUmdPath();
+    }
+    else
+    {
+        refresh();
+    }
 }
 
 QPcspXmb::~QPcspXmb()
@@ -79,7 +96,7 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
     m_mapper->setCurrentModelIndex(index);
     pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
-    icon0List->scrollTo(index, QAbstractItemView::PositionAtCenter);
+    icon0List->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
 }
 
 void QPcspXmb::onDoubleClicked(QModelIndex const &index)
@@ -93,7 +110,7 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
     {
         if (!launcher.startDetached("pcsp", arguments))
         {
-            QMessageBox::critical(0, tr("PCSP - XMB"), tr("Cannot find the emulator executable to play %1!").arg(index.sibling(index.row(), 2).data(Qt::DisplayRole).toString()));
+            QMessageBox::critical(0, tr("PCSP - XMB"), tr("Cannot find an emulator to play %1!").arg(index.sibling(index.row(), 2).data(Qt::DisplayRole).toString()));
         }
     }
 }
@@ -106,17 +123,22 @@ void QPcspXmb::onPressedButton()
 
 void QPcspXmb::refresh()
 {
-    m_model->updateModel(m_umdisospath);
+    m_model->updateModel(m_umdisospath, m_ini.value("/default/games/autorename", false).toBool());
 }
 
 void QPcspXmb::onChangeUmdPath()
 {
     QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
-    QString newPath = QFileDialog::getExistingDirectory(0, tr("Select the umd images folder"), m_umdisospath, options);
+    QString newPath = QFileDialog::getExistingDirectory(0, tr("Select UMD Games folder"), m_umdisospath, options);
     if (newPath.size())
     {
         m_umdisospath = newPath;
-        QSettings("settings.ini", QSettings::IniFormat).setValue("umdpath", m_umdisospath);
+        m_ini.setValue("/default/games/path", m_umdisospath);
         refresh();
     }
+}
+
+void QPcspXmb::onAutoRenameToggled(bool checked)
+{
+    m_ini.setValue("/default/games/autorename", checked);
 }

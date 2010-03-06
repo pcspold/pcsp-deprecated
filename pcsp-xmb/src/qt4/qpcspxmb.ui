@@ -385,7 +385,7 @@
      </size>
     </property>
     <property name="contextMenuPolicy">
-     <enum>Qt::ActionsContextMenu</enum>
+     <enum>Qt::DefaultContextMenu</enum>
     </property>
     <property name="text">
      <string/>
@@ -738,13 +738,16 @@
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QCommandLinkButton" name="runButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>400</x>
       <y>200</y>
-      <width>61</width>
+      <width>71</width>
       <height>41</height>
      </rect>
     </property>
@@ -852,6 +855,9 @@
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <zorder>pic1Label</zorder>
    <zorder>gameNameEdit</zorder>
@@ -862,35 +868,13 @@
    <zorder>crc32Edit</zorder>
    <zorder>icon0List</zorder>
   </widget>
-  <action name="actionChange_UMD_Location">
-   <property name="text">
-    <string>Change UMD Location</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="qpcspxmb.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>actionChange_UMD_Location</sender>
-   <signal>triggered()</signal>
-   <receiver>PcspXmbUi</receiver>
-   <slot>menu_changeUmdPath()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>346</x>
-     <y>249</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
-  <slot>menu_changeUmdPath()</slot>
  </slots>
 </ui>
