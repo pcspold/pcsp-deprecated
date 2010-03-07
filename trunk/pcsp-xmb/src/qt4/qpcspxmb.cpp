@@ -57,6 +57,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     QAction *action1 = new QAction(tr("Change UMD Games folder"), this);
     QAction *action2 = new QAction(tr("Auto-rename UMD Games"), this);
     action2->setCheckable(true);
+    action2->setChecked(m_ini.value("/default/games/autorename", false).toBool());
     connect(action1, SIGNAL(triggered()), this, SLOT(onChangeUmdPath()));
     connect(action2, SIGNAL(toggled(bool)), this, SLOT(onAutoRenameToggled(bool)));
     menu->addAction(action1);

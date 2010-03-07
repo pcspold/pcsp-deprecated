@@ -46,12 +46,12 @@
         <translation>Auto-renommer les jeux UMD</translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.cpp" line="113"/>
+        <location filename="../../src/qt4/qpcspxmb.cpp" line="114"/>
         <source>Cannot find an emulator to play %1!</source>
         <translation>Impossible de trouver un émulateur pour jouer à %1 !</translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.cpp" line="132"/>
+        <location filename="../../src/qt4/qpcspxmb.cpp" line="133"/>
         <source>Select UMD Games folder</source>
         <translation>Sélectionner un dossier des jeux UMD</translation>
     </message>
@@ -60,7 +60,7 @@
         <translation type="obsolete">Changer le dossier des images UMD</translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.cpp" line="113"/>
+        <location filename="../../src/qt4/qpcspxmb.cpp" line="114"/>
         <source>PCSP - XMB</source>
         <translatorcomment>what else ?</translatorcomment>
         <translation>PCSP-XMB</translation>

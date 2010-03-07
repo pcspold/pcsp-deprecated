@@ -147,7 +147,9 @@ public:
         return absoluteFilePath != entry.absoluteFilePath() || lastModified != entry.lastModified();
     }
 
-    UmdInfos(QFileInfo const &entry)
+    UmdInfos(QFileInfo const &entry, bool autorename = false)
+    :   crc32(0)
+    ,   autorename(autorename)
     {
         *this = entry;
     }
@@ -379,7 +381,8 @@ public:
             {
                 QFileInfo fi = entry.next();
                 s.showMessage(tr("Loading %1...").arg(fi.baseName()));
-                m_infos.push_back(fi);
+                UmdInfos infos(fi, autorename);
+                m_infos.push_back(infos);
                 if (!m_infos.last().id.size())
                 {
                     m_infos.removeLast();
