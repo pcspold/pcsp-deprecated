@@ -133,7 +133,10 @@ public:
     QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
 
     QString   absoluteFilePath;
+	QString   filename;
     QDateTime lastModified;
+	u32       lastModinSec;
+	qint64    filesize;
     bool      autorename;
 
     UmdInfos(bool autorename = false)
@@ -159,7 +162,11 @@ public:
         if (*this != entry)
         {
             absoluteFilePath = entry.absoluteFilePath();
+			filename         = entry.fileName();
             lastModified     = entry.lastModified();
+			lastModinSec     = lastModified.toTime_t();
+			filesize         = entry.size();
+
 
             int     f;
             u8     *data;
@@ -185,7 +192,7 @@ public:
                     id       = QString::fromUtf8(psfinfo.disc_id);
                     firmware = QString::fromUtf8(psfinfo.psp_system_version);
 
-                    QSettings ini("data/games.ini", QSettings::IniFormat);
+                    QSettings ini("data/gamesdatabase.ini", QSettings::IniFormat);
 
                     ini.beginGroup(id);
                     
@@ -328,6 +335,23 @@ public:
                         }
                     }
 
+					//create an entry for the cachefile
+				    QSettings cacheini("cache.dat", QSettings::IniFormat);
+                    //check to see if we have already an entry
+                    cacheini.beginGroup(filename);
+				    QString game_exists = cacheini.value("/umd/path","").toString();
+					if(game_exists.isEmpty())//not a record
+					{
+						//QString filesizeString;
+						//filesizeString.setNum(filesize,10);
+						//QString test = filename + "-" + filesizeString;
+                        
+						cacheini.setValue("/umd/path", absoluteFilePath);
+						cacheini.setValue("/umd/lastmodified",lastModinSec);
+						cacheini.setValue("/umd/filesize",filesize);
+					    cacheini.setValue("/umd/crc32",crc32);
+						
+					}
                     if (status.size())
                     {
                         ini.setValue("/umd/status", status);
@@ -335,8 +359,11 @@ public:
                     }
                     ini.endGroup();
                     ini.remove(id);
+					cacheini.endGroup();
+					cacheini.remove(filename);
 
                     umdimageloader::shutdown();
+
                 }
                 title    = "";
                 id       = "";
