@@ -167,7 +167,19 @@ public:
 			lastModinSec     = lastModified.toTime_t();
 			filesize         = entry.size();
 
-
+            QSettings cacheiniload("cache.dat", QSettings::IniFormat);
+            //check to see if we have already an entry
+            cacheiniload.beginGroup(filename);
+		    if(absoluteFilePath == cacheiniload.value("/umd/path"))//there is an entry with the same absolute path
+			{
+               bool lastmodsame = (lastModinSec == cacheiniload.value("/umd/lastmodified").toUInt());
+			   bool filesizesame = (filesize == cacheiniload.value("/umd/filesize").toULongLong());
+			   if(lastmodsame && filesizesame)
+			   {
+                   //bingo we have a cache entry!!
+				   int ok=5;
+			   }
+			}
             int     f;
             u8     *data;
             u32     size;
