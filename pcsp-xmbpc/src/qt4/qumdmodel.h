@@ -181,6 +181,19 @@ public:
 			   if(lastmodsame && filesizesame)
 			   {
                    //bingo we have a cache entry!!
+				   crc32 =  cacheiniload.value("crc32", u32(0)).toUInt();
+				   QString cached_discid = cacheiniload.value("id").toString();
+				   QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
+				   loadfromdatabase.beginGroup(cached_discid);
+				   if(loadfromdatabase.contains("title"))//check if database has the game title (one of the keys)
+				   {
+                      //it has load all keys and return!
+                        id       = loadfromdatabase.value("id").toString();
+						title    = loadfromdatabase.value("title").toString();
+						firmware = loadfromdatabase.value("firmware").toString();
+						status   = loadfromdatabase.value("status").toString();
+						return *this;
+				   }
 				  
 			   }
 			}
@@ -212,7 +225,7 @@ public:
 
                     ini.beginGroup(id);
                     
-                    crc32 = ini.value("/umd/crc32", u32(0)).toUInt();
+                    //crc32 = ini.value("crc32", u32(0)).toUInt();
 
                     if (!crc32)
                     {
@@ -243,11 +256,11 @@ public:
                     //    }
                     //}
 
-                    ini.setValue("/umd/path", absoluteFilePath);
-                    ini.setValue("/umd/id", id);
-                    ini.setValue("/umd/title", title);
-                    ini.setValue("/umd/firmware", firmware);
-                    ini.setValue("/umd/crc32", crc32);
+                   // ini.setValue("/umd/path", absoluteFilePath);
+                    ini.setValue("id", id);
+                    ini.setValue("title", title);
+                    ini.setValue("firmware", firmware);
+                   // ini.setValue("/umd/crc32", crc32);
 
                     QDir().mkpath("data/" + id);
 
@@ -367,7 +380,7 @@ public:
 					}
                     if (status.size())
                     {
-                        ini.setValue("/umd/status", status);
+                        ini.setValue("status", status);
                         return *this;
                     }
                     ini.endGroup();
