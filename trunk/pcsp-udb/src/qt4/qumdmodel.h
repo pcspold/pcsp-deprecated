@@ -480,7 +480,7 @@ public:
 
             switch (index.column())
             {
-           // case 0: return (role == Qt::DecorationRole                     ) ? QPixmap(infos.icon0())                                             : QVariant();
+            //case 0: return (role == Qt::DecorationRole                     ) ? QPixmap(infos.icon0())                                             : QVariant();
             case 0: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                                        : QVariant();
 			case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                           : QVariant();
             

@@ -14,22 +14,22 @@
         <translation>Jouer</translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.ui" line="121"/>
+        <location filename="../../src/qt4/qpcspxmb.ui" line="130"/>
         <source>Game Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.ui" line="563"/>
+        <location filename="../../src/qt4/qpcspxmb.ui" line="594"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.ui" line="568"/>
+        <location filename="../../src/qt4/qpcspxmb.ui" line="599"/>
         <source>Covers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/qt4/qpcspxmb.ui" line="573"/>
+        <location filename="../../src/qt4/qpcspxmb.ui" line="604"/>
         <source>Settings</source>
         <translation type="unfinished">Paramètres</translation>
     </message>
