@@ -167,9 +167,13 @@ public:
 			lastModinSec     = lastModified.toTime_t();
 			filesize         = entry.size();
 
+			QString filesizetoString;
+			filesizetoString.setNum(filesize,10);
+			QString cacheinigroup = filename + "-" + filesizetoString;
+
             QSettings cacheiniload("cache.dat", QSettings::IniFormat);
             //check to see if we have already an entry
-            cacheiniload.beginGroup(filename);
+            cacheiniload.beginGroup(cacheinigroup);
 		    if(absoluteFilePath == cacheiniload.value("/umd/path"))//there is an entry with the same absolute path
 			{
                bool lastmodsame = (lastModinSec == cacheiniload.value("/umd/lastmodified").toUInt());
@@ -177,7 +181,7 @@ public:
 			   if(lastmodsame && filesizesame)
 			   {
                    //bingo we have a cache entry!!
-				   int ok=5;
+				  
 			   }
 			}
             int     f;
@@ -350,14 +354,10 @@ public:
 					//create an entry for the cachefile
 				    QSettings cacheini("cache.dat", QSettings::IniFormat);
                     //check to see if we have already an entry
-                    cacheini.beginGroup(filename);
+                    cacheini.beginGroup(cacheinigroup);
 				    QString game_exists = cacheini.value("/umd/path","").toString();
 					if(game_exists.isEmpty())//not a record
-					{
-						//QString filesizeString;
-						//filesizeString.setNum(filesize,10);
-						//QString test = filename + "-" + filesizeString;
-                        
+					{                     
 						cacheini.setValue("/umd/path", absoluteFilePath);
 						cacheini.setValue("/umd/lastmodified",lastModinSec);
 						cacheini.setValue("/umd/filesize",filesize);
@@ -372,7 +372,7 @@ public:
                     ini.endGroup();
                     ini.remove(id);
 					cacheini.endGroup();
-					cacheini.remove(filename);
+					cacheini.remove(cacheinigroup);
 
                     umdimageloader::shutdown();
 
