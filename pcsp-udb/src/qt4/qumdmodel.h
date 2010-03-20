@@ -127,6 +127,8 @@ public:
     //QPixmap pic1;
     QString firmware;
     QString status;
+	QString coverfront;
+	QString coverback;
     u32     crc32;
 
     QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
@@ -192,6 +194,8 @@ public:
 						title    = loadfromdatabase.value("title").toString();
 						firmware = loadfromdatabase.value("firmware").toString();
 						status   = loadfromdatabase.value("status").toString();
+						coverfront = loadfromdatabase.value("coverfront").toString();
+						coverback = loadfromdatabase.value("coverback").toString();
 						return *this;
 				   }
 				  
@@ -260,6 +264,8 @@ public:
                     ini.setValue("id", id);
                     ini.setValue("title", title);
                     ini.setValue("firmware", firmware);
+					ini.setValue("coverfront",id + "-front.jpg");
+					ini.setValue("coverback",id+"-back.jpg");
                    // ini.setValue("/umd/crc32", crc32);
 
                     QDir().mkpath("data/" + id);
@@ -482,6 +488,14 @@ public:
                return infos.icon0();
 			}
 
+			if(role == Qt::UserRole+2)
+			{
+               return "data/" + infos.id + "/"+infos.coverfront;
+			}
+			if(role == Qt::UserRole+3)
+			{
+               return "data/" + infos.id + "/"+infos.coverback;
+			}
             switch (index.column())
             {
             //case 0: return (role == Qt::DecorationRole                     ) ? QPixmap(infos.icon0())                                             : QVariant();

@@ -55,6 +55,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 //   connect(icon0List, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
     connect(runButton, SIGNAL(clicked()), this, SLOT(onPressedButton()));
 
+
     QMenu *menu = new QMenu(tr("Settings"), this);
     QAction *action1 = new QAction(tr("Change UMD Games folder"), this);
     QAction *action2 = new QAction(tr("Auto-rename UMD Games"), this);
@@ -99,6 +100,8 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
     m_mapper->setCurrentModelIndex(index);
 	 icon0pic->setPixmap(QPixmap(index.data(Qt::UserRole+1).toString()));
+	 coverpic->setPixmap(QPixmap(index.data(Qt::UserRole+2).toString()));
+	 coverpicback->setPixmap(QPixmap(index.data(Qt::UserRole+3).toString()));
 //   pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
   //  gameList->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
 }

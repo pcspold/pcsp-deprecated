@@ -44,6 +44,7 @@ private slots:
     void onDoubleClicked(QModelIndex const &index);
     void onPressedButton();
 
+
 private:
     QString              m_umdisospath;
     QUmdTableModel      *m_model;
