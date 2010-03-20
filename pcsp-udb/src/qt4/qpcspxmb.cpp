@@ -98,6 +98,7 @@ void QPcspXmb::onModelReset()
 void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
     m_mapper->setCurrentModelIndex(index);
+	 icon0pic->setPixmap(QPixmap(index.data(Qt::UserRole+1).toString()));
 //   pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
   //  gameList->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
 }

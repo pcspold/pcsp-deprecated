@@ -130,7 +130,7 @@ public:
     u32     crc32;
 
     QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
-    QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
+    //QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
 
     QString   absoluteFilePath;
 	QString   filename;
@@ -293,7 +293,7 @@ public:
                         delete data;
                     }
 
-                    QPixmap pic1File(480, 272);
+                  /*  QPixmap pic1File(480, 272);
                     QString pic1FileName(pic1());
                     if (QFile::exists(pic1FileName))
                     {
@@ -324,7 +324,7 @@ public:
                         pic1File.save(pic1FileName);
 
                         delete data;
-                    }
+                    }*/
 
                     int header;
 
@@ -477,6 +477,10 @@ public:
             {
                 return infos.absoluteFilePath;
             }
+			if(role == Qt::UserRole+1)
+			{
+               return infos.icon0();
+			}
 
             switch (index.column())
             {
