@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcsp-xmb", "pcsp-xmb.vcproj", "{EFE43DEE-6DC8-42BD-9081-2BE4A07340E8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pcsp-udb", "pcsp-udb.vcproj", "{EFE43DEE-6DC8-42BD-9081-2BE4A07340E8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\..\..\3rdparty\zlib\zlib_2008.vcproj", "{3E03C179-8251-46E4-81F4-466F114BAC63}"
 EndProject
