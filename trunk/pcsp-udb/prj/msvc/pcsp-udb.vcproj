@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="pcsp-xmb"
+	Name="pcsp-udb"
 	ProjectGUID="{EFE43DEE-6DC8-42BD-9081-2BE4A07340E8}"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
@@ -217,7 +217,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\pcsp-xmb.rc"
+				RelativePath=".\pcsp-udb.rc"
 				>
 			</File>
 			<File
@@ -499,7 +499,7 @@
 			ParseFiles="false"
 			>
 			<File
-				RelativePath=".\pcsp-xmb_fr.ts"
+				RelativePath=".\pcsp-udb_fr.ts"
 				>
 			</File>
 		</Filter>
