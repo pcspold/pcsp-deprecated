@@ -234,9 +234,21 @@ public:
                 {
                     psf::load_psf(data);
 
-                    title    = QString::fromUtf8(psfinfo.title);
+                    
                     id       = QString::fromUtf8(psfinfo.disc_id);
-                    firmware = QString::fromUtf8(psfinfo.psp_system_version);
+                    QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
+				    loadfromdatabase.beginGroup(id);
+                    if(loadfromdatabase.contains("title"))
+					{
+                      title    = loadfromdatabase.value("title").toString();
+					  firmware = loadfromdatabase.value("firmware").toString();
+					}
+					else
+					{
+						title    = QString::fromUtf8(psfinfo.title);
+						firmware = QString::fromUtf8(psfinfo.psp_system_version);
+					}
+         
 
                     QSettings ini("data/gamesdatabase.ini", QSettings::IniFormat);
 
@@ -274,37 +286,55 @@ public:
                     //}
 
                    // ini.setValue("/umd/path", absoluteFilePath);
-                    ini.setValue("id", id);
-                    ini.setValue("title", title);
-                    ini.setValue("firmware", firmware);
-					ini.setValue("coverfront",id + "-front.jpg");
-					ini.setValue("coverback",id+"-back.jpg");
-					ini.setValue("previewpic1",id+"-preview1.jpg");
-					ini.setValue("previewpic2",id+"-preview2.jpg");
-					if(id.startsWith("ULJM"))
+					if(loadfromdatabase.contains("title"))
 					{
-                      ini.setValue("region","Japan");
-					}
-                   	else if(id.startsWith("UCES"))
-					{
-                      ini.setValue("region","Europe");
-					}
-					else if(id.startsWith("ULES"))
-					{
-                      ini.setValue("region","Europe");
-					}
-					else if(id.startsWith("ULUS"))
-					{
-                       ini.setValue("region","USA");
+                      	coverfront = loadfromdatabase.value("coverfront").toString();
+						coverback = loadfromdatabase.value("coverback").toString();
+						preview1 =  loadfromdatabase.value("previewpic1").toString();
+						preview2 =loadfromdatabase.value("previewpic2").toString();
+						region =loadfromdatabase.value("region").toString();
+	                    language =loadfromdatabase.value("language").toString();
+	                    genre =loadfromdatabase.value("genre").toString();
+	                    company =loadfromdatabase.value("company").toString();
 					}
 					else
 					{
-                      ini.setValue("region","<unknown>");
-					}
-	                ini.setValue("language","<unknown>");
-	                ini.setValue("genre","<unknown>");
-	                ini.setValue("company","<unknown>");
+						ini.setValue("id", id);
+						ini.setValue("title", title);
+						ini.setValue("firmware", firmware);
+						ini.setValue("coverfront",id + "-front.jpg");
+						ini.setValue("coverback",id+"-back.jpg");
+						ini.setValue("previewpic1",id+"-preview1.jpg");
+						ini.setValue("previewpic2",id+"-preview2.jpg");
+						if(id.startsWith("ULJM"))
+						{
+						ini.setValue("region","Japan");
+						}
+                   		else if(id.startsWith("UCES"))
+						{
+						 ini.setValue("region","Europe");
+						}
+						else if(id.startsWith("ULES"))
+						{
+						  ini.setValue("region","Europe");
+						}
+						else if(id.startsWith("ULUS"))
+						{
+						 ini.setValue("region","USA");
+						}
+					    else
+					     {
+                         ini.setValue("region","<unknown>");
+					    }
+						 ini.setValue("language","<unknown>");
+						ini.setValue("genre","<unknown>");
+						ini.setValue("company","<unknown>");
 
+						region = ini.value("region").toString();
+						language=ini.value("language").toString();
+						genre=ini.value("genre").toString();
+						company=ini.value("company").toString();
+					}
                     QDir().mkpath("data/" + id);
 
                     QPixmap icon0File(144, 80);
@@ -440,6 +470,10 @@ public:
                 firmware = "";
                 status   = "";
                 crc32    = 0;
+				region= "";
+		        language= "";
+	            genre= "";
+	            company= "";
             }
         }
 
