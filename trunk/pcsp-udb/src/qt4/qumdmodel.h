@@ -190,6 +190,7 @@ public:
 			   {
                    //bingo we have a cache entry!!
 				   crc32 =  cacheiniload.value("crc32", u32(0)).toUInt();
+				   status= cacheiniload.value("gamestatus").toString();
 				   QString cached_discid = cacheiniload.value("id").toString();
 				   QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
 				   loadfromdatabase.beginGroup(cached_discid);
@@ -199,7 +200,7 @@ public:
                         id       = loadfromdatabase.value("id").toString();
 						title    = loadfromdatabase.value("title").toString();
 						firmware = loadfromdatabase.value("firmware").toString();
-						status   = loadfromdatabase.value("status").toString();
+						//status   = loadfromdatabase.value("status").toString();
 						coverfront = loadfromdatabase.value("coverfront").toString();
 						coverback = loadfromdatabase.value("coverback").toString();
 						preview1 =  loadfromdatabase.value("previewpic1").toString();
@@ -418,11 +419,12 @@ public:
 						cacheini.setValue("filesize",filesize);
 						cacheini.setValue("id",id);
 					    cacheini.setValue("crc32",crc32);
+						cacheini.setValue("gamestatus",status);
 						
 					}
                     if (status.size())
                     {
-                        ini.setValue("status", status);
+                       // ini.setValue("status", status);
                         return *this;
                     }
                     ini.endGroup();
