@@ -129,6 +129,12 @@ public:
     QString status;
 	QString coverfront;
 	QString coverback;
+	QString preview1;
+	QString preview2;
+	QString region;
+	QString language;
+	QString genre;
+	QString company;
     u32     crc32;
 
     QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
@@ -196,6 +202,12 @@ public:
 						status   = loadfromdatabase.value("status").toString();
 						coverfront = loadfromdatabase.value("coverfront").toString();
 						coverback = loadfromdatabase.value("coverback").toString();
+						preview1 =  loadfromdatabase.value("previewpic1").toString();
+						preview2 =loadfromdatabase.value("previewpic2").toString();
+						region =loadfromdatabase.value("region").toString();
+	                    language =loadfromdatabase.value("language").toString();
+	                    genre =loadfromdatabase.value("genre").toString();
+	                    company =loadfromdatabase.value("company").toString();
 						return *this;
 				   }
 				  
@@ -266,7 +278,31 @@ public:
                     ini.setValue("firmware", firmware);
 					ini.setValue("coverfront",id + "-front.jpg");
 					ini.setValue("coverback",id+"-back.jpg");
-                   // ini.setValue("/umd/crc32", crc32);
+					ini.setValue("previewpic1",id+"-preview1.jpg");
+					ini.setValue("previewpic2",id+"-preview2.jpg");
+					if(id.startsWith("ULJM"))
+					{
+                      ini.setValue("region","Japan");
+					}
+                   	else if(id.startsWith("UCES"))
+					{
+                      ini.setValue("region","Europe");
+					}
+					else if(id.startsWith("ULES"))
+					{
+                      ini.setValue("region","Europe");
+					}
+					else if(id.startsWith("ULUS"))
+					{
+                       ini.setValue("region","USA");
+					}
+					else
+					{
+                      ini.setValue("region","<unknown>");
+					}
+	                ini.setValue("language","<unknown>");
+	                ini.setValue("genre","<unknown>");
+	                ini.setValue("company","<unknown>");
 
                     QDir().mkpath("data/" + id);
 
@@ -449,11 +485,12 @@ public:
             }
         }
         endResetModel();
+		
     }
 
     virtual int columnCount(QModelIndex const &parent = QModelIndex()) const
     {
-        return 5;
+        return 10;
     }
 
     virtual int rowCount(QModelIndex const &parent = QModelIndex()) const
@@ -496,18 +533,39 @@ public:
 			{
                return "data/" + infos.id + "/"+infos.coverback;
 			}
+			if(role == Qt::UserRole+4)
+			{
+               return "data/" + infos.id + "/"+infos.preview1;
+			}
+			if(role == Qt::UserRole+5)
+			{
+				return "data/" + infos.id + "/"+infos.preview2;
+			}
+			/*if (role == Qt::TextAlignmentRole) 
+			{
+                 if(index.column() == 0) {
+                  return (QVariant) ( Qt::AlignLeft);
+                 } else {
+                    return (QVariant) ( Qt::AlignRight | Qt::AlignVCenter);
+					}
+             }*/
             switch (index.column())
             {
-            //case 0: return (role == Qt::DecorationRole                     ) ? QPixmap(infos.icon0())                                             : QVariant();
             case 0: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                                        : QVariant();
-			case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                           : QVariant();
-            
-           // case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.pic1()                                                       : QVariant();
-            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
-            case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.status                                                       : QVariant();
-            case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
+			case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                         : QVariant();
+			case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                         : QVariant();
+            case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
+			case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                     : QVariant();
+			case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.language : QVariant();
+			case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.genre : QVariant();
+			case 7: return (role == Qt::DisplayRole || role == Qt::EditRole) ?QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
+			case 8: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.status : QVariant();
+			case 9: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.filesize : QVariant();
             }
         }
+
+    
+
 
         return QVariant();
     }
@@ -518,14 +576,11 @@ public:
         {
             switch (section)
             {
-           // case 0: return "ICON0";
 			case 0: return "Title";
-            case 1: return "Disk ID";
-          
-            //case 2: return "PIC1";
-            case 2: return "Firmware";
-            case 3: return "Status";
-            case 4: return "CRC32";
+            case 1: return "Disc ID";
+            case 2: return "Region";
+            case 3: return "FW";
+            case 4: return "Company";
             }
         }
 
