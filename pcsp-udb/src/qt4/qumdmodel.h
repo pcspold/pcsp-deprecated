@@ -13,7 +13,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 #ifndef __QUMDTABLEMODEL_H__
 #define __QUMDTABLEMODEL_H__
@@ -127,29 +127,29 @@ public:
     //QPixmap pic1;
     QString firmware;
     QString status;
-	QString coverfront;
-	QString coverback;
-	QString preview1;
-	QString preview2;
-	QString region;
-	QString language;
-	QString genre;
-	QString company;
+    QString coverfront;
+    QString coverback;
+    QString preview1;
+    QString preview2;
+    QString region;
+    QString language;
+    QString genre;
+    QString company;
     u32     crc32;
 
     QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
     //QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
 
     QString   absoluteFilePath;
-	QString   filename;
+    QString   filename;
     QDateTime lastModified;
-	u32       lastModinSec;
-	qint64    filesize;
+    u32       lastModinSec;
+    qint64    filesize;
     bool      autorename;
 
     UmdInfos(bool autorename = false)
-    :   crc32(0)
-    ,   autorename(autorename)
+        :   crc32(0)
+        ,   autorename(autorename)
     {
     }
 
@@ -159,8 +159,8 @@ public:
     }
 
     UmdInfos(QFileInfo const &entry, bool autorename = false)
-    :   crc32(0)
-    ,   autorename(autorename)
+        :   crc32(0)
+        ,   autorename(autorename)
     {
         *this = entry;
     }
@@ -170,50 +170,51 @@ public:
         if (*this != entry)
         {
             absoluteFilePath = entry.absoluteFilePath();
-			filename         = entry.fileName();
+            filename         = entry.fileName();
             lastModified     = entry.lastModified();
-			lastModinSec     = lastModified.toTime_t();
-			filesize         = entry.size();
+            lastModinSec     = lastModified.toTime_t();
+            filesize         = entry.size();
 
-			QString filesizetoString;
-			filesizetoString.setNum(filesize,10);
-			QString cacheinigroup = filename + "-" + filesizetoString;
+            QString filesizetoString;
+            filesizetoString.setNum(filesize, 10);
+            QString cacheinigroup = filename + "-" + filesizetoString;
 
             QSettings cacheiniload("cache.dat", QSettings::IniFormat);
-            //check to see if we have already an entry
+            
+            // check to see if we have already an entry
             cacheiniload.beginGroup(cacheinigroup);
-		    if(absoluteFilePath == cacheiniload.value("path"))//there is an entry with the same absolute path
-			{
-               bool lastmodsame = (lastModinSec == cacheiniload.value("lastmodified").toUInt());
-			   bool filesizesame = (filesize == cacheiniload.value("filesize").toULongLong());
-			   if(lastmodsame && filesizesame)
-			   {
-                   //bingo we have a cache entry!!
-				   crc32 =  cacheiniload.value("crc32", u32(0)).toUInt();
-				   status= cacheiniload.value("gamestatus").toString();
-				   QString cached_discid = cacheiniload.value("id").toString();
-				   QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
-				   loadfromdatabase.beginGroup(cached_discid);
-				   if(loadfromdatabase.contains("title"))//check if database has the game title (one of the keys)
-				   {
-                      //it has load all keys and return!
-                        id       = loadfromdatabase.value("id").toString();
-						title    = loadfromdatabase.value("title").toString();
-						firmware = loadfromdatabase.value("firmware").toString();
-						//status   = loadfromdatabase.value("status").toString();
-						coverfront = loadfromdatabase.value("coverfront").toString();
-						coverback = loadfromdatabase.value("coverback").toString();
-						preview1 =  loadfromdatabase.value("previewpic1").toString();
-						preview2 =loadfromdatabase.value("previewpic2").toString();
-						region =loadfromdatabase.value("region").toString();
-	                    language =loadfromdatabase.value("language").toString();
-	                    genre =loadfromdatabase.value("genre").toString();
-	                    company =loadfromdatabase.value("company").toString();
-						return *this;
-				   }
-				  
-			   }
-			}
+            if (absoluteFilePath == cacheiniload.value("path")) // there is an entry with the same absolute path
+            {
+                bool lastmodsame  = (lastModinSec == cacheiniload.value("lastmodified").toUInt());
+                bool filesizesame = (filesize == cacheiniload.value("filesize").toULongLong());
+                if (lastmodsame && filesizesame)
+                {
+                    //bingo we have a cache entry!!
+                    crc32  = cacheiniload.value("crc32", u32(0)).toUInt();
+                    status = cacheiniload.value("gamestatus").toString();
+                    QString cached_discid = cacheiniload.value("id").toString();
+                    QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
+                    loadfromdatabase.beginGroup(cached_discid);
+                    if (loadfromdatabase.contains("title"))//check if database has the game title (one of the keys)
+                    {
+                        //it has load all keys and return!
+                        id         = loadfromdatabase.value("id").toString();
+                        title      = loadfromdatabase.value("title").toString();
+                        firmware   = loadfromdatabase.value("firmware").toString();
+                        //status   = loadfromdatabase.value("status").toString();
+                        coverfront = loadfromdatabase.value("coverfront").toString();
+                        coverback  = loadfromdatabase.value("coverback").toString();
+                        preview1   = loadfromdatabase.value("previewpic1").toString();
+                        preview2   = loadfromdatabase.value("previewpic2").toString();
+                        region     = loadfromdatabase.value("region").toString();
+                        language   = loadfromdatabase.value("language").toString();
+                        genre      = loadfromdatabase.value("genre").toString();
+                        company    = loadfromdatabase.value("company").toString();
+                        return *this;
+                    }
+
+                }
+            }
             int     f;
             u8     *data;
             u32     size;
@@ -234,26 +235,26 @@ public:
                 {
                     psf::load_psf(data);
 
-                    
+
                     id       = QString::fromUtf8(psfinfo.disc_id);
                     QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
-				    loadfromdatabase.beginGroup(id);
-                    if(loadfromdatabase.contains("title"))
-					{
-                      title    = loadfromdatabase.value("title").toString();
-					  firmware = loadfromdatabase.value("firmware").toString();
-					}
-					else
-					{
-						title    = QString::fromUtf8(psfinfo.title);
-						firmware = QString::fromUtf8(psfinfo.psp_system_version);
-					}
-         
+                    loadfromdatabase.beginGroup(id);
+                    if (loadfromdatabase.contains("title"))
+                    {
+                        title    = loadfromdatabase.value("title").toString();
+                        firmware = loadfromdatabase.value("firmware").toString();
+                    }
+                    else
+                    {
+                        title    = QString::fromUtf8(psfinfo.title);
+                        firmware = QString::fromUtf8(psfinfo.psp_system_version);
+                    }
+
 
                     QSettings ini("data/gamesdatabase.ini", QSettings::IniFormat);
 
                     ini.beginGroup(id);
-                    
+
                     //crc32 = ini.value("crc32", u32(0)).toUInt();
 
                     if (!crc32)
@@ -285,56 +286,57 @@ public:
                     //    }
                     //}
 
-                   // ini.setValue("/umd/path", absoluteFilePath);
-					if(loadfromdatabase.contains("title"))
-					{
-                      	coverfront = loadfromdatabase.value("coverfront").toString();
-						coverback = loadfromdatabase.value("coverback").toString();
-						preview1 =  loadfromdatabase.value("previewpic1").toString();
-						preview2 =loadfromdatabase.value("previewpic2").toString();
-						region =loadfromdatabase.value("region").toString();
-	                    language =loadfromdatabase.value("language").toString();
-	                    genre =loadfromdatabase.value("genre").toString();
-	                    company =loadfromdatabase.value("company").toString();
-					}
-					else
-					{
-						ini.setValue("id", id);
-						ini.setValue("title", title);
-						ini.setValue("firmware", firmware);
-						ini.setValue("coverfront",id + "-front.jpg");
-						ini.setValue("coverback",id+"-back.jpg");
-						ini.setValue("previewpic1",id+"-preview1.jpg");
-						ini.setValue("previewpic2",id+"-preview2.jpg");
-						if(id.startsWith("ULJM"))
-						{
-						ini.setValue("region","Japan");
-						}
-                   		else if(id.startsWith("UCES"))
-						{
-						 ini.setValue("region","Europe");
-						}
-						else if(id.startsWith("ULES"))
-						{
-						  ini.setValue("region","Europe");
-						}
-						else if(id.startsWith("ULUS"))
-						{
-						 ini.setValue("region","USA");
-						}
-					    else
-					     {
-                         ini.setValue("region","<unknown>");
-					    }
-						 ini.setValue("language","<unknown>");
-						ini.setValue("genre","<unknown>");
-						ini.setValue("company","<unknown>");
+                    // ini.setValue("/umd/path", absoluteFilePath);
+                    if (loadfromdatabase.contains("title"))
+                    {
+                        coverfront = loadfromdatabase.value("coverfront").toString();
+                        coverback = loadfromdatabase.value("coverback").toString();
+                        preview1 =  loadfromdatabase.value("previewpic1").toString();
+                        preview2 =loadfromdatabase.value("previewpic2").toString();
+                        region =loadfromdatabase.value("region").toString();
+                        language =loadfromdatabase.value("language").toString();
+                        genre =loadfromdatabase.value("genre").toString();
+                        company =loadfromdatabase.value("company").toString();
+                    }
+                    else
+                    {
+                        ini.setValue("id",          id);
+                        ini.setValue("title",       title);
+                        ini.setValue("firmware",    firmware);
+                        ini.setValue("coverfront",  id + "-front.jpg");
+                        ini.setValue("coverback",   id + "-back.jpg");
+                        ini.setValue("previewpic1", id + "-preview1.jpg");
+                        ini.setValue("previewpic2", id + "-preview2.jpg");
+                        
+                        if (id.startsWith("ULJM"))
+                        {
+                            ini.setValue("region", "Japan");
+                        }
+                        else if (id.startsWith("UCES"))
+                        {
+                            ini.setValue("region", "Europe");
+                        }
+                        else if (id.startsWith("ULES"))
+                        {
+                            ini.setValue("region", "Europe");
+                        }
+                        else if (id.startsWith("ULUS"))
+                        {
+                            ini.setValue("region", "USA");
+                        }
+                        else
+                        {
+                            ini.setValue("region", "<unknown>");
+                        }
+                        ini.setValue("language", "<unknown>");
+                        ini.setValue("genre",    "<unknown>");
+                        ini.setValue("company",  "<unknown>");
 
-						region = ini.value("region").toString();
-						language=ini.value("language").toString();
-						genre=ini.value("genre").toString();
-						company=ini.value("company").toString();
-					}
+                        region   = ini.value("region").toString();
+                        language = ini.value("language").toString();
+                        genre    = ini.value("genre").toString();
+                        company  = ini.value("company").toString();
+                    }
                     QDir().mkpath("data/" + id);
 
                     QPixmap icon0File(144, 80);
@@ -366,37 +368,37 @@ public:
                         delete data;
                     }
 
-                  /*  QPixmap pic1File(480, 272);
+                    /*  QPixmap pic1File(480, 272);
                     QString pic1FileName(pic1());
                     if (QFile::exists(pic1FileName))
                     {
-                        pic1File.load(pic1FileName);
+                    pic1File.load(pic1FileName);
                     }
                     else
                     {
-                        size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
-                        if (size)
-                        {
-                            data = new u8[size];
-                            f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
-                            ISOFS_read(f, (char *)data, size);
-                            ISOFS_close(f);
+                    size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
+                    if (size)
+                    {
+                    data = new u8[size];
+                    f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
+                    ISOFS_read(f, (char *)data, size);
+                    ISOFS_close(f);
 
-                            pic1File.loadFromData(data, size);
-                        }
-                        else
-                        {
-                            data = 0;
-                            pic1File.load(":/images/pic1.png");
-                            //pic1File = icon0File.scaledToWidth(72,Qt::SmoothTransformation);
-                            //pic1File = pic1File.scaledToWidth(144,Qt::SmoothTransformation);
-                            //pic1File = pic1File.scaledToWidth(288,Qt::SmoothTransformation);
-                            //pic1File = pic1File.scaledToWidth(480,Qt::SmoothTransformation);
-                        }
+                    pic1File.loadFromData(data, size);
+                    }
+                    else
+                    {
+                    data = 0;
+                    pic1File.load(":/images/pic1.png");
+                    //pic1File = icon0File.scaledToWidth(72,Qt::SmoothTransformation);
+                    //pic1File = pic1File.scaledToWidth(144,Qt::SmoothTransformation);
+                    //pic1File = pic1File.scaledToWidth(288,Qt::SmoothTransformation);
+                    //pic1File = pic1File.scaledToWidth(480,Qt::SmoothTransformation);
+                    }
 
-                        pic1File.save(pic1FileName);
+                    pic1File.save(pic1FileName);
 
-                        delete data;
+                    delete data;
                     }*/
 
                     int header;
@@ -437,30 +439,30 @@ public:
                         }
                     }
 
-					//create an entry for the cachefile
-				    QSettings cacheini("cache.dat", QSettings::IniFormat);
+                    //create an entry for the cachefile
+                    QSettings cacheini("cache.dat", QSettings::IniFormat);
                     //check to see if we have already an entry
                     cacheini.beginGroup(cacheinigroup);
-				    QString game_exists = cacheini.value("path","").toString();
-					if(game_exists.isEmpty())//not a record
-					{                     
-						cacheini.setValue("path", absoluteFilePath);
-						cacheini.setValue("lastmodified",lastModinSec);
-						cacheini.setValue("filesize",filesize);
-						cacheini.setValue("id",id);
-					    cacheini.setValue("crc32",crc32);
-						cacheini.setValue("gamestatus",status);
-						
-					}
+                    QString game_exists = cacheini.value("path","").toString();
+                    if(game_exists.isEmpty())//not a record
+                    {                     
+                        cacheini.setValue("path",         absoluteFilePath);
+                        cacheini.setValue("lastmodified", lastModinSec);
+                        cacheini.setValue("filesize",     filesize);
+                        cacheini.setValue("id",           id);
+                        cacheini.setValue("crc32",        crc32);
+                        cacheini.setValue("gamestatus",   status);
+
+                    }
                     if (status.size())
                     {
-                       // ini.setValue("status", status);
+                        // ini.setValue("status", status);
                         return *this;
                     }
                     ini.endGroup();
                     ini.remove(id);
-					cacheini.endGroup();
-					cacheini.remove(cacheinigroup);
+                    cacheini.endGroup();
+                    cacheini.remove(cacheinigroup);
 
                     umdimageloader::shutdown();
 
@@ -470,10 +472,10 @@ public:
                 firmware = "";
                 status   = "";
                 crc32    = 0;
-				region= "";
-		        language= "";
-	            genre= "";
-	            company= "";
+                region   = "";
+                language = "";
+                genre    = "";
+                company  = "";
             }
         }
 
@@ -482,17 +484,17 @@ public:
 };
 
 /**
- * @author hlide
- */
+* @author hlide
+*/
 class QUmdTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 
-    typedef QAbstractTableModel Base;
+        typedef QAbstractTableModel Base;
 
 public:
     QUmdTableModel(QString const &path, QObject *parent = 0)
-    :   Base(parent)
+        :   Base(parent)
     {
     }
 
@@ -521,7 +523,7 @@ public:
             }
         }
         endResetModel();
-		
+
     }
 
     virtual int columnCount(QModelIndex const &parent = QModelIndex()) const
@@ -533,17 +535,19 @@ public:
     {
         return m_infos.count();
     }
+
     virtual bool hasChildren(QModelIndex const &parent = QModelIndex()) const
-	{
-		if(parent.isValid())
-		{
-          return false;
-		}
-		else
-		{
-          return true;
-		}
-	}
+    {
+        if (parent.isValid())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     QVariant data(const QModelIndex &index, int role) const
     {
         int row = index.row();
@@ -556,51 +560,51 @@ public:
             {
                 return infos.absoluteFilePath;
             }
-			if(role == Qt::UserRole+1)
-			{
-               return infos.icon0();
-			}
+            if(role == Qt::UserRole+1)
+            {
+                return infos.icon0();
+            }
 
-			if(role == Qt::UserRole+2)
-			{
-               return "data/" + infos.id + "/"+infos.coverfront;
-			}
-			if(role == Qt::UserRole+3)
-			{
-               return "data/" + infos.id + "/"+infos.coverback;
-			}
-			if(role == Qt::UserRole+4)
-			{
-               return "data/" + infos.id + "/"+infos.preview1;
-			}
-			if(role == Qt::UserRole+5)
-			{
-				return "data/" + infos.id + "/"+infos.preview2;
-			}
-			/*if (role == Qt::TextAlignmentRole) 
-			{
-                 if(index.column() == 0) {
-                  return (QVariant) ( Qt::AlignLeft);
-                 } else {
-                    return (QVariant) ( Qt::AlignRight | Qt::AlignVCenter);
-					}
-             }*/
+            if(role == Qt::UserRole+2)
+            {
+                return "data/" + infos.id + "/" + infos.coverfront;
+            }
+            if(role == Qt::UserRole+3)
+            {
+                return "data/" + infos.id + "/" + infos.coverback;
+            }
+            if(role == Qt::UserRole+4)
+            {
+                return "data/" + infos.id + "/" + infos.preview1;
+            }
+            if(role == Qt::UserRole+5)
+            {
+                return "data/" + infos.id + "/" + infos.preview2;
+            }
+            /*if (role == Qt::TextAlignmentRole) 
+            {
+            if(index.column() == 0) {
+            return (QVariant) ( Qt::AlignLeft);
+            } else {
+            return (QVariant) ( Qt::AlignRight | Qt::AlignVCenter);
+            }
+            }*/
             switch (index.column())
             {
             case 0: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                                        : QVariant();
-			case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                         : QVariant();
-			case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                         : QVariant();
+            case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                           : QVariant();
+            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".gif") : QVariant();
             case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
-			case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                     : QVariant();
-			case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.language : QVariant();
-			case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.genre : QVariant();
-			case 7: return (role == Qt::DisplayRole || role == Qt::EditRole) ?QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
-			case 8: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.status : QVariant();
-			case 9: return (role == Qt::DisplayRole || role == Qt::EditRole) ?infos.filesize : QVariant();
+            case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                      : QVariant();
+            case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.language                                                     : QVariant();
+            case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.genre                                                        : QVariant();
+            case 7: return (role == Qt::DisplayRole || role == Qt::EditRole) ? QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
+            case 8: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.status                                                       : QVariant();
+            case 9: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.filesize                                                     : QVariant();
             }
         }
 
-    
+
 
 
         return QVariant();
@@ -612,7 +616,7 @@ public:
         {
             switch (section)
             {
-			case 0: return "Title";
+            case 0: return "Title";
             case 1: return "Disc ID";
             case 2: return "Region";
             case 3: return "FW";
