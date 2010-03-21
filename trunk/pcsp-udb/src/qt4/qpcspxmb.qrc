@@ -2,6 +2,12 @@
   <qresource prefix="/icons">
     <file alias="pcsp.ico">../../res/pcsp.ico</file>
   </qresource>
+  <qresource prefix="/flags">
+    <file alias="China.gif">../../res/flags/China.gif</file>
+    <file alias="Europe.gif">../../res/flags/Europe.gif</file>
+    <file alias="Japan.gif">../../res/flags/Japan.gif</file>
+    <file alias="USA.gif">../../res/flags/USA.gif</file>
+  </qresource>
   <qresource prefix="/images">
     <file alias="icon0.png">../../res/icon0.png</file>
     <file alias="pcsp.png">../../res/pcsplogo.png</file>
