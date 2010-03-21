@@ -46,12 +46,13 @@ private slots:
 
 
 private:
-    QString              m_umdisospath;
-    QUmdTableModel      *m_model;
-    QDataWidgetMapper   *m_mapper;
-    QItemSelectionModel *m_selectionModel;
-    QSystemTrayIcon     *m_systray;
-    QSettings            m_ini;
+    QString                m_umdisospath;
+    QUmdTableModel        *m_sourceModel;
+    QSortFilterProxyModel *m_model;
+    QDataWidgetMapper     *m_mapper;
+    QItemSelectionModel   *m_selectionModel;
+    QSystemTrayIcon       *m_systray;
+    QSettings              m_ini;
 };
 
 #endif // QPcspXmb_H

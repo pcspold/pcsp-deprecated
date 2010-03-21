@@ -33,25 +33,26 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     setupUi(this);
 
     m_umdisospath = m_ini.value("/default/games/path").toString();
-    m_model  = new QUmdTableModel(m_umdisospath, this);
+    m_sourceModel = new QUmdTableModel(m_umdisospath, this);
+    m_model = new QSortFilterProxyModel(this);
+    m_model->setSourceModel(m_sourceModel);
     m_mapper = new QDataWidgetMapper(this);
     m_mapper->setModel(m_model);
     m_mapper->addMapping(discIdEdit,   1);
-    m_mapper->addMapping(regionEdit, 2);
+    m_mapper->addMapping(regionEdit,   2);
     m_mapper->addMapping(firmwareEdit, 3);
-	m_mapper->addMapping(publishEdit,4);
-	m_mapper->addMapping(languageEdit,5);
-	m_mapper->addMapping(genreEdit,6);
+	m_mapper->addMapping(publishEdit,  4);
+	m_mapper->addMapping(languageEdit, 5);
+	m_mapper->addMapping(genreEdit,    6);
 	m_mapper->addMapping(crc32Edit,    7);
 	m_mapper->addMapping(statusEdit,   8);
-	m_mapper->addMapping(gameSizeEdit,9);
+	m_mapper->addMapping(gameSizeEdit, 9);
 	
 
    // m_mapper->addMapping(gameNameEdit, 2);
     
 	//
     m_mapper->toFirst();
-
     
 	m_selectionModel = gameList->selectionModel();
 
@@ -60,6 +61,10 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
    // icon0List->setModel(m_model);
    // icon0List->setModelColumn(0);
     gameList->setModel(m_model);
+    QHeaderView *header = gameList->header();
+    header->setStretchLastSection(true);
+    header->setResizeMode(QHeaderView::ResizeToContents);
+
     connect(gameList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
 //   connect(icon0List, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
     connect(runButton, SIGNAL(clicked()), this, SLOT(onPressedButton()));
@@ -151,7 +156,7 @@ void QPcspXmb::onPressedButton()
 
 void QPcspXmb::refresh()
 {
-    m_model->updateModel(m_umdisospath, m_ini.value("/default/games/autorename", false).toBool());
+    m_sourceModel->updateModel(m_umdisospath, m_ini.value("/default/games/autorename", false).toBool());
 }
 
 void QPcspXmb::onChangeUmdPath()
