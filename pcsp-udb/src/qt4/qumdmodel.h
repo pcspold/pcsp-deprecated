@@ -360,7 +360,11 @@ public:
 						{
                              ini.setValue("region", "Korea");
 						}
-                        else
+						else if(id.startsWith("ULJS"))
+						{
+                             ini.setValue("region", "Japan");
+						}
+						else
                         {
                             ini.setValue("region", "<unknown>");
                         }
