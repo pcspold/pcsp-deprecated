@@ -143,7 +143,7 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
     {
         if (!launcher.startDetached("pcsp", arguments))
         {
-            QMessageBox::critical(0, tr("PCSP - XMB"), tr("Cannot find an emulator to play %1!").arg(index.sibling(index.row(), 2).data(Qt::DisplayRole).toString()));
+            QMessageBox::critical(0, tr("PCSP - XMB"), tr("Cannot find an emulator to play %1!").arg(index.sibling(index.row(), 0).data(Qt::DisplayRole).toString()));
         }
     }
 }

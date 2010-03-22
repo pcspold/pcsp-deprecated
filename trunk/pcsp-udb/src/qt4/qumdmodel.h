@@ -312,6 +312,10 @@ public:
                         {
                             ini.setValue("region", "Japan");
                         }
+						else if(id.startsWith("UCJS"))
+						{
+				            ini.setValue("region", "Japan");
+						}
                         else if (id.startsWith("UCES"))
                         {
                             ini.setValue("region", "Europe");
@@ -324,6 +328,38 @@ public:
                         {
                             ini.setValue("region", "USA");
                         }
+						else if(id.startsWith("NPUG"))
+						{
+                            ini.setValue("region", "USA");
+						}
+						else if(id.startsWith("UCUS"))
+						{
+                            ini.setValue("region", "USA");
+						}
+						else if(id.startsWith("NPUH"))
+						{
+                            ini.setValue("region", "USA");
+						}
+						else if(id.startsWith("ULAS"))
+						{
+                            ini.setValue("region", "China");
+						}
+						else if(id.startsWith("NPHG"))
+						{
+                             ini.setValue("region", "China");
+						}
+						else if(id.startsWith("UCAS"))
+						{
+                            ini.setValue("region", "China");
+						}
+						else if(id.startsWith("UCKS"))
+						{
+                             ini.setValue("region", "Korea");
+						}
+						else if(id.startsWith("ULKS"))
+						{
+                             ini.setValue("region", "Korea");
+						}
                         else
                         {
                             ini.setValue("region", "<unknown>");
