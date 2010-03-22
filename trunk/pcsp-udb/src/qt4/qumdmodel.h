@@ -593,7 +593,7 @@ public:
             {
             case 0: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.title                                                        : QVariant();
             case 1: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.id                                                           : QVariant();
-            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".gif") : QVariant();
+            case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".png") : QVariant();
             case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
             case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                      : QVariant();
             case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.language                                                     : QVariant();
