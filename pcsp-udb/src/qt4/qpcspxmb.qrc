@@ -3,6 +3,11 @@
         <file alias="pcsp.ico">../../res/pcsp.ico</file>
     </qresource>
     <qresource prefix="/flags">
+        <file alias="Germany.png">../../res/flags/de.png</file>
+        <file alias="Spain.png">../../res/flags/es.png</file>
+        <file alias="France.png">../../res/flags/fr.png</file>
+        <file alias="Greece.png">../../res/flags/gr.png</file>
+        <file alias="Italy.png">../../res/flags/it.png</file>
         <file alias="China.png">../../res/flags/cn.png</file>
         <file alias="Europe.png">../../res/flags/europeanunion.png</file>
         <file alias="Japan.png">../../res/flags/jp.png</file>
