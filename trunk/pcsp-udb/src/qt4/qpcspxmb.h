@@ -43,6 +43,8 @@ private slots:
     void onCurrentChanged(QModelIndex const &index);
     void onDoubleClicked(QModelIndex const &index);
     void onPressedButton();
+	void textFilterChanged(QString text);
+	void filterRegExpChanged(int column);
 
 
 private:

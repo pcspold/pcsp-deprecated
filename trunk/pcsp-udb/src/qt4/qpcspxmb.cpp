@@ -92,6 +92,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     {
         refresh();
     }
+	m_model->setFilterKeyColumn(-1);//search to all columns by default
 }
 
 QPcspXmb::~QPcspXmb()
@@ -174,4 +175,21 @@ void QPcspXmb::onChangeUmdPath()
 void QPcspXmb::onAutoRenameToggled(bool checked)
 {
     m_ini.setValue("/default/games/autorename", checked);
+}
+void QPcspXmb::textFilterChanged(QString text)
+{
+     QRegExp regExp(text,Qt::CaseInsensitive, QRegExp::PatternSyntax(0));
+     m_model->setFilterRegExp(regExp);
+}
+void QPcspXmb::filterRegExpChanged(int column)
+{ 
+  if(column==0)
+  {
+    m_model->setFilterKeyColumn(-1);
+  }
+  else
+  {
+     m_model->setFilterKeyColumn(column-1);
+  }
+
 }
