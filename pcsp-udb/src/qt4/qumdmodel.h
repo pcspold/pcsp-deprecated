@@ -312,81 +312,101 @@ public:
                         {
                             ini.setValue("region", "Japan");
                             ini.setValue("company", "<unknown>");
+							ini.setValue("language", "Japanese");
                         }
 						else if(id.startsWith("UCJS"))
 						{
 				            ini.setValue("region", "Japan");
                             ini.setValue("company", "Sony");
+                            ini.setValue("language", "Japanese");
 						}
                         else if (id.startsWith("UCES"))
                         {
                             ini.setValue("region", "Europe");
                             ini.setValue("company", "Sony");
+                            ini.setValue("language", "<unknown>");
                         }
                         else if (id.startsWith("ULES"))
                         {
                             ini.setValue("region", "Europe");
                             ini.setValue("company", "<unknown>");
+                            ini.setValue("language", "<unknown>");
                         }
                         else if (id.startsWith("ULUS"))
                         {
                             ini.setValue("region", "USA");
                             ini.setValue("company", "<unknown>");
+                            ini.setValue("language", "<unknown>");
                         }
 						else if(id.startsWith("NPUG"))
 						{
                             ini.setValue("region", "USA");
                             ini.setValue("company", "Sony");
+                            ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("UCUS"))
 						{
                             ini.setValue("region", "USA");
                             ini.setValue("company", "Sony");
+                            ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("NPUH"))
 						{
                             ini.setValue("region", "USA");
-                            ini.setValue("company", "Sony");
+                            ini.setValue("company", "<unknown>");
+                            ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("ULAS"))
 						{
                             ini.setValue("region", "China");
                             ini.setValue("company", "<unknown>");
+                            ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("NPHG"))
 						{
                              ini.setValue("region", "China");
                              ini.setValue("company", "Sony");
+                             ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("UCAS"))
 						{
                             ini.setValue("region", "China");
                             ini.setValue("company", "Sony");
+                            ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("UCKS"))
 						{
                              ini.setValue("region", "Korea");
                              ini.setValue("company", "Sony");
+                             ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("ULKS"))
 						{
                              ini.setValue("region", "Korea");
                              ini.setValue("company", "<unknown>");
+                             ini.setValue("language", "<unknown>");
 						}
 						else if(id.startsWith("ULJS"))
 						{
                              ini.setValue("region", "Japan");
 							 ini.setValue("company", "<unknown>");
+                             ini.setValue("language", "Japanese");
+						}
+						else if(id.startsWith("NPJG"))
+						{
+							ini.setValue("region", "Japan");
+							ini.setValue("company", "Sony");
+                            ini.setValue("language", "Japanese");
 						}
 						else
                         {
                             ini.setValue("region", "<unknown>");
 							ini.setValue("company", "<unknown>");
+                            ini.setValue("language", "<unknown>");
                         }
-                        ini.setValue("language", "<unknown>");
-                        ini.setValue("genre",    "<unknown>");
-                        
-                        region   = ini.value("region").toString();
+                    	ini.setValue("genre", "<unknown>");
+                    
+						region   = ini.value("region").toString();
                         language = ini.value("language").toString();
                         genre    = ini.value("genre").toString();
                         company  = ini.value("company").toString();
