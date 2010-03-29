@@ -336,25 +336,25 @@ public:
                         {
                             ini.setValue("region", "USA");
                             ini.setValue("company", "<unknown>");
-                            ini.setValue("language", "<unknown>");
+                            ini.setValue("language", "English");
                         }
 						else if(id.startsWith("NPUG"))
 						{
                             ini.setValue("region", "USA");
                             ini.setValue("company", "Sony");
-                            ini.setValue("language", "<unknown>");
+                            ini.setValue("language", "English");
 						}
 						else if(id.startsWith("UCUS"))
 						{
                             ini.setValue("region", "USA");
                             ini.setValue("company", "Sony");
-                            ini.setValue("language", "<unknown>");
+                            ini.setValue("language", "English");
 						}
 						else if(id.startsWith("NPUH"))
 						{
                             ini.setValue("region", "USA");
                             ini.setValue("company", "<unknown>");
-                            ini.setValue("language", "<unknown>");
+                            ini.setValue("language", "English");
 						}
 						else if(id.startsWith("ULAS"))
 						{
