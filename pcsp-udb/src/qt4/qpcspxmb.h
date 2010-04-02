@@ -38,7 +38,6 @@ protected:
 
 private slots:
     void onChangeUmdPath();
-    void onAutoRenameToggled(bool checked);
     void onModelReset();
     void onCurrentChanged(QModelIndex const &index);
     void onDoubleClicked(QModelIndex const &index);
