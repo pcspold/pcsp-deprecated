@@ -72,13 +72,8 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 
     QMenu *menu = new QMenu(tr("Settings"), this);
     QAction *action1 = new QAction(tr("Change UMD Games folder"), this);
-    QAction *action2 = new QAction(tr("Auto-rename UMD Games"), this);
-    action2->setCheckable(true);
-    action2->setChecked(m_ini.value("/default/games/autorename", false).toBool());
     connect(action1, SIGNAL(triggered()), this, SLOT(onChangeUmdPath()));
-    connect(action2, SIGNAL(toggled(bool)), this, SLOT(onAutoRenameToggled(bool)));
     menu->addAction(action1);
-    menu->addAction(action2);
     m_systray = new QSystemTrayIcon(QIcon(":/icons/pcsp.ico"), this);
     connect(m_systray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(showNormal()));
     m_systray->setContextMenu(menu);
@@ -172,10 +167,7 @@ void QPcspXmb::onChangeUmdPath()
     }
 }
 
-void QPcspXmb::onAutoRenameToggled(bool checked)
-{
-    m_ini.setValue("/default/games/autorename", checked);
-}
+
 void QPcspXmb::textFilterChanged(QString text)
 {
      QRegExp regExp(text,Qt::CaseInsensitive, QRegExp::PatternSyntax(0));
