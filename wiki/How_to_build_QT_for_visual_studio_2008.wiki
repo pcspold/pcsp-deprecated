@@ -2,7 +2,7 @@ update for 4.5.3 version
 
 Step 1:
 
-Download the following from QT site
+Download the following from the QT site
 
 http://get.qt.nokia.com/qtsdk/qt-sdk-win-opensource-2009.04.exe
 
@@ -10,7 +10,7 @@ http://download.qt.nokia.com/vsaddin/qt-vs-addin-1.1.0.exe
 
 Step 2:
 
-Run the qt installer and install it to the default place. (c:\QT\2009.04)
+Run the qt installer and install it to the default location. (c:\QT\2009.04)
 
 Step 3:
 
@@ -28,20 +28,20 @@ Once you are there type the following
 
 At the time of this article had written it seems that there are problems with webkit linking so we leave it out.
 
-Once that finished you can must type
+Once that finished you must type
 
 {{{nmake}}} 
 
-in order to build vc lib files and dlls 
+in order to build Visual Studio lib files and dlls 
 Note: building will take 2 to 5 hours depending on your machine 
 
 Step 4:
 
-Install the vc plugin (the second file you downloaded)
+Install the Visual Studio plugin (the second file you downloaded)
 
-Open vcstudio2008
+Open Visual studio 2008
 
-On the menu there is a new option "QT"
+In the menu there should be a new option labeled "QT"
 
 Go There and select 
 
@@ -62,4 +62,4 @@ path :
 {{{c:\QT\2009.04\qt}}}
 
 You are now done!
-You can create and compile QT applications
+You should now be able to create and compile QT applications!
