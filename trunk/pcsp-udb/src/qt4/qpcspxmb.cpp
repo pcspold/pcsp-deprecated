@@ -17,6 +17,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "qpcspxmb.h"
 #include <QtCore>
 #include <QtGui>
+#include <qtconcurrentrun.h>
 
 #include "types.h"
 #include "../loaders.h"
@@ -167,11 +168,18 @@ void QPcspXmb::onChangeUmdPath()
     }
 }
 
-
+void QPcspXmb::runInSeparateThread(QString text)
+{
+     QRegExp regExp(text,Qt::CaseInsensitive, QRegExp::PatternSyntax(2));
+    m_model->setFilterRegExp(regExp);
+}
 void QPcspXmb::textFilterChanged(QString text)
 {
-     QRegExp regExp(text,Qt::CaseInsensitive, QRegExp::PatternSyntax(0));
-     m_model->setFilterRegExp(regExp);
+  QFutureWatcher<void> futureWatcher;
+  QFuture<void> future = QtConcurrent::run(this,&QPcspXmb::runInSeparateThread,text);
+  futureWatcher.setFuture(future);
+  futureWatcher.waitForFinished();
+
 }
 void QPcspXmb::filterRegExpChanged(int column)
 { 
