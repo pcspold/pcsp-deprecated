@@ -442,39 +442,6 @@ public:
                         delete data;
                     }
 
-                    /*  QPixmap pic1File(480, 272);
-                    QString pic1FileName(pic1());
-                    if (QFile::exists(pic1FileName))
-                    {
-                    pic1File.load(pic1FileName);
-                    }
-                    else
-                    {
-                    size = ISOFS_getfilesize("PSP_GAME/PIC1.PNG");
-                    if (size)
-                    {
-                    data = new u8[size];
-                    f = ISOFS_open("PSP_GAME/PIC1.PNG", 1);
-                    ISOFS_read(f, (char *)data, size);
-                    ISOFS_close(f);
-
-                    pic1File.loadFromData(data, size);
-                    }
-                    else
-                    {
-                    data = 0;
-                    pic1File.load(":/images/pic1.png");
-                    //pic1File = icon0File.scaledToWidth(72,Qt::SmoothTransformation);
-                    //pic1File = pic1File.scaledToWidth(144,Qt::SmoothTransformation);
-                    //pic1File = pic1File.scaledToWidth(288,Qt::SmoothTransformation);
-                    //pic1File = pic1File.scaledToWidth(480,Qt::SmoothTransformation);
-                    }
-
-                    pic1File.save(pic1FileName);
-
-                    delete data;
-                    }*/
-
                     int header;
 
                     status.clear();
@@ -602,7 +569,7 @@ public:
 
     virtual int columnCount(QModelIndex const &parent = QModelIndex()) const
     {
-        return 10;
+        return 5;
     }
 
     virtual int rowCount(QModelIndex const &parent = QModelIndex()) const
@@ -655,6 +622,27 @@ public:
             {
                 return "data/" + infos.id + "/" + infos.preview2;
             }
+			if(role == Qt::UserRole+6)
+			{
+               return infos.language;
+			}
+			if(role ==Qt::UserRole+7)
+			{
+               return infos.genre;
+			}
+			if(role ==Qt::UserRole+8)
+			{
+               return QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper();
+			}
+			if(role ==Qt::UserRole+9)
+			{
+              return infos.status;
+			}
+			if(role ==Qt::UserRole+10)
+			{
+              return infos.filesize;
+			}
+
             /*if (role == Qt::TextAlignmentRole) 
             {
             if(index.column() == 0) {
@@ -670,11 +658,6 @@ public:
             case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".png") : QVariant();
             case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
             case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                      : QVariant();
-            case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.language                                                     : QVariant();
-            case 6: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.genre                                                        : QVariant();
-            case 7: return (role == Qt::DisplayRole || role == Qt::EditRole) ? QString("%1").arg(infos.crc32, 8, 16, QLatin1Char('0 ')).toUpper() : QVariant();
-            case 8: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.status                                                       : QVariant();
-            case 9: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.filesize                                                     : QVariant();
             }
         }
 

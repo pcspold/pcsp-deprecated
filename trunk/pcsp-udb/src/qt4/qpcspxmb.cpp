@@ -43,16 +43,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     m_mapper->addMapping(regionEdit,   2);
     m_mapper->addMapping(firmwareEdit, 3);
 	m_mapper->addMapping(publishEdit,  4);
-	m_mapper->addMapping(languageEdit, 5);
-	m_mapper->addMapping(genreEdit,    6);
-	m_mapper->addMapping(crc32Edit,    7);
-	m_mapper->addMapping(statusEdit,   8);
-	m_mapper->addMapping(gameSizeEdit, 9);
-	
 
-   // m_mapper->addMapping(gameNameEdit, 2);
-    
-	//
     m_mapper->toFirst();
     
 	m_selectionModel = gameList->selectionModel();
@@ -104,11 +95,6 @@ void QPcspXmb::onModelReset()
 
     m_selectionModel = new QItemSelectionModel(m_model, this);
     gameList->setSelectionModel(m_selectionModel);
-	gameList->hideColumn(5);
-	gameList->hideColumn(6);
-	gameList->hideColumn(7);
-	gameList->hideColumn(8);
-	gameList->hideColumn(9);
 	gameList->setColumnWidth(0,250);
     gameList->setColumnWidth(1,80);
 	gameList->setColumnWidth(2,60);
@@ -119,12 +105,19 @@ void QPcspXmb::onModelReset()
 
 void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
-    m_mapper->setCurrentModelIndex(index);
+     m_mapper->setCurrentModelIndex(index);
 	 icon0pic->setPixmap(QPixmap(index.data(Qt::UserRole+1).toString()));
 	 coverpic->setPixmap(QPixmap(index.data(Qt::UserRole+2).toString()));
 	 coverpicback->setPixmap(QPixmap(index.data(Qt::UserRole+3).toString()));
      previewpic1->setPixmap(QPixmap(index.data(Qt::UserRole+4).toString()));
 	 previewpic2->setPixmap(QPixmap(index.data(Qt::UserRole+5).toString()));
+     languageEdit->setText(index.data(Qt::UserRole+6).toString());
+	 genreEdit->setText(index.data(Qt::UserRole+7).toString());
+	 crc32Edit->setText(index.data(Qt::UserRole+8).toString());
+	 statusEdit->setText(index.data(Qt::UserRole+9).toString());
+	 gameSizeEdit->setText(index.data(Qt::UserRole+10).toString());
+
+
 //   pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
   //  gameList->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
 }
