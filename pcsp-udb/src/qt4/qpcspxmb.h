@@ -32,6 +32,7 @@ public:
     QPcspXmb(QWidget *parent = 0, Qt::WFlags flags = 0);
     ~QPcspXmb();
     void refresh();
+	void runInSeparateThread(QString text);
 
 protected:
     QRegion visualRegionForSelection(QItemSelection const &) const { return QRegion(); }
