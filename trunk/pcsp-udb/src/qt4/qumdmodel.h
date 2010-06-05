@@ -538,7 +538,14 @@ public:
         :   Base(parent)
     {
     }
-
+    void startupdatemodel()
+	{
+      beginResetModel();
+	}
+	void endupdatemodel()
+	{
+       endResetModel();
+	}
     void updateModel(QString const &path, bool autorename)
     {
         QPixmap pixmap(":/images/pcsp.png");
@@ -684,7 +691,7 @@ public:
         return QVariant();
     }
 
-private:
+public:
     mutable QList< UmdInfos > m_infos;
 };
 
