@@ -22,7 +22,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "types.h"
 #include "../loaders.h"
 #include <stdio.h>
-
+#include "ProgressCtrl.h"
 #include "qumdmodel.h"
 
 QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
@@ -30,11 +30,16 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 ,   Ui::PcspXmbUi()
 ,   m_selectionModel(0)
 ,   m_ini("pcsp-xmb.ini", QSettings::IniFormat)
+,   thisThread(NULL)
+,   progressCtrl(NULL)
+,   m_stop(false)
 {
     setupUi(this);
 
     m_umdisospath = m_ini.value("/default/games/path").toString();
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
+
+	refresh();
     m_model = new QSortFilterProxyModel(this);
     m_model->setSourceModel(m_sourceModel);
     m_mapper = new QDataWidgetMapper(this);
@@ -77,7 +82,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     }
     else
     {
-        refresh();
+        //refresh();
     }
 	m_model->setFilterKeyColumn(-1);//search to all columns by default
 }
@@ -146,7 +151,75 @@ void QPcspXmb::onPressedButton()
 
 void QPcspXmb::refresh()
 {
-    m_sourceModel->updateModel(m_umdisospath, m_ini.value("/default/games/autorename", false).toBool());
+	 if (!thisThread) thisThread = new MainWindowThread(this);
+     if(thisThread->isRunning()) return;// false;
+     connect(thisThread, SIGNAL(started()), this, SLOT(thisThreadStarted()), Qt::BlockingQueuedConnection);
+     connect(thisThread, SIGNAL(finished()), this, SLOT(thisThreadFinished()), Qt::BlockingQueuedConnection);
+     connect(thisThread, SIGNAL(terminated()), this, SLOT(thisThreadFinished()), Qt::BlockingQueuedConnection);
+     if (!progressCtrl) progressCtrl = new ProgressCtrl(this);
+     progressCtrl->show();
+	 m_stop = false;
+	 
+	 thisThread->start();
+}
+void QPcspXmb::thisThreadStarted()
+{
+
+    connect(this, SIGNAL(range(int, int)), progressCtrl->progress(), SLOT(setRange(int, int)), Qt::BlockingQueuedConnection);
+    connect(this, SIGNAL(progress(int)), progressCtrl->progress(), SLOT(setValue(int)), Qt::BlockingQueuedConnection);
+    connect(this, SIGNAL(label(const QString &)), progressCtrl->label(), SLOT(setText(const QString &)), Qt::BlockingQueuedConnection);
+    connect(progressCtrl->stop(), SIGNAL(clicked()), this, SLOT(setStop()));
+
+}
+void QPcspXmb::thisThreadFinished()
+{
+
+
+    disconnect(this, SIGNAL(range(int, int)), progressCtrl->progress(), SLOT(setRange(int, int)));
+    disconnect(this, SIGNAL(progress(int)), progressCtrl->progress(), SLOT(setValue(int)));
+    disconnect(this, SIGNAL(label(const QString &)), progressCtrl->label(), SLOT(setText(const QString &)));
+    disconnect(progressCtrl->stop(), SIGNAL(clicked()), this, SLOT(setStop()));
+    progressCtrl->hide(); 
+    progressCtrl->progress()->setValue(0);
+}
+void QPcspXmb::setStop()
+{
+  m_stop = true;
+  if (progressCtrl) progressCtrl->hide();
+}
+void QPcspXmb::run()
+{
+    QDir dir(m_umdisospath);
+    QFileInfoList entries(dir.entryInfoList(QStringList() << "*.ISO" << "*.CSO", QDir::Files, QDir::Name|QDir::IgnoreCase));
+	emit range(0, entries.size()-1);
+	int i=0;
+
+	      m_sourceModel->m_infos.clear();
+         // 
+		  QListIterator< QFileInfo > entry(entries);
+          if (entry.hasNext())
+          {
+            while (entry.hasNext())
+            {
+				emit progress(i);
+		        m_sourceModel->startupdatemodel();
+                QFileInfo fi = entry.next();
+                emit label(tr("Loading %1...").arg(fi.baseName()));
+                UmdInfos infos(fi, false);
+                m_sourceModel->m_infos.push_back(infos);
+                if (!m_sourceModel->m_infos.last().id.size())
+                {
+                    m_sourceModel->m_infos.removeLast();
+                }
+				i++;
+				if (m_stop) break;
+				m_sourceModel->endupdatemodel();
+            }
+       // m_sourceModel->endupdatemodel();
+	      }
+          m_sourceModel->endupdatemodel();
+		 
+		  
 }
 
 void QPcspXmb::onChangeUmdPath()
