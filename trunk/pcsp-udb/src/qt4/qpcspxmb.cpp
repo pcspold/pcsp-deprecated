@@ -39,7 +39,6 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     m_umdisospath = m_ini.value("/default/games/path").toString();
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
 
-	refresh();
     m_model = new QSortFilterProxyModel(this);
     m_model->setSourceModel(m_sourceModel);
     m_mapper = new QDataWidgetMapper(this);
@@ -82,7 +81,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     }
     else
     {
-        //refresh();
+        refresh();
     }
 	m_model->setFilterKeyColumn(-1);//search to all columns by default
 }
@@ -212,8 +211,9 @@ void QPcspXmb::run()
                     m_sourceModel->m_infos.removeLast();
                 }
 				i++;
-				if (m_stop) break;
+				
 				m_sourceModel->endupdatemodel();
+                if (m_stop) break;
             }
        // m_sourceModel->endupdatemodel();
 	      }
