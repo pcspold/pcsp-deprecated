@@ -194,14 +194,14 @@ void QPcspXmb::run()
 	int i=0;
 
 	      m_sourceModel->m_infos.clear();
-         // 
+         m_sourceModel->startupdatemodel();
 		  QListIterator< QFileInfo > entry(entries);
           if (entry.hasNext())
           {
             while (entry.hasNext())
             {
 				emit progress(i);
-		        m_sourceModel->startupdatemodel();
+		        
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
                 UmdInfos infos(fi, false);
