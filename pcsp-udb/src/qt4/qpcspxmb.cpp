@@ -29,7 +29,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 :   QMainWindow(parent, flags)
 ,   Ui::PcspXmbUi()
 ,   m_selectionModel(0)
-,   m_ini("pcsp-xmb.ini", QSettings::IniFormat)
+,   m_ini("pcsp-udb.ini", QSettings::IniFormat)
 ,   thisThread(NULL)
 ,   progressCtrl(NULL)
 ,   m_stop(false)
@@ -215,7 +215,6 @@ void QPcspXmb::run()
 				m_sourceModel->endupdatemodel();
                 if (m_stop) break;
             }
-       // m_sourceModel->endupdatemodel();
 	      }
           m_sourceModel->endupdatemodel();
 		 
@@ -230,6 +229,10 @@ void QPcspXmb::onChangeUmdPath()
     {
         m_umdisospath = newPath;
         m_ini.setValue("/default/games/path", m_umdisospath);
+		QFile cache("cache.dat");
+		if(cache.remove())
+		{
+		}
         refresh();
     }
 }
