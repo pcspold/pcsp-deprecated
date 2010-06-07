@@ -121,6 +121,11 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 	 statusEdit->setText(index.data(Qt::UserRole+9).toString());
 	 gameSizeEdit->setText(index.data(Qt::UserRole+10).toString());
 
+	 QString umdfilename = index.data(Qt::UserRole).toString();
+	 QStringList list1 = umdfilename.split("/");
+	 QString filename = list1.at(list1.size()-1).toLocal8Bit().constData();
+	 umdfilenameEdit->setText(filename);
+
 
 //   pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
   //  gameList->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
