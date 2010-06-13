@@ -118,7 +118,8 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
      languageEdit->setText(index.data(Qt::UserRole+6).toString());
 	 genreEdit->setText(index.data(Qt::UserRole+7).toString());
 	 crc32Edit->setText(index.data(Qt::UserRole+8).toString());
-	 statusEdit->setText(index.data(Qt::UserRole+9).toString());
+	 QString status = index.data(Qt::UserRole+9).toString();
+	 statusEdit->setText(status);
 	 gameSizeEdit->setText(index.data(Qt::UserRole+10).toString());
 
 	 QString umdfilename = index.data(Qt::UserRole).toString();
@@ -126,9 +127,28 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 	 QString filename = list1.at(list1.size()-1).toLocal8Bit().constData();
 	 umdfilenameEdit->setText(filename);
 
-
-//   pic1Label->setPixmap(QPixmap(index.sibling(index.row(), 3).data().toString()));
-  //  gameList->scrollTo(index, QAbstractItemView::PositionAtCenter/*QAbstractItemView::EnsureVisible*/);
+	 if(status.startsWith("Encrypt")) //game is encrypted
+	 {
+		      
+         QString decryptedboot = "decrypted/" + discIdEdit->text() + ".bin";
+         QFile   decrypt(decryptedboot);
+         if (!decrypt.exists()) //no decrypt file found
+         {
+             runButton->setEnabled(false); 
+			 statustext->setText("Decrypted file not found.Game can't run!!");
+			 
+         }
+		 else
+		 {
+            runButton->setEnabled(true); 
+			statustext->setText("Decrypted file available.");
+		 }    
+	 }
+	 else
+	 {
+        runButton->setEnabled(true); 
+		statustext->setText("");
+	 }
 }
 
 void QPcspXmb::onDoubleClicked(QModelIndex const &index)
