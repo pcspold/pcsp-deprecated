@@ -35,7 +35,11 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 ,   m_stop(false)
 {
     setupUi(this);
-
+    m_startwithdebugger = m_ini.value("/default/settings/startwithdebugger",false).toBool();
+	if(m_startwithdebugger)
+	{
+        actionStart_With_Debugger->setChecked(true);
+	}
     m_umdisospath = m_ini.value("/default/games/path").toString();
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
 
@@ -158,6 +162,14 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
     QProcess launcher(this);
     QStringList arguments;
     arguments << "-umd" << umdpath;
+	if(m_startwithdebugger)
+	{
+	  arguments << "-debug" << "true";
+	}
+	else
+	{
+      arguments << "-debug" << "false";
+	}
     if (!launcher.startDetached("pcsp-" + discID, arguments))
     {
         if (!launcher.startDetached("pcsp", arguments))
@@ -286,4 +298,17 @@ void QPcspXmb::filterRegExpChanged(int column)
      m_model->setFilterKeyColumn(column-1);
   }
 
+}
+void QPcspXmb::startWithDebugger()
+{
+   if(actionStart_With_Debugger->isChecked())
+   {
+      m_ini.setValue("/default/settings/startwithdebugger","true");
+	  m_startwithdebugger=true;
+   }
+   else
+   {
+      m_ini.setValue("/default/settings/startwithdebugger","false");
+	  m_startwithdebugger=false;
+   }
 }

@@ -58,6 +58,7 @@ private slots:
 	void thisThreadStarted();
 	void thisThreadFinished();
 	void setStop();
+	void startWithDebugger();
 	
 
 
@@ -70,6 +71,7 @@ private:
     QSystemTrayIcon       *m_systray;
     QSettings              m_ini;
 	bool m_stop;
+	bool m_startwithdebugger;
 };
 #include <QThread>
 class MainWindowThread : public QThread  
