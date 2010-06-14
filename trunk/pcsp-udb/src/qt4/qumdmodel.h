@@ -398,6 +398,12 @@ public:
 							ini.setValue("company", "Sony");
                             ini.setValue("language", "Japanese");
 						}
+						else if(id.startsWith("UCET"))						
+						{
+							ini.setValue("region", "Europe");
+							ini.setValue("company", "Sony");
+							ini.setValue("language", "<unknown>");
+						}
 						else
                         {
                             ini.setValue("region", "<unknown>");
