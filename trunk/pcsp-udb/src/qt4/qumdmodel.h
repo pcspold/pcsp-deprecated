@@ -236,7 +236,8 @@ public:
                     psf::load_psf(data);
 
 
-                    id       = QString::fromUtf8(psfinfo.disc_id);
+					id       = QString::fromUtf8(psfinfo.disc_id).trimmed();
+;
                     QSettings loadfromdatabase("data/gamesdatabase.ini", QSettings::IniFormat);
                     loadfromdatabase.beginGroup(id);
                     if (loadfromdatabase.contains("title"))
