@@ -18,6 +18,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 #include "qpcspxmb.h"
+#include "version.h"
 
 void center(QWidget &widget)
 {
@@ -56,7 +57,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(qpcspxmb);
 
     QPcspXmb w(0, 0);
-    //center(w); // [hlide] wrong way to center a window in multi-display
+    w.setWindowTitle("PCSP-UDB v" VERSION);
     w.show();
 
     return a.exec();
