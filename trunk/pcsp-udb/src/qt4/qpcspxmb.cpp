@@ -124,7 +124,14 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 	 crc32Edit->setText(index.data(Qt::UserRole+8).toString());
 	 QString status = index.data(Qt::UserRole+9).toString();
 	 statusEdit->setText(status);
-	 gameSizeEdit->setText(index.data(Qt::UserRole+10).toString());
+
+	 QString gamesize = index.data(Qt::UserRole+10).toString();
+	 bool ok;
+	 int sizeinbytes = gamesize.toInt(&ok, 10); 
+     float gametoMB = (float)sizeinbytes /1048576;
+	 QString floatsize;
+	 floatsize.setNum( gametoMB);
+	 gameSizeEdit->setText(gamesize +" (" + floatsize + " MB)");
 
 	 QString umdfilename = index.data(Qt::UserRole).toString();
 	 QStringList list1 = umdfilename.split("/");
