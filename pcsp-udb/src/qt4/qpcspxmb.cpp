@@ -35,6 +35,10 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 ,   m_stop(false)
 {
     setupUi(this);
+	QPoint pos = m_ini.value("pos", QPoint(200, 200)).toPoint();
+    QSize size = m_ini.value("size", QSize(400, 400)).toSize();
+    resize(size);
+    move(pos);
     m_startwithdebugger = m_ini.value("/default/settings/startwithdebugger",false).toBool();
 	if(m_startwithdebugger)
 	{
@@ -92,6 +96,19 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 
 QPcspXmb::~QPcspXmb()
 {
+}
+void QPcspXmb::closeEvent(QCloseEvent *)
+{
+  m_ini.setValue("pos", pos());
+  m_ini.setValue("size", size());
+  if (thisThread) {
+    delete thisThread;
+    thisThread = NULL;
+  }
+  if (progressCtrl) {
+    delete progressCtrl;
+    progressCtrl = NULL;
+  }
 }
 
 void QPcspXmb::onModelReset()

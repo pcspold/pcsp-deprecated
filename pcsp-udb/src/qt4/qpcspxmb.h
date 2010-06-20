@@ -46,6 +46,7 @@ public:
 
 protected:
     QRegion visualRegionForSelection(QItemSelection const &) const { return QRegion(); }
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void onChangeUmdPath();
