@@ -33,6 +33,9 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 ,   thisThread(NULL)
 ,   progressCtrl(NULL)
 ,   m_stop(false)
+,   totalgames(0)
+,   gamesInDatabase(0)
+,   gamesNotInDatabase(0)
 {
     setupUi(this);
 	QPoint pos = m_ini.value("pos", QPoint(200, 200)).toPoint();
@@ -241,6 +244,15 @@ void QPcspXmb::thisThreadFinished()
     disconnect(progressCtrl->stop(), SIGNAL(clicked()), this, SLOT(setStop()));
     progressCtrl->hide(); 
     progressCtrl->progress()->setValue(0);
+	gamesNotInDatabase = totalgames - gamesInDatabase;
+	QString gamesNotInDatabaseS;
+	QString gamesInDatabaseS;
+	QString totalgamesS;
+	gamesNotInDatabaseS.setNum(gamesNotInDatabase);
+	totalgamesS.setNum(totalgames);
+	gamesInDatabaseS.setNum(gamesInDatabase);
+	statusbar->showMessage("Total Games: " + totalgamesS + " In Database : " + gamesInDatabaseS + " Not In Database : " + gamesNotInDatabaseS,0);
+   
 }
 void QPcspXmb::setStop()
 {
@@ -274,6 +286,11 @@ void QPcspXmb::run()
 				i++;
 				
 				m_sourceModel->endupdatemodel();
+				if(infos.isInDatabase)
+				{
+				   gamesInDatabase++;
+				}
+				totalgames++;
                 if (m_stop) break;
             }
 	      }

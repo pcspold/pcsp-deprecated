@@ -136,6 +136,7 @@ public:
     QString genre;
     QString company;
     u32     crc32;
+	bool     isInDatabase;
 
     QString icon0() { return (id.size() ? ("data/" + id) : ":/images") + "/icon0.png"; }
     //QString pic1()  { return (id.size() ? ("data/" + id) : ":/images") + "/pic1.png"; }
@@ -149,6 +150,7 @@ public:
 
     UmdInfos(bool autorename = false)
         :   crc32(0)
+		,   isInDatabase(false)
         ,   autorename(autorename)
     {
     }
@@ -160,6 +162,7 @@ public:
 
     UmdInfos(QFileInfo const &entry, bool autorename = false)
         :   crc32(0)
+		,   isInDatabase(false)
         ,   autorename(autorename)
     {
         *this = entry;
@@ -210,6 +213,8 @@ public:
                         language   = loadfromdatabase.value("language").toString();
                         genre      = loadfromdatabase.value("genre").toString();
                         company    = loadfromdatabase.value("company").toString();
+						if(!genre.startsWith("<unknown>")) //then we have  it on database
+                            isInDatabase=true;
                         return *this;
                     }
 
@@ -297,6 +302,8 @@ public:
                         language =loadfromdatabase.value("language").toString();
                         genre =loadfromdatabase.value("genre").toString();
                         company =loadfromdatabase.value("company").toString();
+						if(!genre.startsWith("<unknown>")) //then we have  it on database
+							isInDatabase=true;
                     }
                     else
                     {
@@ -307,6 +314,8 @@ public:
                         ini.setValue("coverback",   id + "-back.jpg");
                         ini.setValue("previewpic1", id + "-preview1.jpg");
                         ini.setValue("previewpic2", id + "-preview2.jpg");
+						
+						isInDatabase=false;
                         
                         if (id.startsWith("ULJM"))
                         {
