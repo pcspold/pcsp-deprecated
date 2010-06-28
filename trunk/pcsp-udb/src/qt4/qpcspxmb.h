@@ -42,6 +42,9 @@ public:
 	void runInSeparateThread(QString text);
 	MainWindowThread *thisThread;
 	ProgressCtrl *progressCtrl;
+	u32 totalgames;
+	u32 gamesInDatabase;
+	u32 gamesNotInDatabase;
 	
 
 protected:
