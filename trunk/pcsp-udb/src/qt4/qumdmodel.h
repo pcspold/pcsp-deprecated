@@ -413,6 +413,12 @@ public:
 							ini.setValue("company", "Sony");
 							ini.setValue("language", "<unknown>");
 						}
+						else if(id.startsWith("NPEZ"))
+						{
+							ini.setValue("region", "Europe");
+							ini.setValue("company", "Sony");
+							ini.setValue("language", "<unknown>");
+						}
 						else
                         {
                             ini.setValue("region", "<unknown>");
