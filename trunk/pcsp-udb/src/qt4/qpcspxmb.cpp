@@ -251,8 +251,15 @@ void QPcspXmb::thisThreadFinished()
 	gamesNotInDatabaseS.setNum(gamesNotInDatabase);
 	totalgamesS.setNum(totalgames);
 	gamesInDatabaseS.setNum(gamesInDatabase);
-	statusbar->showMessage("Total Games: " + totalgamesS + " In Database : " + gamesInDatabaseS + " Not In Database : " + gamesNotInDatabaseS,0);
-   
+	QLabel *label = new QLabel(this);
+	label->setText("Total Games: " + totalgamesS);
+	QLabel *label2 = new QLabel(this);
+	label2->setText("In Database : " + gamesInDatabaseS);
+	QLabel *label3 = new QLabel(this);
+	label3->setText("Not In Database : " + gamesNotInDatabaseS);
+	statusbar->addWidget(label,0);
+    statusbar->addWidget(label2,0);
+    statusbar->addWidget(label3,0);
 }
 void QPcspXmb::setStop()
 {
