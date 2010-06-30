@@ -81,10 +81,14 @@ void NIDgenerator::WriteModuleFileheader(QString modulename)
 	   out << "////////////////////////////////////////////////////////////////\n";
        out << "///This file is auto - generated from NIDgenerator version " + version + "\n";
        out << "////////////////////////////////////////////////////////////////\n";
-	   out << "#pragma once\n";
+	   out << "#ifndef " + modulename+"_h__\n";
+	   out << "#define " + modulename+"_h__\n";
        out << "\n";
 	   out << "namespace " + modulename + "\n";
 	   out << "{\n";
+	   out << "\textern bool Reboot();\n";
+	   out << "\textern bool ShutDown();\n";
+	   out << "\n";
 	 while (i != handler.NIDmap.end() && i.key() == modulename) 
 	 {
 		   QString nidname = i.value().function;
@@ -93,11 +97,7 @@ void NIDgenerator::WriteModuleFileheader(QString modulename)
 	  }
 	 out << "}\n";
 	 out << "\n";
-	 out << "namespace emu_" + modulename + "\n";
-     out << "{\n";
-     out << "\textern void reboot();\n";
-     out << "\textern void shutdown();\n";
-     out << "}\n";
+	 out << "#endif";
 }
 void NIDgenerator::WriteModuleFile(QString modulename)
 {
@@ -113,32 +113,32 @@ void NIDgenerator::WriteModuleFile(QString modulename)
 	 out << "#include \"hle/types.h\"\n";
      out << "#include \"log.h\"\n";
      out << "\n";
-     out << "namespace emu_" + modulename +"\n";
-     out << "{\n";
-     out << "\tstatic bool "+ modulename +"_ready = false;\n";
-     out << "\n";
-     out << "\tvoid reboot()\n";
-     out << "\t{\n";
-     out << "\t\temu_" + modulename + "::shutdown();\n";
-     out << "\t\t"+modulename +"_ready = true;\n";
-     out << "\t}\n";
-     out << "\tvoid shutdown()\n";
-     out << "\t{\n";
-	 out << "\t\tif (" + modulename + "_ready)\n";
-     out << "\t\t{\n";
-     out << "\t\t\t"+modulename +"_ready = false;\n";
-     out << "\t\t}\n";
-     out << "\t}\n";
-     out << "}\n";
      out << "namespace " + modulename +"\n";
      out << "{\n";
+	 out << "\tstatic bool "+ modulename +"_ready = false;\n";
+	 out << "\n";
+	 out << "\tbool Reboot()\n";
+	 out << "\t{\n";
+	 out << "\t\tShutDown();\n";
+	 out << "\t\t"+modulename +"_ready = true;\n";
+	 out << "\t\treturn true;\n";
+	 out << "\t}\n";
+	 out << "\tbool ShutDown()\n";
+	 out << "\t{\n";
+	 out << "\t\tif (" + modulename + "_ready)\n";
+	 out << "\t\t{\n";
+	 out << "\t\t\t"+modulename +"_ready = false;\n";
+     out << "\t\t\treturn true;\n";
+	 out << "\t\t}\n";
+	 out << "\t}\n";
+	 out << "\n";
      while (i != handler.NIDmap.end() && i.key() == modulename) 
 	 {
 		   QString nidname = i.value().function;
 		   out<<"\tint " + nidname + "()\n";
 		   out<<"\t{\n";
 		   out<<"\t\t//TODO implement me\n";
-		   out<<"\t\terrorf("+ modulename + ",\"UNIMPLEMENTED " + nidname + " instruction\");\n";
+		   out<<"\t\terrorf("+ modulename + ",\"UNIMPLEMENTED " + nidname + " function\");\n";
 		   out<<"\t\treturn 0;\n";
 		   out<<"\t}\n";
 		   i++;
@@ -174,7 +174,7 @@ void NIDgenerator::WriteSyscallsheader(QList<QString> modules)
            while (k != handler.NIDmap.end() && k.key() == modules.at(i)) 
 	       {
 		     QString nidname = k.value().function;
-		     out<<"\textern void " + nidname + "();\n";
+		     out<<"\textern void " + nidname + "(AlContext &context);\n";
 		     k++;
 	       }
   
@@ -194,7 +194,7 @@ void NIDgenerator::WriteNIDmapper(QList<QString> modules)
 		out << "\n";
         for (int i = 0; i < modules.size(); ++i) 
         {
-		   out << "\tconst HLEFunction " + modules.at(i) + "[] =\n";
+		   out << "\tKernelSyscall const " + modules.at(i) + "[] =\n";
 	       out << "\t{\n";
            QMap<QString,NIDrec>::const_iterator k = handler.NIDmap.find(modules.at(i));
            while (k != handler.NIDmap.end() && k.key() == modules.at(i)) 
