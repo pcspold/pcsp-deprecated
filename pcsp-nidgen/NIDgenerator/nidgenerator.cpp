@@ -11,7 +11,7 @@ NIDgenerator::NIDgenerator(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
-	version="0.1";
+	version="0.2";
 }
 
 NIDgenerator::~NIDgenerator()
@@ -79,7 +79,7 @@ void NIDgenerator::WriteModuleFileheader(QString modulename)
      QMap<QString,NIDrec>::const_iterator i = handler.NIDmap.find(modulename);
 
 	   out << "////////////////////////////////////////////////////////////////\n";
-       out << "///This file is auto - generated pcsp NIDgenerator version " + version + "\n";
+       out << "///This file is auto - generated from NIDgenerator version " + version + "\n";
        out << "////////////////////////////////////////////////////////////////\n";
 	   out << "#pragma once\n";
        out << "\n";
@@ -106,7 +106,7 @@ void NIDgenerator::WriteModuleFile(QString modulename)
     QTextStream out(&file);
      QMap<QString,NIDrec>::const_iterator i = handler.NIDmap.find(modulename);
 	  out << "////////////////////////////////////////////////////////////////\n";
-      out << "///This file is auto - generated pcsp NIDgenerator version " + version + "\n";
+      out << "///This file is auto - generated from NIDgenerator version " + version + "\n";
       out << "////////////////////////////////////////////////////////////////\n";
 	 out << "#include \"stdafx.h\"\n";
 	 out << "#include \"" + modulename + ".h\"\n";
@@ -150,7 +150,7 @@ void NIDgenerator::WriteModuleFile(QString modulename)
      while (k != handler.NIDmap.end() && k.key() == modulename) 
 	 {
 		   QString nidname = k.value().function;
-		   out<<"\tvoid " + nidname + "(){ V0 = " + modulename +"::"+nidname+"();};\n";
+		   out<<"\tvoid " + nidname + "(AlContext &context){ V0 = " + modulename +"::"+nidname+"();};\n";
 		   k++;
 	  }
 	 out << "}\n";
@@ -162,7 +162,7 @@ void NIDgenerator::WriteSyscallsheader(QList<QString> modules)
         file.open(QIODevice::WriteOnly | QIODevice::Text);
         QTextStream out(&file);   
 	    out << "////////////////////////////////////////////////////////////////\n";
-        out << "///This file is auto - generated pcsp NIDgenerator version " + version + "\n";
+        out << "///This file is auto - generated from NIDgenerator version " + version + "\n";
         out << "////////////////////////////////////////////////////////////////\n";
 		out << "namespace syscalls\n";
         out << "{\n";
@@ -187,7 +187,7 @@ void NIDgenerator::WriteNIDmapper(QList<QString> modules)
         file.open(QIODevice::WriteOnly | QIODevice::Text);
         QTextStream out(&file);   
 	    out << "////////////////////////////////////////////////////////////////\n";
-        out << "///This file is auto - generated pcsp NIDgenerator version " + version + "\n";
+        out << "///This file is auto - generated from NIDgenerator version " + version + "\n";
         out << "////////////////////////////////////////////////////////////////\n";
         out << "#include \"stdafx.h\"\n";
 		out << "#include \"hle/syscalls.h\"\n";
