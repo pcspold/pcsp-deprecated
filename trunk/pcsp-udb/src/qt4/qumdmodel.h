@@ -419,6 +419,12 @@ public:
 							ini.setValue("company", "Sony");
 							ini.setValue("language", "<unknown>");
 						}
+						else if(id.startsWith("NPUX"))
+						{
+							ini.setValue("region", "USA");
+							ini.setValue("company", "Sony");
+							ini.setValue("language", "English");
+						}
 						else
                         {
                             ini.setValue("region", "<unknown>");
