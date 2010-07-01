@@ -271,7 +271,7 @@
 		<PRXNAME>FONT_Library</PRXNAME>
 		<LIBRARIES>
 			<LIBRARY>
-				<NAME>sceFont</NAME>
+				<NAME>sceLibFont</NAME>
 				<FLAGS>0x00010011</FLAGS>
 				<FUNCTIONS>
 					<FUNCTION>
