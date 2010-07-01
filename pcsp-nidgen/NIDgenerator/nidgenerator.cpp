@@ -128,8 +128,8 @@ void NIDgenerator::WriteModuleFile(QString modulename)
 	 out << "\t\tif (" + modulename + "_ready)\n";
 	 out << "\t\t{\n";
 	 out << "\t\t\t"+modulename +"_ready = false;\n";
-     out << "\t\t\treturn true;\n";
 	 out << "\t\t}\n";
+	 out << "\t\treturn true;\n";
 	 out << "\t}\n";
 	 out << "\n";
      while (i != handler.NIDmap.end() && i.key() == modulename) 
