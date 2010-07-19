@@ -10,7 +10,7 @@
 #define SFY(x) #x
 #define STRFY(x) SFY(x)
 
-#define VERSION_BASE "0.2"
+#define VERSION_BASE "0.3"
 //#define RELEASE_VERSION 1
 
 #if RELEASE_VERSION
