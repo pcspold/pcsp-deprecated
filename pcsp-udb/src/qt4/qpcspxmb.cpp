@@ -18,12 +18,16 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtCore>
 #include <QtGui>
 #include <qtconcurrentrun.h>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 #include "types.h"
 #include "../loaders.h"
 #include <stdio.h>
 #include "ProgressCtrl.h"
 #include "qumdmodel.h"
+#include "sqldata.h"
 
 QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 :   QMainWindow(parent, flags)
@@ -273,6 +277,9 @@ void QPcspXmb::run()
     QFileInfoList entries(dir.entryInfoList(QStringList() << "*.ISO" << "*.CSO", QDir::Files, QDir::Name|QDir::IgnoreCase));
 	emit range(0, entries.size()-1);
 	int i=0;
+	//first clear the available field from all records since we have to scan if the game still exist
+	QSqlQuery query;
+    query.exec("UPDATE cache SET available = 0");
 
 	      m_sourceModel->m_infos.clear();
          m_sourceModel->startupdatemodel();
@@ -286,6 +293,8 @@ void QPcspXmb::run()
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
                 UmdInfos infos(fi, false);
+
+				sqldata  data(fi);
                 m_sourceModel->m_infos.push_back(infos);
                 if (!m_sourceModel->m_infos.last().id.size())
                 {
