@@ -298,9 +298,9 @@ public:
 			  query.addBindValue(previewpic1);
 			  query.addBindValue(previewpic2);
 			  query.addBindValue(region);
+			  query.addBindValue(company);
 			  query.addBindValue(language);
 			  query.addBindValue(genre);
-			  query.addBindValue(company);
 			  query.exec();
 
 	   
