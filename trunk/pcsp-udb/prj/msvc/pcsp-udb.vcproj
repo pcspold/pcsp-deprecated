@@ -556,6 +556,10 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\..\src\qt4\sqldata.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

@@ -26,6 +26,15 @@ static bool createConnection()
 			   "language varchar(256),"
 			   "genre varchar(40))");
 
+	//create cache table
+	query.exec("create table if not exists cache (id INTEGER PRIMARY KEY, "
+		       "path varchar(256),"
+			   "lastmodified int ,"
+			   "filesize int,"
+			   "gameid int,"
+			   "crc32 varchar(40),"
+			   "gamestatus varchar(100), "
+			   "available bool DEFAULT 0)");
 	return true;
 }
 
