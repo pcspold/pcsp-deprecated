@@ -70,9 +70,9 @@ static void convert_old_database()
 			  query.addBindValue(preview1);
 			  query.addBindValue(preview2);
 			  query.addBindValue(region);
+			  query.addBindValue(company);
 			  query.addBindValue(language);
 			  query.addBindValue(genre);
-			  query.addBindValue(company);
 			  query.exec();
 	}
 }
