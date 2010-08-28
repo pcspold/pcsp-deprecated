@@ -71,6 +71,9 @@ public:
 		   if(tables_relation==0)//if  0 then we haven't found a number
 		   {
              //TODO write_games_table
+			 QString title    = QString::fromUtf8(psfinfo.title);
+             QString firmware = QString::fromUtf8(psfinfo.psp_system_version);
+			  tables_relation = write_games_table(discid,title,firmware);
 		   }
 		   //calculate crc
 		   crc32 = Crc32().FullCRC(entry);
@@ -148,7 +151,6 @@ public:
 			  query.addBindValue(status);
 			  query.addBindValue(1);//since we add a record it is added as available
 			  query.exec();
-			  //query.exec("UPDATE cache SET available = 1 WHERE path = '" + absoluteFilePath + "'");
 	   }
 
    }
@@ -161,5 +163,147 @@ public:
         return query.value(0).toUInt();
 	  }
 	  return 0;//entry not found
+   }
+   u32 write_games_table(QString discid,QString title,QString firmware)
+   {
+        QString region,company,language,genre;
+		QString coverfront = discid + "-front.jpg";
+        QString coverback  = discid + "-back.jpg";
+        QString previewpic1 = discid + "-preview1.jpg";
+        QString previewpic2 = discid + "-preview2.jpg";
+		genre= "<unknown>";
+
+		if (discid.startsWith("ULJM"))
+        {
+             region  = "Japan";
+             company = "<unknown>";
+			 language= "Japanese";
+        }
+		else if(discid.startsWith("UCJS"))
+		{
+			region="Japan";
+            company="Sony";
+            language="Japanese";
+		}
+        else if (discid.startsWith("UCES"))
+        {
+            region="Europe";
+            company="Sony";
+            language="<unknown>";
+        }
+        else if (discid.startsWith("ULES"))
+        {
+            region="Europe";
+            company="<unknown>";
+            language="<unknown>";
+        }
+        else if (discid.startsWith("ULUS"))
+        {
+            region="USA";
+            company="<unknown>";
+            language="English";
+        }
+		else if(discid.startsWith("NPUG"))
+		{
+            region="USA";
+            company="Sony";
+            language="English";
+		}
+		else if(discid.startsWith("UCUS"))
+		{
+            region="USA";
+            company="Sony";
+            language="English";
+		}
+		else if(discid.startsWith("NPUH"))
+		{
+            region="USA";
+            company="<unknown>";
+            language="English";
+		}
+		else if(discid.startsWith("ULAS"))
+		{
+             region="China";
+             company="<unknown>";
+             language="<unknown>";
+		}
+		else if(discid.startsWith("NPHG"))
+		{
+              region="China";
+              company="Sony";
+              language="<unknown>";
+		}
+		else if(discid.startsWith("UCAS"))
+		{
+              region="China";
+              company="Sony";
+              language="<unknown>";
+		}
+		else if(discid.startsWith("UCKS"))
+		{
+               region="Korea";
+               company="Sony";
+               language="<unknown>";
+		}
+		else if(discid.startsWith("ULKS"))
+		{
+               region="Korea";
+               company="<unknown>";
+               language="<unknown>";
+		}
+		else if(discid.startsWith("ULJS"))
+		{
+                region="Japan";
+				company="<unknown>";
+                language="Japanese";
+		}
+		else if(discid.startsWith("NPJG"))
+		{
+				region="Japan";
+				company="Sony";
+                language="Japanese";
+		}
+		else if(discid.startsWith("UCET"))						
+		{
+				region="Europe";
+				company="Sony";
+				language="<unknown>";
+		}
+		else if(discid.startsWith("NPEZ"))
+		{
+				region="Europe";
+				company="Sony";
+				language="<unknown>";
+		}
+		else if(discid.startsWith("NPUX"))
+		{
+				region="USA";
+				company="Sony";
+				language="English";
+		}
+		else
+        {
+                 region="<unknown>";
+				 company="<unknown>";
+                 language="<unknown>";
+         }
+		QSqlQuery query;
+		 query.prepare("INSERT INTO games (discid,title,firmware,coverfront,coverback,previewpic1,previewpic2,region,company,language,genre) "
+              "VALUES (?, ?, ?,?,?,?,?,?,?,?,?)");
+			  query.addBindValue(discid);
+			  query.addBindValue(title);
+			  query.addBindValue(firmware);
+			  query.addBindValue(coverfront);
+			  query.addBindValue(coverback);
+			  query.addBindValue(previewpic1);
+			  query.addBindValue(previewpic2);
+			  query.addBindValue(region);
+			  query.addBindValue(language);
+			  query.addBindValue(genre);
+			  query.addBindValue(company);
+			  query.exec();
+
+	   
+        return read_games_table(discid);         	
    }
 };
