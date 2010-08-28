@@ -19,6 +19,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 #include "qpcspxmb.h"
 #include "version.h"
+#include "qt4/sqlconnection.h"
 
 void center(QWidget &widget)
 {
@@ -58,7 +59,11 @@ int main(int argc, char *argv[])
 
     QPcspXmb w(0, 0);
     w.setWindowTitle("PCSP-UDB v" VERSION);
-    w.show();
+	if(!createConnection())
+		return 1;
+
+	///convert_old_database();//function to convert old database.only needed once.
+   // w.show();
 
     return a.exec();
 }
