@@ -260,6 +260,7 @@ void QPcspXmb::thisThreadFinished()
 	statusbar->addWidget(label,0);
     statusbar->addWidget(label2,0);
     statusbar->addWidget(label3,0);
+	show();
 }
 void QPcspXmb::setStop()
 {
