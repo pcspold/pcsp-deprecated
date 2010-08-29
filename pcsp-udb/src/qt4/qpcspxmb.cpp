@@ -245,13 +245,13 @@ void QPcspXmb::thisThreadStarted()
 void QPcspXmb::thisThreadFinished()
 {
 
-
+    progressCtrl->hide(); 
+    progressCtrl->progress()->setValue(0);
     disconnect(this, SIGNAL(range(int, int)), progressCtrl->progress(), SLOT(setRange(int, int)));
     disconnect(this, SIGNAL(progress(int)), progressCtrl->progress(), SLOT(setValue(int)));
     disconnect(this, SIGNAL(label(const QString &)), progressCtrl->label(), SLOT(setText(const QString &)));
     disconnect(progressCtrl->stop(), SIGNAL(clicked()), this, SLOT(setStop()));
-    progressCtrl->hide(); 
-    progressCtrl->progress()->setValue(0);
+
 
 	CustomSqlModel *model = new CustomSqlModel(gameList);
 	model->setQuery("SELECT title,discid,region,firmware,company from games,cache WHERE games.id=cache.gameid AND available=1");
@@ -270,8 +270,8 @@ void QPcspXmb::thisThreadFinished()
     gameList->setColumnWidth(3,40);
 	gameList->show();
 
-
 	show();
+
 }
 void QPcspXmb::setStop()
 {
