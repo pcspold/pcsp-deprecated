@@ -252,32 +252,25 @@ void QPcspXmb::thisThreadFinished()
     disconnect(progressCtrl->stop(), SIGNAL(clicked()), this, SLOT(setStop()));
     progressCtrl->hide(); 
     progressCtrl->progress()->setValue(0);
-	gamesNotInDatabase = totalgames - gamesInDatabase;
-	QString gamesNotInDatabaseS;
-	QString gamesInDatabaseS;
-	QString totalgamesS;
-	gamesNotInDatabaseS.setNum(gamesNotInDatabase);
-	totalgamesS.setNum(totalgames);
-	gamesInDatabaseS.setNum(gamesInDatabase);
-	QLabel *label = new QLabel(this);
-	label->setText("Total Games: " + totalgamesS);
-	QLabel *label2 = new QLabel(this);
-	label2->setText("In Database : " + gamesInDatabaseS);
-	QLabel *label3 = new QLabel(this);
-	label3->setText("Not In Database : " + gamesNotInDatabaseS);
-	statusbar->addWidget(label,0);
-    statusbar->addWidget(label2,0);
-    statusbar->addWidget(label3,0);
-			  CustomSqlModel *model = new CustomSqlModel(gameList);
-		  model->setQuery("SELECT title,discid,region,firmware,company from games,cache WHERE games.id=cache.gameid AND available=1");
-		  model->setHeaderData(0, Qt::Horizontal, tr("Title"));
-          model->setHeaderData(1, Qt::Horizontal, tr("Disc ID"));
-		  model->setHeaderData(2, Qt::Horizontal, tr("Region"));
-		  model->setHeaderData(3, Qt::Horizontal, tr("FW"));
-          model->setHeaderData(4, Qt::Horizontal, tr("Company"));
 
-          gameList->setModel(model);
-		  gameList->show();
+	CustomSqlModel *model = new CustomSqlModel(gameList);
+	model->setQuery("SELECT title,discid,region,firmware,company from games,cache WHERE games.id=cache.gameid AND available=1");
+	model->setHeaderData(0, Qt::Horizontal, tr("Title"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Disc ID"));
+	model->setHeaderData(2, Qt::Horizontal, tr("Region"));
+    model->setHeaderData(3, Qt::Horizontal, tr("FW"));
+    model->setHeaderData(4, Qt::Horizontal, tr("Company"));
+
+    m_model = new QSortFilterProxyModel(this);
+    m_model->setSourceModel(model);
+    gameList->setModel(m_model);
+	gameList->setColumnWidth(0,250);
+    gameList->setColumnWidth(1,80);
+	gameList->setColumnWidth(2,60);
+    gameList->setColumnWidth(3,40);
+	gameList->show();
+
+
 	show();
 }
 void QPcspXmb::setStop()
@@ -295,8 +288,6 @@ void QPcspXmb::run()
 	QSqlQuery query;
     query.exec("UPDATE cache SET available = 0");
 
-	    //  m_sourceModel->m_infos.clear();
-        // m_sourceModel->startupdatemodel();
 		  QListIterator< QFileInfo > entry(entries);
           if (entry.hasNext())
           {
@@ -306,31 +297,11 @@ void QPcspXmb::run()
 		        
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
-               // UmdInfos infos(fi, false);
-
-				sqldata  data(fi);
-               /* m_sourceModel->m_infos.push_back(infos);
-                if (!m_sourceModel->m_infos.last().id.size())
-                {
-                    m_sourceModel->m_infos.removeLast();
-                }
-				i++;
-				
-				m_sourceModel->endupdatemodel();
-				if(infos.isInDatabase)
-				{
-				   gamesInDatabase++;
-				}
-				totalgames++;*/
+		        sqldata  data(fi);
 				i++;
                 if (m_stop) break;
             }
-	      }
-
-
-         // m_sourceModel->endupdatemodel();
-		 
-		  
+	      }	  
 }
 
 void QPcspXmb::onChangeUmdPath()
