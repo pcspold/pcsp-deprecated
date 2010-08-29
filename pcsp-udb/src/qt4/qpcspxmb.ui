@@ -1231,7 +1231,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
-    <item row="0" column="0" rowspan="2">
+    <item row="0" column="0" rowspan="3">
      <widget class="QTableView" name="gameList">
       <property name="font">
        <font>
@@ -1249,7 +1249,7 @@ p, li { white-space: pre-wrap; }
        <bool>false</bool>
       </property>
       <property name="sortingEnabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="wordWrap">
        <bool>false</bool>
