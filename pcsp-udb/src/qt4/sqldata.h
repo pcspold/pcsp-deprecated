@@ -3,6 +3,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlQueryModel>
 #include "qumdmodel.h" //to be removed
 
 class sqldata
@@ -307,3 +308,41 @@ public:
         return read_games_table(discid);         	
    }
 };
+
+
+ 
+
+ class CustomSqlModel : public QSqlQueryModel
+ {
+     Q_OBJECT
+
+ public:
+ CustomSqlModel::CustomSqlModel(QObject *parent)
+     : QSqlQueryModel(parent)
+ {
+ }
+ QVariant CustomSqlModel::data(const QModelIndex &index, int role) const
+ {
+     QVariant value = QSqlQueryModel::data(index, role);
+	 /*QString index1 = index.data(Qt::DisplayRole).toString();
+	 QString region = "USA";
+	 if(index.column()==2)
+	 {
+	    return (role == Qt::DisplayRole || role == Qt::EditRole) ? region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + region + ".png") : QVariant();
+	 }*/
+
+     return value;
+ }
+ };
+
+
+ /* case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".png") : QVariant();
+
+	       if (value.isValid() && role == Qt::DisplayRole) {
+         if (index.column() == 0)
+             return value.toString().prepend("#");
+         else if (index.column() == 2)
+             return value.toString().toUpper();
+     }
+     if (role == Qt::TextColorRole && index.column() == 1)
+         return qVariantFromValue(QColor(Qt::blue));*/

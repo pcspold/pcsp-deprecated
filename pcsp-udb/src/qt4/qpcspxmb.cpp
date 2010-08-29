@@ -21,6 +21,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+ #include <QtSql>
 
 #include "types.h"
 #include "../loaders.h"
@@ -52,6 +53,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
         actionStart_With_Debugger->setChecked(true);
 	}
     m_umdisospath = m_ini.value("/default/games/path").toString();
+#if 0
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
 
     m_model = new QSortFilterProxyModel(this);
@@ -99,6 +101,8 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
         refresh();
     }
 	m_model->setFilterKeyColumn(-1);//search to all columns by default
+#endif
+	refresh();//lame
 }
 
 QPcspXmb::~QPcspXmb()
@@ -264,6 +268,16 @@ void QPcspXmb::thisThreadFinished()
 	statusbar->addWidget(label,0);
     statusbar->addWidget(label2,0);
     statusbar->addWidget(label3,0);
+			  CustomSqlModel *model = new CustomSqlModel(gameList);
+		  model->setQuery("SELECT title,discid,region,firmware,company from games,cache WHERE games.id=cache.gameid AND available=1");
+		  model->setHeaderData(0, Qt::Horizontal, tr("Title"));
+          model->setHeaderData(1, Qt::Horizontal, tr("Disc ID"));
+		  model->setHeaderData(2, Qt::Horizontal, tr("Region"));
+		  model->setHeaderData(3, Qt::Horizontal, tr("FW"));
+          model->setHeaderData(4, Qt::Horizontal, tr("Company"));
+
+          gameList->setModel(model);
+		  gameList->show();
 	show();
 }
 void QPcspXmb::setStop()
@@ -281,8 +295,8 @@ void QPcspXmb::run()
 	QSqlQuery query;
     query.exec("UPDATE cache SET available = 0");
 
-	      m_sourceModel->m_infos.clear();
-         m_sourceModel->startupdatemodel();
+	    //  m_sourceModel->m_infos.clear();
+        // m_sourceModel->startupdatemodel();
 		  QListIterator< QFileInfo > entry(entries);
           if (entry.hasNext())
           {
@@ -292,10 +306,10 @@ void QPcspXmb::run()
 		        
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
-                UmdInfos infos(fi, false);
+               // UmdInfos infos(fi, false);
 
 				sqldata  data(fi);
-                m_sourceModel->m_infos.push_back(infos);
+               /* m_sourceModel->m_infos.push_back(infos);
                 if (!m_sourceModel->m_infos.last().id.size())
                 {
                     m_sourceModel->m_infos.removeLast();
@@ -307,11 +321,14 @@ void QPcspXmb::run()
 				{
 				   gamesInDatabase++;
 				}
-				totalgames++;
+				totalgames++;*/
+				i++;
                 if (m_stop) break;
             }
 	      }
-          m_sourceModel->endupdatemodel();
+
+
+         // m_sourceModel->endupdatemodel();
 		 
 		  
 }
