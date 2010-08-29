@@ -170,7 +170,7 @@ public:
 
     UmdInfos &operator =(QFileInfo const &entry)
     {
-        if (*this != entry)
+    /*    if (*this != entry)
         {
             absoluteFilePath = entry.absoluteFilePath();
             filename         = entry.fileName();
@@ -546,7 +546,7 @@ public:
                 company  = "";
             }
         }
-
+*/
         return *this;
     }
 };

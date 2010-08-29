@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 	if(!createConnection())
 		return 1;
 
-	///convert_old_database();//function to convert old database.only needed once.
+	//convert_old_database();//function to convert old database.only needed once.
    // w.show();
 
     return a.exec();
