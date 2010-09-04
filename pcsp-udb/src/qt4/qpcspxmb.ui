@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>947</width>
-    <height>815</height>
+    <height>857</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -67,7 +67,7 @@
     <bool>true</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="4">
+    <item row="0" column="0" rowspan="6">
      <widget class="QTreeView" name="gameList">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -96,43 +96,6 @@
       <attribute name="headerShowSortIndicator" stdset="0">
        <bool>true</bool>
       </attribute>
-      <attribute name="headerShowSortIndicator" stdset="0">
-       <bool>true</bool>
-      </attribute>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QCommandLinkButton" name="runButton">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Segoe UI</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>Play</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
      </widget>
     </item>
     <item row="0" column="1">
@@ -1164,7 +1127,41 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="4" column="1">
+     <widget class="QCommandLinkButton" name="runButton">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Play</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <widget class="QGroupBox" name="groupBox_3">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1175,7 +1172,7 @@ p, li { white-space: pre-wrap; }
       <property name="minimumSize">
        <size>
         <width>323</width>
-        <height>70</height>
+        <height>100</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -1263,6 +1260,69 @@ p, li { white-space: pre-wrap; }
         <string>in</string>
        </property>
       </widget>
+      <widget class="QComboBox" name="gamefiltercombobox">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>60</y>
+         <width>101</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>All</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Fully Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Half Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Intro</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Loadable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Not Loadable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>No Info</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>161</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Game status on PCSP emulator:</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -1307,7 +1367,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>797</x>
-     <y>715</y>
+     <y>708</y>
     </hint>
     <hint type="destinationlabel">
      <x>616</x>
@@ -1323,7 +1383,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>925</x>
-     <y>717</y>
+     <y>710</y>
     </hint>
     <hint type="destinationlabel">
      <x>780</x>
@@ -1347,10 +1407,27 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>gamefiltercombobox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PcspXmbUi</receiver>
+   <slot>gameFilterChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>875</x>
+     <y>729</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>textFilterChanged(QString)</slot>
   <slot>filterRegExpChanged(int)</slot>
   <slot>startWithDebugger()</slot>
+  <slot>gameFilterChanged(int)</slot>
  </slots>
 </ui>

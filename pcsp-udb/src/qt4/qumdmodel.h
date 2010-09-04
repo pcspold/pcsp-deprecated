@@ -20,7 +20,10 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QtCore>
 #include <QtGui>
-
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
 #include "types.h"
 
 #include "../loaders.h"
@@ -135,6 +138,8 @@ public:
     QString language;
     QString genre;
     QString company;
+	int     gamestatus;
+	QString gamenotes;
     u32     crc32;
 	bool     isInDatabase;
 
@@ -150,6 +155,7 @@ public:
 
     UmdInfos(bool autorename = false)
         :   crc32(0)
+		,   gamestatus(0)
 		,   isInDatabase(false)
         ,   autorename(autorename)
     {
@@ -215,8 +221,23 @@ public:
                         company    = loadfromdatabase.value("company").toString();
 						if(!genre.startsWith("<unknown>")) //then we have  it on database
                             isInDatabase=true;
+						   //load compatibility list from database
+					       QSqlQuery query;
+					       query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
+                           if(query.first())
+	                       {
+	    
+						     gamestatus= query.value(2).toInt();
+	                         gamenotes = query.value(3).toString();
+					       }
+					       else
+					       {
+                             gamestatus=0;
+						     gamenotes="There aren't any info for the game on compatibility list";
+					       }
                         return *this;
                     }
+
 
                 }
             }
@@ -279,19 +300,20 @@ public:
                             }
                         }
                     }
-
-                    //QStringList values = entry.baseName().split(" - ");
-                    //if (!crc32 && (values.size() == 2) && values.takeFirst() == id)
-                    //{
-                    //    bool ok = false;
-                    //    int result = values.takeFirst().toInt(&ok, 16);
-                    //    if (ok)
-                    //    {
-                    //        crc32 = result;
-                    //    }
-                    //}
-
-                    // ini.setValue("/umd/path", absoluteFilePath);
+					//load compatibility list from database
+					QSqlQuery query;
+					query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
+                    if(query.first())
+	                {
+	    
+						   gamestatus= query.value(2).toInt();
+	                       gamenotes = query.value(3).toString();
+					}
+					else
+					{
+                           gamestatus=0;
+						   gamenotes="There aren't any info for the game on compatibility list";
+					}
                     if (loadfromdatabase.contains("title"))
                     {
                         coverfront = loadfromdatabase.value("coverfront").toString();
@@ -603,7 +625,7 @@ public:
 
     virtual int columnCount(QModelIndex const &parent = QModelIndex()) const
     {
-        return 5;
+        return 6;
     }
 
     virtual int rowCount(QModelIndex const &parent = QModelIndex()) const
@@ -676,7 +698,14 @@ public:
 			{
               return infos.filesize;
 			}
-
+			if(role==Qt::UserRole+11)
+			{
+				return infos.gamenotes;
+			}
+			//if(role==Qt:UserRole+12)
+			//{
+			//	return infos.gamestatus;
+			//}
             /*if (role == Qt::TextAlignmentRole) 
             {
             if(index.column() == 0) {
@@ -692,7 +721,9 @@ public:
             case 2: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.region                                                       : (role == Qt::DecorationRole) ? QIcon(":/flags/" + infos.region + ".png") : QVariant();
             case 3: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.firmware                                                     : QVariant();
             case 4: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.company                                                      : QVariant();
-            }
+			case 5: return (role == Qt::DisplayRole || role == Qt::EditRole) ? infos.gamestatus                                                   : QVariant();
+            
+			}
         }
 
 
@@ -712,6 +743,7 @@ public:
             case 2: return "Region";
             case 3: return "FW";
             case 4: return "Company";
+			case 5: return "GameStatus";
             }
         }
 
