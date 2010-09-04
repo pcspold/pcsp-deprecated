@@ -23,6 +23,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_qpcspxmb.h"
 
 #include "qumdmodel.h"
+#include "customfilterproxymodel.h"
 class MainWindowThread;
 class ProgressCtrl;
 
@@ -59,6 +60,7 @@ private slots:
     void onPressedButton();
 	void textFilterChanged(QString text);
 	void filterRegExpChanged(int column);
+	void gameFilterChanged(int status);
 	void thisThreadStarted();
 	void thisThreadFinished();
 	void setStop();
@@ -69,7 +71,7 @@ private slots:
 private:
     QString                m_umdisospath;
     QUmdTableModel        *m_sourceModel;
-    QSortFilterProxyModel *m_model;
+    customFilterProxyModel *m_model;
     QDataWidgetMapper     *m_mapper;
     QItemSelectionModel   *m_selectionModel;
     QSystemTrayIcon       *m_systray;

@@ -19,6 +19,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui>
 #include "qpcspxmb.h"
 #include "version.h"
+#include "qt4/sqlconnection.h"
 
 void center(QWidget &widget)
 {
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Q_INIT_RESOURCE(qpcspxmb);
+	if(!createConnection())
+	return 1;
 
     QPcspXmb w(0, 0);
     w.setWindowTitle("PCSP-UDB v" VERSION);

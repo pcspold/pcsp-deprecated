@@ -50,7 +50,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     m_umdisospath = m_ini.value("/default/games/path").toString();
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
 
-    m_model = new QSortFilterProxyModel(this);
+    m_model = new customFilterProxyModel(this);
     m_model->setSourceModel(m_sourceModel);
     m_mapper = new QDataWidgetMapper(this);
     m_mapper->setModel(m_model);
@@ -94,7 +94,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     {
         refresh();
     }
-	m_model->setFilterKeyColumn(-1);//search to all columns by default
+	//m_model->setFilterKeyColumn(-1);//search to all columns by default
 }
 
 QPcspXmb::~QPcspXmb()
@@ -127,6 +127,8 @@ void QPcspXmb::onModelReset()
     gameList->setColumnWidth(1,80);
 	gameList->setColumnWidth(2,60);
     gameList->setColumnWidth(3,40);
+	gameList->hideColumn(5);
+	
 
     connect(m_selectionModel, SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(onCurrentChanged(QModelIndex)));
 }
@@ -337,15 +339,24 @@ void QPcspXmb::textFilterChanged(QString text)
 }
 void QPcspXmb::filterRegExpChanged(int column)
 { 
-  if(column==0)
-  {
-    m_model->setFilterKeyColumn(-1);
-  }
-  else
-  {
-     m_model->setFilterKeyColumn(column-1);
-  }
+     m_model->setGenericFilter(column);
+}
+void QPcspXmb::gameFilterChanged(int status)
+{
+   if(status==0) m_model->setGameFilter("10");
+   if(status==1) m_model->setGameFilter("6"); //Fully playable
+   if(status==2) m_model->setGameFilter("5"); //Playable
+   if(status==3) m_model->setGameFilter("4"); //Half Playable
+   if(status==4) m_model->setGameFilter("3"); //Intro
+   if(status==5) m_model->setGameFilter("2"); //Loadable
+   if(status==6) m_model->setGameFilter("1");//Not Loadable
+   if(status==7) m_model->setGameFilter("0");//No Info
 
+   	gameList->setColumnWidth(0,250);
+    gameList->setColumnWidth(1,80);
+	gameList->setColumnWidth(2,60);
+    gameList->setColumnWidth(3,40);
+	gameList->hideColumn(5);
 }
 void QPcspXmb::startWithDebugger()
 {

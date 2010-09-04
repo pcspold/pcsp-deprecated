@@ -47,8 +47,8 @@
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories=".\GeneratedFiles;..\..\prj\msvc\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;.\;..\..\src\qt4;..\..\src;..\..\..\common;..\..\..\3rdparty"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB"
+				AdditionalIncludeDirectories="&quot;.\GeneratedFiles&quot;;&quot;..\..\prj\msvc\GeneratedFiles&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\&quot;;&quot;..\..\src\qt4&quot;;&quot;..\..\src&quot;;&quot;..\..\..\common&quot;;&quot;..\..\..\3rdparty&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB;QT_SQL_LIB"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -69,7 +69,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib ../../../3rdparty/zlib/win32/Release/zlib.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib ../../../3rdparty/zlib/win32/Release/zlib.lib QtSql4.lib"
 				OutputFile="..\..\..\bin\$(ProjectName).exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="false"
@@ -128,8 +128,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;..\..\prj\msvc\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;.\;..\..\src\qt4;..\..\src;..\..\..\common;..\..\..\3rdparty"
-				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB"
+				AdditionalIncludeDirectories="&quot;.\GeneratedFiles&quot;;&quot;..\..\prj\msvc\GeneratedFiles&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\&quot;;&quot;..\..\src\qt4&quot;;&quot;..\..\src&quot;;&quot;..\..\..\common&quot;;&quot;..\..\..\3rdparty&quot;;&quot;$(QTDIR)\include\QtSql&quot;"
+				PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB;QT_SQL_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
@@ -145,7 +145,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib ../../../3rdparty/zlib/win32/Debug/zlib.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib ../../../3rdparty/zlib/win32/Debug/zlib.lib QtSqld4.lib"
 				OutputFile="..\..\..\bin\$(ProjectName)D.exe"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
 				GenerateDebugInformation="true"
@@ -319,6 +319,18 @@
 				SourceControlFiles="false"
 				>
 				<File
+					RelativePath=".\GeneratedFiles\Release\moc_customfilterproxymodel.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Release\moc_ProgressCtrl.cpp"
 					>
 					<FileConfiguration
@@ -360,6 +372,18 @@
 				Filter="cpp;moc"
 				SourceControlFiles="false"
 				>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_customfilterproxymodel.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_ProgressCtrl.cpp"
 					>
@@ -467,6 +491,36 @@
 				Name="Qt 4"
 				>
 				<File
+					RelativePath="..\..\src\qt4\customfilterproxymodel.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\qt4\customfilterproxymodel.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing $(InputFileName)..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;$(QTDIR)\include\QtSql&quot; -I&quot;.&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\GeneratedFiles&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing $(InputFileName)..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;$(QTDIR)\include\QtSql&quot; -I&quot;.&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\GeneratedFiles&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath="..\..\src\qt4\ProgressCtrl.cpp"
 					>
 				</File>
@@ -479,7 +533,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\ProgressCtrl.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
@@ -490,7 +544,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DQT_CORE_LIB -DQT_GUI_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\ProgressCtrl.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
@@ -509,7 +563,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\qpcspxmb.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
@@ -520,7 +574,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DQT_CORE_LIB -DQT_GUI_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\qpcspxmb.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
@@ -535,7 +589,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\qumdmodel.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
@@ -546,11 +600,15 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="Moc&apos;ing $(InputFileName)..."
-							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -DQT_CORE_LIB -DQT_GUI_LIB -DQT_THREAD_SUPPORT -DUNICODE -DWIN32 -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\QtGui\.&quot; -I&quot;.\.&quot; -I&quot;.\..\..\..\3rdparty\.&quot; -I&quot;.\..\..\..\common\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\.&quot; -I&quot;.\..\..\src\.&quot; -I&quot;.\..\..\src\qt4\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB  -I&quot;.\GeneratedFiles&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles&quot; -I&quot;$(QTDIR)\include&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;.\..\..\prj\msvc\GeneratedFiles\$(ConfigurationName)&quot; -I&quot;$(QTDIR)\include\QtCore&quot; -I&quot;$(QTDIR)\include\QtGui&quot; -I&quot;.&quot; -I&quot;.\..\..\src\qt4&quot; -I&quot;.\..\..\src&quot; -I&quot;.\..\..\..\common&quot; -I&quot;.\..\..\..\3rdparty&quot; -I&quot;$(QTDIR)\include\QtSql&quot; &quot;..\..\src\qt4\qumdmodel.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 						/>
 					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\..\src\qt4\sqlconnection.h"
+					>
 				</File>
 			</Filter>
 		</Filter>
