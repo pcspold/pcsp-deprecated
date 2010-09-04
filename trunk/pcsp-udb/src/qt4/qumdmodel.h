@@ -714,10 +714,10 @@ public:
 			{
 				return infos.gamenotes;
 			}
-			//if(role==Qt:UserRole+12)
-			//{
-			//	return infos.gamestatus;
-			//}
+			if(role==Qt::UserRole+12)//hmm probably can be done better but i am lazy :P
+			{
+				return infos.gamestatus;
+			}
             /*if (role == Qt::TextAlignmentRole) 
             {
             if(index.column() == 0) {

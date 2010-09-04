@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>947</width>
-    <height>857</height>
+    <height>875</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -96,6 +96,211 @@
       <attribute name="headerShowSortIndicator" stdset="0">
        <bool>true</bool>
       </attribute>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>323</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>323</width>
+        <height>70</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Search</string>
+      </property>
+      <widget class="QComboBox" name="filtercombobox">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>30</y>
+         <width>101</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>All</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Title</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Disc ID</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Region</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FW</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Company</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLineEdit" name="filterSearchEdit">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>30</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_10">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>61</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Search for :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_11">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>30</y>
+         <width>21</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>in</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="gamefiltercombobox">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>60</y>
+         <width>101</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>All</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Fully Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Half Playable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Intro</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Loadable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Not Loadable</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>No Info</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>161</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Game status on PCSP emulator:</string>
+       </property>
+      </widget>
+      <zorder>filtercombobox</zorder>
+      <zorder>filterSearchEdit</zorder>
+      <zorder>label_10</zorder>
+      <zorder>label_11</zorder>
+      <zorder>gamefiltercombobox</zorder>
+      <zorder>label_12</zorder>
+      <zorder>runButton</zorder>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QCommandLinkButton" name="runButton">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>100</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Play</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
      </widget>
     </item>
     <item row="0" column="1">
@@ -1124,204 +1329,184 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Settings</string>
        </attribute>
-      </widget>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QCommandLinkButton" name="runButton">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>100</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Segoe UI</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>Play</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>323</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>323</width>
-        <height>70</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Search</string>
-      </property>
-      <widget class="QComboBox" name="filtercombobox">
-       <property name="geometry">
-        <rect>
-         <x>210</x>
-         <y>30</y>
-         <width>101</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
-        <property name="text">
-         <string>All</string>
+       <widget class="QLabel" name="label_14">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>50</y>
+          <width>231</width>
+          <height>31</height>
+         </rect>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Title</string>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
         </property>
-       </item>
-       <item>
         <property name="text">
-         <string>Disc ID</string>
+         <string>Compatibility for pcsp version : v0.3.0</string>
         </property>
-       </item>
-       <item>
+       </widget>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>120</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
         <property name="text">
-         <string>Region</string>
+         <string>Game Status:</string>
         </property>
-       </item>
-       <item>
+       </widget>
+       <widget class="QComboBox" name="gamestatusCombo">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>120</y>
+          <width>181</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>6</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>Fully Playable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Playable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Half Playable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Intro</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Loadable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Not Loadable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>No Info</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_16">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>170</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
         <property name="text">
-         <string>FW</string>
+         <string>Game Notes:</string>
         </property>
-       </item>
-       <item>
+       </widget>
+       <widget class="QTextEdit" name="gameNotesEdit">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>170</y>
+          <width>181</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>240</red>
+              <green>240</green>
+              <blue>240</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>240</red>
+              <green>240</green>
+              <blue>240</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>240</red>
+              <green>240</green>
+              <blue>240</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;right&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="updateComp">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>360</y>
+          <width>75</width>
+          <height>23</height>
+         </rect>
+        </property>
         <property name="text">
-         <string>Company</string>
+         <string>Update</string>
         </property>
-       </item>
-      </widget>
-      <widget class="QLineEdit" name="filterSearchEdit">
-       <property name="geometry">
-        <rect>
-         <x>70</x>
-         <y>30</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_10">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>61</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Search for :</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_11">
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>30</y>
-         <width>21</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>in</string>
-       </property>
-      </widget>
-      <widget class="QComboBox" name="gamefiltercombobox">
-       <property name="geometry">
-        <rect>
-         <x>210</x>
-         <y>60</y>
-         <width>101</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <item>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>330</y>
+          <width>251</width>
+          <height>31</height>
+         </rect>
+        </property>
         <property name="text">
-         <string>All</string>
+         <string>Update Status: You must restart udb after that</string>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Fully Playable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Playable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Half Playable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Intro</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Loadable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Not Loadable</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>No Info</string>
-        </property>
-       </item>
-      </widget>
-      <widget class="QLabel" name="label_12">
-       <property name="geometry">
-        <rect>
-         <x>30</x>
-         <y>60</y>
-         <width>161</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Game status on PCSP emulator:</string>
-       </property>
+       </widget>
       </widget>
      </widget>
     </item>
@@ -1367,7 +1552,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>797</x>
-     <y>708</y>
+     <y>763</y>
     </hint>
     <hint type="destinationlabel">
      <x>616</x>
@@ -1383,7 +1568,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>925</x>
-     <y>710</y>
+     <y>765</y>
     </hint>
     <hint type="destinationlabel">
      <x>780</x>
@@ -1414,12 +1599,28 @@ p, li { white-space: pre-wrap; }
    <slot>gameFilterChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>875</x>
-     <y>729</y>
+     <x>925</x>
+     <y>795</y>
     </hint>
     <hint type="destinationlabel">
      <x>473</x>
      <y>407</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>updateComp</sender>
+   <signal>clicked()</signal>
+   <receiver>PcspXmbUi</receiver>
+   <slot>updateCompatibility()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>854</x>
+     <y>423</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>437</y>
     </hint>
    </hints>
   </connection>
@@ -1429,5 +1630,6 @@ p, li { white-space: pre-wrap; }
   <slot>filterRegExpChanged(int)</slot>
   <slot>startWithDebugger()</slot>
   <slot>gameFilterChanged(int)</slot>
+  <slot>updateCompatibility()</slot>
  </slots>
 </ui>

@@ -182,6 +182,16 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
         runButton->setEnabled(true); 
 		statustext->setText("");
 	 }
+	 //compatibility tab
+	 gameNotesEdit->setText(index.data(Qt::UserRole+11).toString());
+	 int game = index.data(Qt::UserRole+12).toInt();//get gamestatus //TODO you should be able to get it from columns but i dunno how
+	 if(game==0) gamestatusCombo->setCurrentIndex(6);
+	 if(game==1) gamestatusCombo->setCurrentIndex(5);
+	 if(game==2) gamestatusCombo->setCurrentIndex(4);
+	 if(game==3) gamestatusCombo->setCurrentIndex(3);
+	 if(game==4) gamestatusCombo->setCurrentIndex(2);
+	 if(game==5) gamestatusCombo->setCurrentIndex(1);
+     if(game==6) gamestatusCombo->setCurrentIndex(0);
 }
 
 void QPcspXmb::onDoubleClicked(QModelIndex const &index)
@@ -207,7 +217,37 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
         }
     }
 }
+void QPcspXmb::updateCompatibility()
+{
+   //int combocurrentindex=gamestatusCombo->currentIndex();
+   int gamestatus=0;
+   if(gamestatusCombo->currentIndex()==6) gamestatus=0;
+   if(gamestatusCombo->currentIndex()==5) gamestatus=1;
+   if(gamestatusCombo->currentIndex()==4) gamestatus=2;
+   if(gamestatusCombo->currentIndex()==3) gamestatus=3;
+   if(gamestatusCombo->currentIndex()==2) gamestatus=4;
+   if(gamestatusCombo->currentIndex()==1) gamestatus=5;
+   if(gamestatusCombo->currentIndex()==0) gamestatus=6;
+   QString gameinfo = gameNotesEdit->toPlainText();
+   QString crc = crc32Edit->text();
+   QSqlQuery query;
+   
+  // QString status;
+   //status.setNum(gamestatus);
+   //gameNotesEdit->setText(status);
+   //query.exec("UPDATE comp_0_3_0 SET status = 1 ,gamenotes = '" + gameinfo + "'" + "WHERE crc32 = '" + crc + "'");
+   query.prepare("UPDATE comp_0_3_0 SET status =? ,gamenotes = ? WHERE crc32 = ?");
+   query.addBindValue(gamestatus);
+   query.addBindValue(gameinfo);
+   query.addBindValue(crc);
+   query.exec();
 
+   //query.prepare("UPDATE comp_0_3_0 SET status = ? , gamenote = '?' WHERE crc32 = '?'");
+   //query.addBindValue(gamestatus);
+   //query.addBindValue(gameinfo);
+   //query.addBindValue(crc);
+   //query.exec();
+}
 void QPcspXmb::onPressedButton()
 {
     QModelIndex index = m_selectionModel->currentIndex();

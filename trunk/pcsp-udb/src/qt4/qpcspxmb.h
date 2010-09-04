@@ -65,6 +65,7 @@ private slots:
 	void thisThreadFinished();
 	void setStop();
 	void startWithDebugger();
+	void updateCompatibility();
 	
 
 
