@@ -234,6 +234,12 @@ public:
 					       {
                              gamestatus=0;
 						     gamenotes="There aren't any info for the game on compatibility list";
+							 query.prepare("INSERT INTO comp_0_3_0 (crc32,status,gamenotes) "
+                              "VALUES (?,?,?)");
+			                 query.addBindValue(QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper());
+			                 query.addBindValue(gamestatus);
+			                 query.addBindValue(gamenotes);
+			                 query.exec();
 					       }
                         return *this;
                     }
@@ -313,6 +319,12 @@ public:
 					{
                            gamestatus=0;
 						   gamenotes="There aren't any info for the game on compatibility list";
+						   query.prepare("INSERT INTO comp_0_3_0 (crc32,status,gamenotes) "
+                              "VALUES (?,?,?)");
+			                 query.addBindValue(QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper());
+			                 query.addBindValue(gamestatus);
+			                 query.addBindValue(gamenotes);
+			                 query.exec();
 					}
                     if (loadfromdatabase.contains("title"))
                     {
