@@ -352,11 +352,6 @@ void QPcspXmb::gameFilterChanged(int status)
    if(status==6) m_model->setGameFilter("1");//Not Loadable
    if(status==7) m_model->setGameFilter("0");//No Info
 
-   	gameList->setColumnWidth(0,250);
-    gameList->setColumnWidth(1,80);
-	gameList->setColumnWidth(2,60);
-    gameList->setColumnWidth(3,40);
-	gameList->hideColumn(5);
 }
 void QPcspXmb::startWithDebugger()
 {
