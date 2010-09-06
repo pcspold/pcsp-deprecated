@@ -260,13 +260,6 @@
         <string>Game status on PCSP emulator:</string>
        </property>
       </widget>
-      <zorder>filtercombobox</zorder>
-      <zorder>filterSearchEdit</zorder>
-      <zorder>label_10</zorder>
-      <zorder>label_11</zorder>
-      <zorder>gamefiltercombobox</zorder>
-      <zorder>label_12</zorder>
-      <zorder>runButton</zorder>
      </widget>
     </item>
     <item row="5" column="1">
@@ -324,7 +317,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="GameInfo">
        <attribute name="title">
@@ -1484,27 +1477,14 @@ p, li { white-space: pre-wrap; }
        <widget class="QPushButton" name="updateComp">
         <property name="geometry">
          <rect>
-          <x>200</x>
-          <y>360</y>
+          <x>210</x>
+          <y>320</y>
           <width>75</width>
           <height>23</height>
          </rect>
         </property>
         <property name="text">
          <string>Update</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_17">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>330</y>
-          <width>251</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Update Status: You must restart udb after that</string>
         </property>
        </widget>
       </widget>
