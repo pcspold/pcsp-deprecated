@@ -761,6 +761,18 @@ public:
 
         return QVariant();
     }
+	bool setData(const QModelIndex &index,const QVariant &value, int role)
+	{
+       int row = index.row();
+       if(index.isValid()) 
+	   {
+          UmdInfos &infos = m_infos[row];
+		  infos.gamestatus = value.toInt();
+		  emit dataChanged(index, index);
+          return true;
+	   }
+	   return false;
+	}
 
 public:
     mutable QList< UmdInfos > m_infos;

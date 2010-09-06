@@ -232,21 +232,16 @@ void QPcspXmb::updateCompatibility()
    QString crc = crc32Edit->text();
    QSqlQuery query;
    
-  // QString status;
-   //status.setNum(gamestatus);
-   //gameNotesEdit->setText(status);
-   //query.exec("UPDATE comp_0_3_0 SET status = 1 ,gamenotes = '" + gameinfo + "'" + "WHERE crc32 = '" + crc + "'");
    query.prepare("UPDATE comp_0_3_0 SET status =? ,gamenotes = ? WHERE crc32 = ?");
    query.addBindValue(gamestatus);
    query.addBindValue(gameinfo);
    query.addBindValue(crc);
    query.exec();
 
-   //query.prepare("UPDATE comp_0_3_0 SET status = ? , gamenote = '?' WHERE crc32 = '?'");
-   //query.addBindValue(gamestatus);
-   //query.addBindValue(gameinfo);
-   //query.addBindValue(crc);
-   //query.exec();
+    QModelIndex selection = m_selectionModel->currentIndex();//find which line is selected
+    QModelIndex index = m_model->index(selection.row(), 5, QModelIndex());//get the index for column 5
+    m_model->setData(index,gamestatus);
+
 }
 void QPcspXmb::onPressedButton()
 {
