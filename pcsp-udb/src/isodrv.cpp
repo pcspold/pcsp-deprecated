@@ -23,7 +23,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include "iso.h"
 #include "isodrv.h"
 
-#include "UmdImageLoader.h"
+#include "umdimageloader.h"
 
 
 struct fdtable{
