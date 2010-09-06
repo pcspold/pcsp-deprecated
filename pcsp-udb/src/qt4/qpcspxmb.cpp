@@ -183,8 +183,16 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 		statustext->setText("");
 	 }
 	 //compatibility tab
-	 gameNotesEdit->setText(index.data(Qt::UserRole+11).toString());
-	 int game = index.data(Qt::UserRole+12).toInt();//get gamestatus //TODO you should be able to get it from columns but i dunno how
+	 int game=0;
+	 QString gamenotes="There aren't any info for the game on compatibility list";
+	  QSqlQuery query;
+	 query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + crc32Edit->text() + "'");     
+	 if(query.first())
+	 {
+		 game= query.value(2).toInt();
+	     gamenotes = query.value(3).toString();
+	 }
+	 gameNotesEdit->setText(gamenotes);
 	 if(game==0) gamestatusCombo->setCurrentIndex(6);
 	 if(game==1) gamestatusCombo->setCurrentIndex(5);
 	 if(game==2) gamestatusCombo->setCurrentIndex(4);
@@ -238,6 +246,7 @@ void QPcspXmb::updateCompatibility()
    query.addBindValue(crc);
    query.exec();
 
+    //update model dynamically with the new status
     QModelIndex selection = m_selectionModel->currentIndex();//find which line is selected
     QModelIndex index = m_model->index(selection.row(), 5, QModelIndex());//get the index for column 5
     m_model->setData(index,gamestatus);
