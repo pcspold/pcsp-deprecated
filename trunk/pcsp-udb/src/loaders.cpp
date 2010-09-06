@@ -17,8 +17,8 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include <string.h>
 #include "types.h"
-#include "Loaders.h"
-#include "UmdImageLoader.h"
+#include "loaders.h"
+#include "umdimageloader.h"
 #include "isodrv.h"
 #include "isolib.h"
 #include "psf.h"

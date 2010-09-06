@@ -16,12 +16,16 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "types.h"
 #include "umdimageloader.h"
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 extern "C"
 {
+#ifdef __linux__
+#include <zlib.h>
+#else
 #include "zlib/zlib.h"
+#endif
 
 };
 
@@ -66,7 +70,7 @@ void umdimageloader::load_iso(const char *filename)
 	fseek(f,0,SEEK_SET);
 }
 //cso specific
-u32 *index;
+u32 *csoIndex;
 int indexShift;
 u32 blockSize;
 int numBlocks;
@@ -102,8 +106,8 @@ void umdimageloader::load_cso(const char *filename)
 
 	int indexSize = numBlocks + 1;
 
-	index = new u32[indexSize];
-	fread(index, 4, indexSize, f);
+	csoIndex = new u32[indexSize];
+	fread(csoIndex, 4, indexSize, f);
 }
 int umdimageloader::read_block(u8 *outPtr,int blockNumber,int size)
 {
@@ -130,8 +134,8 @@ int umdimageloader::read_cso_block(u8 *outPtr,int blockNumber,int size)
 {
 	while(size>0)
 	{
-		u32 idx = index[blockNumber];
-		u32 idx2 = index[blockNumber+1];
+		u32 idx = csoIndex[blockNumber];
+		u32 idx2 = csoIndex[blockNumber+1];
 
 		int plain = idx & 0x80000000;
 
@@ -199,5 +203,5 @@ void umdimageloader::shutdown()
 	if(f!=NULL)
         fclose(f);//close image file
   if(imagetype==PSP_CSO) 
-	  delete [] index;
+	  delete [] csoIndex;
 }
