@@ -43,6 +43,7 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     resize(size);
     move(pos);
     m_startwithdebugger = m_ini.value("/default/settings/startwithdebugger",false).toBool();
+	compDatabaseName="comp_0_3_0"; //default compatibility database
 	if(m_startwithdebugger)
 	{
         actionStart_With_Debugger->setChecked(true);
@@ -65,15 +66,12 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 
     connect(m_model, SIGNAL(modelReset()), this, SLOT(onModelReset()));
 
-   // icon0List->setModel(m_model);
-   // icon0List->setModelColumn(0);
     gameList->setModel(m_model);
     QHeaderView *header = gameList->header();
     header->setStretchLastSection(true);
     header->setResizeMode(QHeaderView::ResizeToContents);
 
     connect(gameList, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
-//   connect(icon0List, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onDoubleClicked(QModelIndex)));
     connect(runButton, SIGNAL(clicked()), this, SLOT(onPressedButton()));
 
 
@@ -94,7 +92,6 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     {
         refresh();
     }
-	//m_model->setFilterKeyColumn(-1);//search to all columns by default
 }
 
 QPcspXmb::~QPcspXmb()
@@ -186,7 +183,7 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 	 int game=0;
 	 QString gamenotes="There aren't any info for the game on compatibility list";
 	  QSqlQuery query;
-	 query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + crc32Edit->text() + "'");     
+	 query.exec("SELECT * FROM '" + compDatabaseName + "' where crc32 = '" + crc32Edit->text() + "'");     
 	 if(query.first())
 	 {
 		 game= query.value(2).toInt();
@@ -227,7 +224,6 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
 }
 void QPcspXmb::updateCompatibility()
 {
-   //int combocurrentindex=gamestatusCombo->currentIndex();
    int gamestatus=0;
    if(gamestatusCombo->currentIndex()==6) gamestatus=0;
    if(gamestatusCombo->currentIndex()==5) gamestatus=1;
@@ -240,7 +236,7 @@ void QPcspXmb::updateCompatibility()
    QString crc = crc32Edit->text();
    QSqlQuery query;
    
-   query.prepare("UPDATE comp_0_3_0 SET status =? ,gamenotes = ? WHERE crc32 = ?");
+   query.prepare("UPDATE '" + compDatabaseName + "' SET status =? ,gamenotes = ? WHERE crc32 = ?");
    query.addBindValue(gamestatus);
    query.addBindValue(gameinfo);
    query.addBindValue(crc);
@@ -330,7 +326,7 @@ void QPcspXmb::run()
 		        
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
-                UmdInfos infos(fi, false);
+                UmdInfos infos(fi,compDatabaseName);
                 m_sourceModel->m_infos.push_back(infos);
                 if (!m_sourceModel->m_infos.last().id.size())
                 {

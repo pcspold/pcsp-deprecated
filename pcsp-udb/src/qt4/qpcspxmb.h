@@ -46,6 +46,7 @@ public:
 	u32 totalgames;
 	u32 gamesInDatabase;
 	u32 gamesNotInDatabase;
+	QString compDatabaseName;
 	
 
 protected:
