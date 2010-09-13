@@ -1327,7 +1327,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>50</x>
           <y>50</y>
-          <width>231</width>
+          <width>181</width>
           <height>31</height>
          </rect>
         </property>
@@ -1337,7 +1337,7 @@ p, li { white-space: pre-wrap; }
          </font>
         </property>
         <property name="text">
-         <string>Compatibility for pcsp version : v0.3.0</string>
+         <string>Compatibility for pcsp version :</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_15">
@@ -1485,6 +1485,24 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="text">
          <string>Update</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="versionCompLabel">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>50</y>
+          <width>51</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>

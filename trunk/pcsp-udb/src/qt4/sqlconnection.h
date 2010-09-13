@@ -35,7 +35,7 @@ static bool createConnection()
 			   "crc32 varchar(40),"
 			   "gamestatus varchar(100), "
 			   "available bool DEFAULT 0)");*/
-    query.exec("create table if not exists comp_0_3_0(id INTEGER PRIMARY KEY, "
+    query.exec("create table if not exists comp_0_4_0(id INTEGER PRIMARY KEY, "
                "crc32 varchar(40),"
 			   "status int,"
                "gamenotes varchar(256))");

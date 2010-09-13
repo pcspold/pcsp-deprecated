@@ -43,7 +43,8 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     resize(size);
     move(pos);
     m_startwithdebugger = m_ini.value("/default/settings/startwithdebugger",false).toBool();
-	compDatabaseName="comp_0_3_0"; //default compatibility database
+	compDatabaseName=m_ini.value("/default/settings/compatibilitydatabase","comp_0_3_0").toString();
+	versionCompLabel->setText(transformDatabaseName(compDatabaseName));
 	if(m_startwithdebugger)
 	{
         actionStart_With_Debugger->setChecked(true);
@@ -406,3 +407,23 @@ void QPcspXmb::startWithDebugger()
 	  m_startwithdebugger=false;
    }
 }
+QString QPcspXmb::transformDatabaseName(QString uglyname)
+{
+	if(uglyname.startsWith("comp_"))
+	{
+	 uglyname.replace("comp_","v");
+	 uglyname.replace('_',".");
+	 return uglyname;
+	}
+	return "";
+}
+/*
+SELECT name FROM sqlite_master 
+WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'
+UNION ALL 
+SELECT name FROM sqlite_temp_master 
+WHERE type IN ('table','view') 
+ORDER BY 1
+
+get the name of all tables in SQLITE
+*/

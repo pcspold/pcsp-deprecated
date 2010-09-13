@@ -41,6 +41,7 @@ public:
     void refresh();
 	void run();
 	void runInSeparateThread(QString text);
+	QString transformDatabaseName(QString uglyname);
 	MainWindowThread *thisThread;
 	ProgressCtrl *progressCtrl;
 	u32 totalgames;
