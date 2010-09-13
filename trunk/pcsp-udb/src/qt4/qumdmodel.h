@@ -152,6 +152,7 @@ public:
     u32       lastModinSec;
     qint64    filesize;
     bool      autorename;
+	QString   compDatabaseTable;
 
     UmdInfos(bool autorename = false)
         :   crc32(0)
@@ -166,11 +167,11 @@ public:
         return absoluteFilePath != entry.absoluteFilePath() || lastModified != entry.lastModified();
     }
 
-    UmdInfos(QFileInfo const &entry, bool autorename = false)
+    UmdInfos(QFileInfo const &entry,QString compDatabaseName)
         :   crc32(0)
 		,   isInDatabase(false)
-        ,   autorename(autorename)
     {
+		compDatabaseTable=compDatabaseName;
         *this = entry;
     }
 
@@ -223,7 +224,7 @@ public:
                             isInDatabase=true;
 						   //load compatibility list from database
 					       QSqlQuery query;
-					       query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
+					       query.exec("SELECT * FROM '" + compDatabaseTable + "' where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
                            if(query.first())
 	                       {
 	    
@@ -234,7 +235,7 @@ public:
 					       {
                              gamestatus=0;
 						     gamenotes="There aren't any info for the game on compatibility list";
-							 query.prepare("INSERT INTO comp_0_3_0 (crc32,status,gamenotes) "
+							 query.prepare("INSERT INTO '" + compDatabaseTable + "' (crc32,status,gamenotes) "
                               "VALUES (?,?,?)");
 			                 query.addBindValue(QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper());
 			                 query.addBindValue(gamestatus);
@@ -308,7 +309,7 @@ public:
                     }
 					//load compatibility list from database
 					QSqlQuery query;
-					query.exec("SELECT * FROM comp_0_3_0 where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
+					query.exec("SELECT * FROM '" + compDatabaseTable + "' where crc32 = '" + QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper() + "'");     
                     if(query.first())
 	                {
 	    
@@ -319,7 +320,7 @@ public:
 					{
                            gamestatus=0;
 						   gamenotes="There aren't any info for the game on compatibility list";
-						   query.prepare("INSERT INTO comp_0_3_0 (crc32,status,gamenotes) "
+						   query.prepare("INSERT INTO '" + compDatabaseTable + "' (crc32,status,gamenotes) "
                               "VALUES (?,?,?)");
 			                 query.addBindValue(QString("%1").arg(crc32, 8, 16, QLatin1Char('0 ')).toUpper());
 			                 query.addBindValue(gamestatus);
@@ -607,7 +608,7 @@ public:
 	{
        endResetModel();
 	}
-    void updateModel(QString const &path, bool autorename)
+   /* void updateModel(QString const &path, bool autorename)
     {
         QPixmap pixmap(":/images/pcsp.png");
         QSplashScreen s(pixmap);
@@ -633,7 +634,7 @@ public:
         }
         endResetModel();
 
-    }
+    }*/
 
     virtual int columnCount(QModelIndex const &parent = QModelIndex()) const
     {
