@@ -24,6 +24,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 #include "ProgressCtrl.h"
 #include "qumdmodel.h"
+#include "compatibilitydialog.h"
 
 QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
 :   QMainWindow(parent, flags)
@@ -417,13 +418,9 @@ QString QPcspXmb::transformDatabaseName(QString uglyname)
 	}
 	return "";
 }
-/*
-SELECT name FROM sqlite_master 
-WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'
-UNION ALL 
-SELECT name FROM sqlite_temp_master 
-WHERE type IN ('table','view') 
-ORDER BY 1
-
-get the name of all tables in SQLITE
-*/
+void QPcspXmb::compatibilityDlg()
+{
+   compatibilityDialog *dlg = new compatibilityDialog(this,compDatabaseName);
+   dlg->exec();
+   compDatabaseName=m_ini.value("/default/settings/compatibilitydatabase","comp_0_3_0").toString();
+}

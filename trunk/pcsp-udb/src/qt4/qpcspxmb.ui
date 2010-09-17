@@ -1523,6 +1523,8 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Settings</string>
     </property>
+    <addaction name="actionCompatibility_Settings"/>
+    <addaction name="separator"/>
     <addaction name="actionStart_With_Debugger"/>
    </widget>
    <addaction name="menuSettings"/>
@@ -1534,6 +1536,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Start With Debugger</string>
+   </property>
+  </action>
+  <action name="actionCompatibility_Settings">
+   <property name="text">
+    <string>Compatibility Settings</string>
    </property>
   </action>
  </widget>
@@ -1613,8 +1620,24 @@ p, li { white-space: pre-wrap; }
    <slot>updateCompatibility()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>854</x>
-     <y>423</y>
+     <x>901</x>
+     <y>394</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>473</x>
+     <y>437</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCompatibility_Settings</sender>
+   <signal>triggered()</signal>
+   <receiver>PcspXmbUi</receiver>
+   <slot>compatibilityDlg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>473</x>
@@ -1629,5 +1652,6 @@ p, li { white-space: pre-wrap; }
   <slot>startWithDebugger()</slot>
   <slot>gameFilterChanged(int)</slot>
   <slot>updateCompatibility()</slot>
+  <slot>compatibilityDlg()</slot>
  </slots>
 </ui>
