@@ -1,3 +1,10 @@
+v0.4 (standalone released at 28/9/2010)
+---------------------------------------
+-Added support for compatibility lists. 
+ So far pcsp-udb comes with a partial compatibility list for v0.3.0
+-Ability to create your own compatibility list from compatibility dialog
+-General fixes
+
 v0.3 (standalone released at 19/7/2010)
 ---------------------------------------
 -More games in database
