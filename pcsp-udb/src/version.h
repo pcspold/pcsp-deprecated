@@ -26,7 +26,7 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #define SFY(x) #x
 #define STRFY(x) SFY(x)
 
-#define VERSION_BASE "0.4"
+#define VERSION_BASE "0.5"
 //#define RELEASE_VERSION 1
 
 #if RELEASE_VERSION
