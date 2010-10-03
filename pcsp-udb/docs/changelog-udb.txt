@@ -1,3 +1,7 @@
+v0.5 (standalone released at 03/10/2010)
+---------------------------------------
+-Fixed a bug that was renaming games by default
+
 v0.4 (standalone released at 28/9/2010)
 ---------------------------------------
 -Added support for compatibility lists. 
