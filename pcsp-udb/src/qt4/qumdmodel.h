@@ -172,6 +172,7 @@ public:
 		,   isInDatabase(false)
     {
 		compDatabaseTable=compDatabaseName;
+		autorename=false;
         *this = entry;
     }
 
