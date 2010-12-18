@@ -127,7 +127,6 @@ void QPcspXmb::onModelReset()
 	gameList->setColumnWidth(2,60);
     gameList->setColumnWidth(3,40);
 	gameList->hideColumn(5);
-	
 
     connect(m_selectionModel, SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(onCurrentChanged(QModelIndex)));
 }
@@ -312,6 +311,9 @@ void QPcspXmb::setStop()
 }
 void QPcspXmb::run()
 {
+	QMutex mutex;
+    QMutex mutex2;
+    QWaitCondition finishmutex;
     QDir dir(m_umdisospath);
     QFileInfoList entries(dir.entryInfoList(QStringList() << "*.ISO" << "*.CSO", QDir::Files, QDir::Name|QDir::IgnoreCase));
 	emit range(0, entries.size()-1);
@@ -324,10 +326,11 @@ void QPcspXmb::run()
           {
             while (entry.hasNext())
             {
-				emit progress(i);
-		        
+				
+				emit progress(i); 
                 QFileInfo fi = entry.next();
                 emit label(tr("Loading %1...").arg(fi.baseName()));
+				mutex.lock();
                 UmdInfos infos(fi,compDatabaseName);
                 m_sourceModel->m_infos.push_back(infos);
                 if (!m_sourceModel->m_infos.last().id.size())
@@ -343,6 +346,8 @@ void QPcspXmb::run()
 				}
 				totalgames++;
                 if (m_stop) break;
+				mutex.unlock();
+				
             }
 	      }
           m_sourceModel->endupdatemodel();
