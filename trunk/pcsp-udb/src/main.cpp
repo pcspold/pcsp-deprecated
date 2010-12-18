@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	return 1;
 
     QPcspXmb w(0, 0);
-    w.setWindowTitle("PCSP-UDB v" VERSION);
+    w.setWindowTitle("PCSP-UDB " VERSION);
     w.show();
 
     return a.exec();

@@ -26,19 +26,19 @@ along with pcsp.  If not, see <http://www.gnu.org/licenses/>.
 #define SFY(x) #x
 #define STRFY(x) SFY(x)
 
-#define VERSION_BASE "0.5"
-//#define RELEASE_VERSION 1
+
+
 
 #if RELEASE_VERSION
 #	define VERSION VERSION_BASE
 #else
 #	ifdef SVN_REV_UNKNOWN
-#		define VERSION VERSION_BASE "(svn)"
+#		define VERSION  "(svn)"
 #	else
 #		if SVN_MODS
-#			define VERSION VERSION_BASE "(svn" STRFY(SVN_REV) "+mods)"
+#			define VERSION "(svn" STRFY(SVN_REV) "+mods)"
 #		else
-#			define VERSION VERSION_BASE "(svn" STRFY(SVN_REV) ")"
+#			define VERSION "(svn" STRFY(SVN_REV) ")"
 #		endif
 #	endif
 #endif
