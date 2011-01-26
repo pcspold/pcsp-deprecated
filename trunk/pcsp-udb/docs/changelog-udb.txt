@@ -1,3 +1,8 @@
+svn239
+------
+better thread syncronization using mutex (reduced crashes) removed version numbering , from now only svn version for pcsp-udb
+
+
 v0.5 (standalone released at 03/10/2010)
 ---------------------------------------
 -Fixed a bug that was renaming games by default
