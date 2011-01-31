@@ -1,3 +1,7 @@
+svn241
+------
+Added supported for pcsp's new internal decryptor (available at 0.5.1+) . Command line option has been added too!
+
 svn239
 ------
 better thread syncronization using mutex (reduced crashes) removed version numbering , from now only svn version for pcsp-udb

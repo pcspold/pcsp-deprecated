@@ -44,11 +44,16 @@ QPcspXmb::QPcspXmb(QWidget *parent, Qt::WFlags flags)
     resize(size);
     move(pos);
     m_startwithdebugger = m_ini.value("/default/settings/startwithdebugger",false).toBool();
+	m_enableDecryptor= m_ini.value("/default/settings/enabledecryptor",false).toBool();
 	compDatabaseName=m_ini.value("/default/settings/compatibilitydatabase","comp_0_3_0").toString();
 	versionCompLabel->setText(transformDatabaseName(compDatabaseName));
 	if(m_startwithdebugger)
 	{
         actionStart_With_Debugger->setChecked(true);
+	}
+	if(m_enableDecryptor)
+	{
+         internalDecryptCheck->setChecked(true);
 	}
     m_umdisospath = m_ini.value("/default/games/path").toString();
     m_sourceModel = new QUmdTableModel(m_umdisospath, this);
@@ -130,7 +135,44 @@ void QPcspXmb::onModelReset()
 
     connect(m_selectionModel, SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(onCurrentChanged(QModelIndex)));
 }
-
+bool isecrypted;
+void QPcspXmb::DecryptorCheckBoxChanged(int state)
+{
+    if(actionStart_With_Debugger->isChecked())
+   {
+      m_ini.setValue("/default/settings/enabledecryptor","true");
+	  m_enableDecryptor=true;
+   }
+   else
+   {
+      m_ini.setValue("/default/settings/enabledecryptor","false");
+	  m_enableDecryptor=false;
+   }
+     if(isecrypted)
+	 {
+		if(!internalDecryptCheck->isChecked())
+		{
+         QString decryptedboot = "decrypted/" + discIdEdit->text() + ".bin";
+         QFile   decrypt(decryptedboot);
+         if (!decrypt.exists()) //no decrypt file found
+         {
+             runButton->setEnabled(false); 
+			 statustext->setText("Decrypted file not found.Game can't run!!");
+			 
+         }
+		 else
+		 {
+            runButton->setEnabled(true); 
+			statustext->setText("Decrypted file available.");
+		 }
+		}
+		else
+		{
+            runButton->setEnabled(true); 
+			statustext->setText("Using internal decryptor");
+		}
+	 }
+}
 void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 {
      m_mapper->setCurrentModelIndex(index);
@@ -160,7 +202,9 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 
 	 if(status.startsWith("Encrypt")) //game is encrypted
 	 {
-		      
+		 isecrypted=true;
+		if(!internalDecryptCheck->isChecked())
+		{
          QString decryptedboot = "decrypted/" + discIdEdit->text() + ".bin";
          QFile   decrypt(decryptedboot);
          if (!decrypt.exists()) //no decrypt file found
@@ -173,10 +217,18 @@ void QPcspXmb::onCurrentChanged(QModelIndex const &index)
 		 {
             runButton->setEnabled(true); 
 			statustext->setText("Decrypted file available.");
-		 }    
+		 }
+		}
+		else
+		{
+            runButton->setEnabled(true); 
+			statustext->setText("Using internal decryptor");
+		}
 	 }
 	 else
 	 {
+       
+		isecrypted=false;	
         runButton->setEnabled(true); 
 		statustext->setText("");
 	 }
@@ -214,6 +266,14 @@ void QPcspXmb::onDoubleClicked(QModelIndex const &index)
 	else
 	{
       arguments << "-debug" << "false";
+	}
+	if(m_enableDecryptor)
+	{
+	  arguments << "-decrypt" << "true";
+	}
+	else
+	{
+      arguments << "-decrypt" << "false";
 	}
     if (!launcher.startDetached("pcsp-" + discID, arguments))
     {
