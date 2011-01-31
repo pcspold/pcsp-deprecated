@@ -69,6 +69,7 @@ private slots:
 	void startWithDebugger();
 	void compatibilityDlg();
 	void updateCompatibility();
+	void DecryptorCheckBoxChanged(int state);
 	
 
 
@@ -82,6 +83,7 @@ private:
     QSettings              m_ini;
 	bool m_stop;
 	bool m_startwithdebugger;
+	bool m_enableDecryptor;
 };
 #include <QThread>
 class MainWindowThread : public QThread  
